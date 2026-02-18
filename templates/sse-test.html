@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SSE Test</title>
+</head>
+<body>
+    <h1>SSE Test</h1>
+    <div id="output">Waiting for SSE events...</div>
+    <div id="updates"></div>
+    
+    <script>
+        console.log('Starting SSE test...');
+        const output = document.getElementById('output');
+        const updatesDiv = document.getElementById('updates');
+        
+        // Try to connect to SSE
+        const eventSource = new EventSource('sse');
+        
+        eventSource.addEventListener('init', function(event) {
+            console.log('SSE init event received');
+            const data = JSON.parse(event.data);
+            output.textContent = 'SSE connected! Initial data received.';
+            console.log('Initial data:', data);
+            
+            // Show some data
+            updatesDiv.innerHTML = `<p>quarterA.col1.num1 = ${data.quarterA?.col1?.num1 || 'N/A'}</p>`;
+        });
+        
+        eventSource.addEventListener('update', function(event) {
+            const update = JSON.parse(event.data);
+            console.log('SSE update:', update);
+            
+            const p = document.createElement('p');
+            p.textContent = `${update.path} = ${update.value}`;
+            updatesDiv.appendChild(p);
+            
+            // Keep only last 10 updates
+            while (updatesDiv.children.length > 10) {
+                updatesDiv.removeChild(updatesDiv.firstChild);
+            }
+        });
+        
+        eventSource.onerror = function(err) {
+            console.error('SSE error:', err);
+            output.textContent = 'SSE error: ' + err;
+        };
+        
+        eventSource.onopen = function() {
+            console.log('SSE connection opened');
+            output.textContent = 'SSE connection opened';
+        };
+        
+        // Test after 5 seconds
+        setTimeout(() => {
+            console.log('Test complete, SSE readyState:', eventSource.readyState);
+        }, 5000);
+    </script>
+</body>
+</html>

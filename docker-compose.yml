@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  nats:
+    image: nats:latest
+    container_name: reef-nats
+    ports:
+      - "4222:4222"
+      - "8222:8222"
+    command: "-js"
+
+
+  backend:
+    build: .
+    container_name: reef-backend
+    ports:
+      - "3001:3001"
+    depends_on:
+      - nats
+    environment:
+      - NATS_URL=nats://nats:4222
+    volumes:
+      - ./templates:/root/templates
+    restart: unless-stopped
+
+  publisher:
+    build:
+      context: .
+      dockerfile: Dockerfile.publisher
+    container_name: reef-publisher
+    depends_on:
+      - nats
+    environment:
+      - NATS_URL=nats://nats:4222
+    restart: unless-stopped
