@@ -273,6 +273,102 @@
             padding: 1rem;
             gap: 1rem;
         }
+        
+        /* Quarter C specific styles */
+        .quarter-c-content {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            height: 100%;
+            padding: 1rem;
+            gap: 0.5rem;
+        }
+        .wait-time-rows {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            gap: 0.75rem;
+        }
+        .wait-time-row {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .wait-time-label {
+            flex: 1;
+            font-size: 1rem;
+            font-weight: bold;
+            color: white;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+        .wait-time-square {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 0.75rem;
+            width: 3.5rem;
+            height: 3.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: white;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+            transition: all 0.2s;
+        }
+        .wait-time-unit {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.8);
+            min-width: 4rem;
+        }
+        .wasted-minutes-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        .wasted-minutes-label {
+            font-size: 0.9rem;
+            font-weight: bold;
+            color: rgba(255, 255, 255, 0.9);
+            text-align: center;
+            margin-bottom: 0.25rem;
+        }
+        .wasted-minutes-line {
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-end;
+            flex: 1;
+            gap: 0.5rem;
+        }
+        .wasted-minute-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.25rem;
+        }
+        .wasted-minute-value {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 0.5rem;
+            width: 2.5rem;
+            height: 2.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            font-weight: 600;
+            color: white;
+        }
+        .wasted-minute-label {
+            font-size: 0.7rem;
+            color: rgba(255, 255, 255, 0.7);
+            text-align: center;
+        }
+        .wasted-minute-label.current {
+            font-weight: bold;
+            color: #ffdd59;
+        }
         .column {
             flex: 1;
             display: flex;
@@ -322,6 +418,37 @@
         .mobile .quarter-b-content {
             flex-direction: column;
             gap: 1.5rem;
+        }
+        
+        /* Mobile adjustments for quarter C */
+        .mobile .quarter-c-content {
+            gap: 1rem;
+        }
+        .mobile .wait-time-rows {
+            gap: 1rem;
+        }
+        .mobile .wait-time-label {
+            font-size: 0.9rem;
+        }
+        .mobile .wait-time-square {
+            width: 3rem;
+            height: 3rem;
+            font-size: 1.3rem;
+        }
+        .mobile .wait-time-unit {
+            font-size: 0.9rem;
+            min-width: 3.5rem;
+        }
+        .mobile .wasted-minutes-line {
+            gap: 0.25rem;
+        }
+        .mobile .wasted-minute-value {
+            width: 2rem;
+            height: 2rem;
+            font-size: 0.9rem;
+        }
+        .mobile .wasted-minute-label {
+            font-size: 0.65rem;
         }
         .mobile .column {
             flex: none;
@@ -461,7 +588,7 @@
         }
     </style>
 </head>
-    <body data-store='{"screen": "tv", "counters": {"q1": 0, "q2": 0, "q3": 0, "q4": 0}, "quarterA": {"col1": {"title": "CBW 1", "num1": 45, "num2": 23, "num3": 78, "num4": 12, "num5": 89, "num6": 34, "num7": 67, "num8": 91}, "col2": {"title": "CBW 2", "num1": 56, "num2": 33, "num3": 81, "num4": 19, "num5": 72, "num6": 44, "num7": 95, "num8": 28}, "col3": {"title": "CBW 3", "num1": 37, "num2": 64, "num3": 22, "num4": 88, "num5": 15, "num6": 53, "num7": 76, "num8": 41}}, "quarterB": {"col1": {"title": "RCW 1", "num1": 82, "num2": 17, "num3": 93, "num4": 41, "num5": 26, "num6": 58, "num7": 39, "num8": 74}, "col2": {"title": "RCW 2", "num1": 65, "num2": 29, "num3": 84, "num4": 36, "num5": 71, "num6": 13, "num7": 92, "num8": 47}, "col3": {"title": "RCW 3", "num1": 18, "num2": 55, "num3": 27, "num4": 63, "num5": 89, "num6": 32, "num7": 76, "num8": 44}}, "quarterD": {"col1": {"title": "Quota₁", "current": 34, "target": 100}, "col2": {"title": "Quota₂", "current": 89, "target": 100}, "col3": {"title": "Quota₃", "current": 50, "target": 100}, "col4": {"title": "Quota₄", "current": 45, "target": 100}, "col5": {"title": "Quota₅", "current": 67, "target": 100}, "col6": {"title": "Quota₆", "current": 23, "target": 100}}}'
+    <body data-store='{"screen": "tv", "counters": {"q1": 0, "q2": 0, "q3": 0, "q4": 0}, "quarterA": {"col1": {"title": "CBW 1", "num1": 45, "num2": 23, "num3": 78, "num4": 12, "num5": 89, "num6": 34, "num7": 67, "num8": 91}, "col2": {"title": "CBW 2", "num1": 56, "num2": 33, "num3": 81, "num4": 19, "num5": 72, "num6": 44, "num7": 95, "num8": 28}, "col3": {"title": "CBW 3", "num1": 37, "num2": 64, "num3": 22, "num4": 88, "num5": 15, "num6": 53, "num7": 76, "num8": 41}}, "quarterB": {"col1": {"title": "RCW 1", "num1": 82, "num2": 17, "num3": 93, "num4": 41, "num5": 26, "num6": 58, "num7": 39, "num8": 74}, "col2": {"title": "RCW 2", "num1": 65, "num2": 29, "num3": 84, "num4": 36, "num5": 71, "num6": 13, "num7": 92, "num8": 47}, "col3": {"title": "RCW 3", "num1": 18, "num2": 55, "num3": 27, "num4": 63, "num5": 89, "num6": 32, "num7": 76, "num8": 44}}, "quarterC": {"cbw1": {"waitTime": 5}, "cbw2": {"waitTime": 3}, "cbw3": {"waitTime": 7}, "wastedMinutes": {"hour4": 120, "hour3": 95, "hour2": 80, "hour1": 65, "current": 150}}, "quarterD": {"col1": {"title": "Quota₁", "current": 34, "target": 100}, "col2": {"title": "Quota₂", "current": 89, "target": 100}, "col3": {"title": "Quota₃", "current": 50, "target": 100}, "col4": {"title": "Quota₄", "current": 45, "target": 100}, "col5": {"title": "Quota₅", "current": 67, "target": 100}, "col6": {"title": "Quota₆", "current": 23, "target": 100}}}'
       data-class:tv-mode="$screen === 'tv'"
       data-class:mobile-mode="$screen === 'mobile'">
     <div class="screen-indicator" data-text="'Screen: ' + $screen"></div>
@@ -568,8 +695,51 @@
                     </div>
                 </div>
             </div>
-            <div class="quarter quarter-3" data-on:click="$counters.q3++">
-                <span data-text="$counters.q3"></span>
+            <div class="quarter quarter-3">
+                <div class="quarter-c-content">
+                    <div class="wait-time-rows">
+                        <div class="wait-time-row">
+                            <div class="wait-time-label">CBW 1 Wait Time This Hour</div>
+                            <div class="wait-time-square" data-text="$quarterC.cbw1.waitTime"></div>
+                            <div class="wait-time-unit">minutes</div>
+                        </div>
+                        <div class="wait-time-row">
+                            <div class="wait-time-label">CBW 2 Wait Time This Hour</div>
+                            <div class="wait-time-square" data-text="$quarterC.cbw2.waitTime"></div>
+                            <div class="wait-time-unit">minutes</div>
+                        </div>
+                        <div class="wait-time-row">
+                            <div class="wait-time-label">CBW 3 Wait Time This Hour</div>
+                            <div class="wait-time-square" data-text="$quarterC.cbw3.waitTime"></div>
+                            <div class="wait-time-unit">minutes</div>
+                        </div>
+                    </div>
+                    <div class="wasted-minutes-section">
+                        <div class="wasted-minutes-label">Total Wasted Minutes Previous Hours</div>
+                        <div class="wasted-minutes-line">
+                            <div class="wasted-minute-item">
+                                <div class="wasted-minute-value" data-text="$quarterC.wastedMinutes.hour4"></div>
+                                <div class="wasted-minute-label">-4h</div>
+                            </div>
+                            <div class="wasted-minute-item">
+                                <div class="wasted-minute-value" data-text="$quarterC.wastedMinutes.hour3"></div>
+                                <div class="wasted-minute-label">-3h</div>
+                            </div>
+                            <div class="wasted-minute-item">
+                                <div class="wasted-minute-value" data-text="$quarterC.wastedMinutes.hour2"></div>
+                                <div class="wasted-minute-label">-2h</div>
+                            </div>
+                            <div class="wasted-minute-item">
+                                <div class="wasted-minute-value" data-text="$quarterC.wastedMinutes.hour1"></div>
+                                <div class="wasted-minute-label">-1h</div>
+                            </div>
+                            <div class="wasted-minute-item">
+                                <div class="wasted-minute-value" data-text="$quarterC.wastedMinutes.current"></div>
+                                <div class="wasted-minute-label current">current</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="quarter quarter-4">
                 <div class="quota-columns">
@@ -713,8 +883,51 @@
                     </div>
                 </div>
             </div>
-            <div class="quarter quarter-3" data-on:click="$counters.q3++">
-                <span data-text="$counters.q3"></span>
+            <div class="quarter quarter-3">
+                <div class="quarter-c-content">
+                    <div class="wait-time-rows">
+                        <div class="wait-time-row">
+                            <div class="wait-time-label">CBW 1 Wait Time This Hour</div>
+                            <div class="wait-time-square" data-text="$quarterC.cbw1.waitTime"></div>
+                            <div class="wait-time-unit">minutes</div>
+                        </div>
+                        <div class="wait-time-row">
+                            <div class="wait-time-label">CBW 2 Wait Time This Hour</div>
+                            <div class="wait-time-square" data-text="$quarterC.cbw2.waitTime"></div>
+                            <div class="wait-time-unit">minutes</div>
+                        </div>
+                        <div class="wait-time-row">
+                            <div class="wait-time-label">CBW 3 Wait Time This Hour</div>
+                            <div class="wait-time-square" data-text="$quarterC.cbw3.waitTime"></div>
+                            <div class="wait-time-unit">minutes</div>
+                        </div>
+                    </div>
+                    <div class="wasted-minutes-section">
+                        <div class="wasted-minutes-label">Total Wasted Minutes Previous Hours</div>
+                        <div class="wasted-minutes-line">
+                            <div class="wasted-minute-item">
+                                <div class="wasted-minute-value" data-text="$quarterC.wastedMinutes.hour4"></div>
+                                <div class="wasted-minute-label">-4h</div>
+                            </div>
+                            <div class="wasted-minute-item">
+                                <div class="wasted-minute-value" data-text="$quarterC.wastedMinutes.hour3"></div>
+                                <div class="wasted-minute-label">-3h</div>
+                            </div>
+                            <div class="wasted-minute-item">
+                                <div class="wasted-minute-value" data-text="$quarterC.wastedMinutes.hour2"></div>
+                                <div class="wasted-minute-label">-2h</div>
+                            </div>
+                            <div class="wasted-minute-item">
+                                <div class="wasted-minute-value" data-text="$quarterC.wastedMinutes.hour1"></div>
+                                <div class="wasted-minute-label">-1h</div>
+                            </div>
+                            <div class="wasted-minute-item">
+                                <div class="wasted-minute-value" data-text="$quarterC.wastedMinutes.current"></div>
+                                <div class="wasted-minute-label current">current</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="quarter quarter-4">
                 <div class="quota-columns">

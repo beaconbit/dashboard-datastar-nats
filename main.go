@@ -72,6 +72,24 @@ var (
 					"num5": 89, "num6": 32, "num7": 76, "num8": 44,
 				},
 			},
+			"quarterC": map[string]interface{}{
+				"cbw1": map[string]interface{}{
+					"waitTime": 5,
+				},
+				"cbw2": map[string]interface{}{
+					"waitTime": 3,
+				},
+				"cbw3": map[string]interface{}{
+					"waitTime": 7,
+				},
+				"wastedMinutes": map[string]interface{}{
+					"hour4":   120,
+					"hour3":   95,
+					"hour2":   80,
+					"hour1":   65,
+					"current": 150,
+				},
+			},
 			"quarterD": map[string]interface{}{
 				"col1": map[string]interface{}{
 					"title":   "Quota₁",
