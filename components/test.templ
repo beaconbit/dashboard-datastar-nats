@@ -1,0 +1,9 @@
+package components
+
+import "strconv"
+
+templ TestComponent(index int) {
+    <div id={"test-" + strconv.Itoa(index)}>
+        Test
+    </div>
+}

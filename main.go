@@ -1,32 +1,25 @@
 package main
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
-	"html/template"
 	"log"
 	"math/rand"
 	"net/http"
-	"path/filepath"
+	"os"
+	"strings"
 	"sync"
 	"time"
 
 	"github.com/nats-io/nats.go"
 	"github.com/starfederation/datastar-go/datastar"
+	"reef/components"
 )
-
-type DashboardData struct {
-	Title string
-}
 
 type QuarterAStore struct {
 	sync.RWMutex
 	Data map[string]interface{}
-}
-
-type UpdateMessage struct {
-	Path  string `json:"path"`
-	Value int    `json:"value"`
 }
 
 var (
@@ -125,9 +118,11 @@ var (
 			},
 		},
 	}
-	// SSE broadcast
-	sseClients   = make(map[*datastar.ServerSentEventGenerator]bool)
-	sseClientsMu sync.RWMutex
+	// Quarter update channels
+	quarterAChan = make(chan struct{}, 1)
+	quarterBChan = make(chan struct{}, 1)
+	quarterCChan = make(chan struct{}, 1)
+	quarterDChan = make(chan struct{}, 1)
 )
 
 var nc *nats.Conn
@@ -135,23 +130,28 @@ var nc *nats.Conn
 func main() {
 	var err error
 	// Connect to NATS
-	nc, err = nats.Connect("nats://nats:4222")
+	natsURL := os.Getenv("NATS_URL")
+	if natsURL == "" {
+		natsURL = "nats://nats:4222"
+	}
+	nc, err = nats.Connect(natsURL)
 	if err != nil {
 		log.Printf("Failed to connect to NATS: %v", err)
 	} else {
 		defer nc.Close()
 		log.Println("Connected to NATS")
 
-			// Subscribe to all Quarter A number topics
+		// Subscribe to all Quarter A number topics
 		subscribeToQuarterATopics(nc)
 
-			// Subscribe to Quarter D topics
+		// Subscribe to all Quarter B number topics
+		subscribeToQuarterBTopics(nc)
 
-		//subscribeToQuarterDTopics(nc)
+		// Subscribe to Quarter D topics
+		subscribeToQuarterDTopics(nc)
 
-			// Subscribe to Quarter C topics
-
-		//subscribeToQuarterCTopics(nc)
+		// Subscribe to Quarter C topics
+		subscribeToQuarterCTopics(nc)
 	}
 
 	// Start periodic updates for Quarter D (fallback if no NATS messages)
@@ -165,10 +165,14 @@ func main() {
 	http.HandleFunc("/stream", streamHandler)
 
 	http.HandleFunc("/", dashboardHandler)
-	http.HandleFunc("/sse", sseHandler)
+
+	http.HandleFunc("/quarter/a", quarterAHandler)
+	http.HandleFunc("/quarter/b", quarterBHandler)
+	http.HandleFunc("/quarter/c", quarterCHandler)
+	http.HandleFunc("/quarter/d", quarterDHandler)
 	http.HandleFunc("/api/store", storeHandler)
 	http.HandleFunc("/sse-test", func(w http.ResponseWriter, r *http.Request) {
-		http.ServeFile(w, r, filepath.Join("templates", "sse-test.html"))
+		components.SSETest().Render(r.Context(), w)
 	})
 	http.HandleFunc("/api/debug", func(w http.ResponseWriter, r *http.Request) {
 		log.Printf("Debug: %s %s", r.Method, r.URL.RawQuery)
@@ -201,10 +205,50 @@ func subscribeToQuarterATopics(nc *nats.Conn) {
 				colData[numKey] = value
 				store.Unlock()
 
-				// Broadcast update to SSE clients
-				path := fmt.Sprintf("quarterA.%s.%s", colKey, numKey)
-				broadcastUpdate(UpdateMessage{Path: path, Value: value})
-				//log.Printf("Broadcast Updated %s to %d", msg.Subject, value)
+				// Signal quarter A update
+				select {
+				case quarterAChan <- struct{}{}:
+				default:
+				}
+
+			})
+
+			if err != nil {
+				log.Printf("Failed to subscribe to %s: %v", topic, err)
+			} else {
+				log.Printf("Subscribed to %s", topic)
+			}
+		}
+	}
+}
+
+func subscribeToQuarterBTopics(nc *nats.Conn) {
+	// Subscribe to topics for each Quarter B number (24 topics)
+	for col := 1; col <= 3; col++ {
+		for num := 1; num <= 8; num++ {
+			topic := fmt.Sprintf("quarterB.col%d.num%d", col, num)
+			_, err := nc.Subscribe(topic, func(msg *nats.Msg) {
+				var value int
+				if err := json.Unmarshal(msg.Data, &value); err != nil {
+					log.Printf("Error unmarshaling value from %s: %v", msg.Subject, err)
+					return
+				}
+
+				// Update store
+				store.Lock()
+				quarterB := store.Data["quarterB"].(map[string]interface{})
+				colKey := fmt.Sprintf("col%d", col)
+				colData := quarterB[colKey].(map[string]interface{})
+				numKey := fmt.Sprintf("num%d", num)
+				colData[numKey] = value
+				store.Unlock()
+
+				// Signal quarter B update
+				select {
+				case quarterBChan <- struct{}{}:
+				default:
+				}
+
 			})
 
 			if err != nil {
@@ -243,9 +287,12 @@ func subscribeToQuarterDTopics(nc *nats.Conn) {
 			colData["current"] = value
 			store.Unlock()
 
-			// Broadcast update to SSE clients
-			path := fmt.Sprintf("quarterD.%s.current", colKey)
-			broadcastUpdate(UpdateMessage{Path: path, Value: value})
+			// Signal quarter D update
+			select {
+			case quarterDChan <- struct{}{}:
+			default:
+			}
+
 			log.Printf("QuarterD updated %s to %d", msg.Subject, value)
 		})
 
@@ -275,9 +322,13 @@ func subscribeToQuarterCTopics(nc *nats.Conn) {
 			cbwData := quarterC[cbwKey].(map[string]interface{})
 			cbwData["waitTime"] = value
 			store.Unlock()
-			// Broadcast update
-			path := fmt.Sprintf("quarterC.%s.waitTime", cbwKey)
-			broadcastUpdate(UpdateMessage{Path: path, Value: value})
+
+			// Signal quarter C update
+			select {
+			case quarterCChan <- struct{}{}:
+			default:
+			}
+
 			log.Printf("Updated %s to %d", msg.Subject, value)
 		})
 		if err != nil {
@@ -302,9 +353,13 @@ func subscribeToQuarterCTopics(nc *nats.Conn) {
 			wastedMinutes := quarterC["wastedMinutes"].(map[string]interface{})
 			wastedMinutes[key] = value
 			store.Unlock()
-			// Broadcast update
-			path := fmt.Sprintf("quarterC.wastedMinutes.%s", key)
-			broadcastUpdate(UpdateMessage{Path: path, Value: value})
+
+			// Signal quarter C update
+			select {
+			case quarterCChan <- struct{}{}:
+			default:
+			}
+
 			log.Printf("Updated %s to %d", msg.Subject, value)
 		})
 		if err != nil {
@@ -346,140 +401,188 @@ func startQuarterDUpdates() {
 			colData["current"] = newCurrent
 			store.Unlock()
 
+			// Signal quarter D update
+			select {
+			case quarterDChan <- struct{}{}:
+			default:
+			}
+
 			// Broadcast update
 			path := fmt.Sprintf("quarterD.%s.current", colKey)
-			broadcastUpdate(UpdateMessage{Path: path, Value: newCurrent})
+			// broadcastUpdate(UpdateMessage{Path: path, Value: newCurrent})
 			log.Printf("QuarterD updated %s to %d", path, newCurrent)
 		}
 	}()
 }
 
-func broadcastUpdate(update UpdateMessage) {
-	sseClientsMu.RLock()
-	defer sseClientsMu.RUnlock()
-	clientCount := len(sseClients)
-	if false {
-	    log.Printf("Broadcasting update %s=%d to %d clients", update.Path, update.Value, clientCount)
-	}
-
-	// Convert to Datastar patch signals format
-	signals := map[string]any{update.Path: update.Value}
-
-	for sse := range sseClients {
-		// Patch signals using Datastar SDK
-		err := sse.MarshalAndPatchSignals(signals)
-		if err != nil {
-			log.Printf("Error patching signals: %v", err)
-			// Connection may be closed, we'll clean up in sseHandler defer
+// renderQuarterA renders all columns of quarter A for the given layout.
+func renderQuarterA(layout string) string {
+	store.RLock()
+	defer store.RUnlock()
+	quarterData := store.Data["quarterA"].(map[string]interface{})
+	var html strings.Builder
+	for col := 1; col <= 3; col++ {
+		colKey := fmt.Sprintf("col%d", col)
+		colData := quarterData[colKey].(map[string]interface{})
+		colIndex := col - 1
+		if err := components.ColumnQuarterA(layout, colIndex, colData).Render(context.Background(), &html); err != nil {
+			log.Printf("Error rendering ColumnQuarterA for layout %s col %d: %v", layout, colIndex, err)
 		}
 	}
+	return html.String()
+}
+
+// renderQuarterB renders all columns of quarter B for the given layout.
+func renderQuarterB(layout string) string {
+	store.RLock()
+	defer store.RUnlock()
+	quarterData := store.Data["quarterB"].(map[string]interface{})
+	var html strings.Builder
+	for col := 1; col <= 3; col++ {
+		colKey := fmt.Sprintf("col%d", col)
+		colData := quarterData[colKey].(map[string]interface{})
+		colIndex := col - 1
+		if err := components.ColumnQuarterB(layout, colIndex, colData).Render(context.Background(), &html); err != nil {
+			log.Printf("Error rendering ColumnQuarterB for layout %s col %d: %v", layout, colIndex, err)
+		}
+	}
+	return html.String()
+}
+
+// renderQuarterC renders all wait times and wasted minutes for quarter C for the given layout.
+func renderQuarterC(layout string) string {
+	store.RLock()
+	defer store.RUnlock()
+	quarterData := store.Data["quarterC"].(map[string]interface{})
+	var html strings.Builder
+	// Render wait times for cbw 1,2,3
+	for cbw := 1; cbw <= 3; cbw++ {
+		if err := components.WaitTimeQuarterC(layout, cbw, quarterData).Render(context.Background(), &html); err != nil {
+			log.Printf("Error rendering WaitTimeQuarterC for layout %s cbw %d: %v", layout, cbw, err)
+		}
+	}
+	// Render wasted minutes line
+	wastedMinutes := quarterData["wastedMinutes"].(map[string]interface{})
+	if err := components.WastedMinutesQuarterC(layout, wastedMinutes).Render(context.Background(), &html); err != nil {
+		log.Printf("Error rendering WastedMinutesQuarterC for layout %s: %v", layout, err)
+	}
+	return html.String()
+}
+
+// renderQuarterD renders all quota columns for quarter D for the given layout.
+func renderQuarterD(layout string) string {
+	store.RLock()
+	defer store.RUnlock()
+	quarterData := store.Data["quarterD"].(map[string]interface{})
+	var html strings.Builder
+	for col := 1; col <= 6; col++ {
+		colKey := fmt.Sprintf("col%d", col)
+		colData := quarterData[colKey].(map[string]interface{})
+		colIndex := col - 1
+		if err := components.QuotaColumnQuarterD(layout, colIndex, colData).Render(context.Background(), &html); err != nil {
+			log.Printf("Error rendering QuotaColumnQuarterD for layout %s col %d: %v", layout, colIndex, err)
+		}
+	}
+	return html.String()
 }
 
 func dashboardHandler(w http.ResponseWriter, r *http.Request) {
-	tmpl := template.Must(template.ParseFiles(filepath.Join("templates", "dashboard.html")))
-	data := DashboardData{
-		Title: "Dashboard",
-	}
-	if err := tmpl.Execute(w, data); err != nil {
+	if err := components.Dashboard("Dashboard").Render(r.Context(), w); err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
 }
 
-
 func streamHandler(w http.ResponseWriter, r *http.Request) {
 
-    log.Printf("streamHandler activated")
-    sse := datastar.NewSSE(w, r)
-
-    // Buffer of 64 so slow clients don't block the NATS subscription
-    msgCh := make(chan *nats.Msg, 64)
-
-    col := 1
-    num := 1
-    topic := fmt.Sprintf("quarterA.col%d.num%d", col, num)
-    sub, err := nc.ChanSubscribe(topic, msgCh)
-    if err != nil {
-        http.Error(w, "Failed to subscribe to NATS", http.StatusInternalServerError)
-        return
-    }
-    defer sub.Unsubscribe()
-
-    // Keep the connection open until the client disconnects
-    ctx := r.Context()
-    for {
-        select {
-        case <-ctx.Done():
-            return
-        case msg, ok := <-msgCh:
-            if !ok {
-		log.Printf("Not good msg received, breaking")
-                return
-            }
-
-            // Expect the NATS message payload to be an int
-            var value int
-            if err := json.Unmarshal(msg.Data, &value); err != nil {
-                log.Printf("Failed to unmarshal NATS message on subject %s: %v", msg.Subject, err)
-                continue
-            }
-	    log.Printf("Stream NATS message was: %s", msg.Data)
-	    log.Printf("Stream NATS value was: %s", value)
-
-            if err := sse.MarshalAndPatchSignals(map[string]any{
-		"quarterA": map[string]any{
-		    "col1": map[string]any{
-			"num1": value,
-		    },
-		},
-	    }); err != nil {
-                log.Printf("Failed to send SSE: %v", err)
-                return
-            }
-	    if f, ok := w.(http.Flusher); ok {
-                log.Printf("Flush")
-		f.Flush()
-	    }
-        }
-    }
-}
-
-func sseHandler(w http.ResponseWriter, r *http.Request) {
-	log.Printf("SSE connection established from %s", r.RemoteAddr)
-
-	// Create Datastar SSE generator
+	log.Printf("streamHandler activated")
 	sse := datastar.NewSSE(w, r)
-	sseClientsMu.Lock()
-	sseClients[sse] = true
-	sseClientsMu.Unlock()
 
-	// Clean up when connection closes
-	defer func() {
-		log.Printf("SSE connection closed from %s", r.RemoteAddr)
-		sseClientsMu.Lock()
-		delete(sseClients, sse)
-		sseClientsMu.Unlock()
-	}()
+	// Buffer of 64 so slow clients don't block the NATS subscription
+	msgCh := make(chan *nats.Msg, 64)
 
-	// Send initial store as init event (nested format for backward compatibility)
-	store.RLock()
-	initialData, _ := json.Marshal(store.Data)
-	store.RUnlock()
-
-	err := sse.Send(datastar.EventType("init"), []string{string(initialData)})
+	col := 1
+	num := 1
+	topic := fmt.Sprintf("quarterA.col%d.num%d", col, num)
+	sub, err := nc.ChanSubscribe(topic, msgCh)
 	if err != nil {
-		log.Printf("Error sending initial data: %v", err)
+		http.Error(w, "Failed to subscribe to NATS", http.StatusInternalServerError)
 		return
 	}
+	defer sub.Unsubscribe()
 
-	// Listen for heartbeats and connection closure
+	// Keep the connection open until the client disconnects
+	ctx := r.Context()
+	for {
+		select {
+		case <-ctx.Done():
+			return
+		case msg, ok := <-msgCh:
+			if !ok {
+				log.Printf("Not good msg received, breaking")
+				return
+			}
+
+			// Expect the NATS message payload to be an int
+			var value int
+			if err := json.Unmarshal(msg.Data, &value); err != nil {
+				log.Printf("Failed to unmarshal NATS message on subject %s: %v", msg.Subject, err)
+				continue
+			}
+			log.Printf("Stream NATS message was: %s", msg.Data)
+			log.Printf("Stream NATS value was: %s", value)
+
+			if err := sse.MarshalAndPatchSignals(map[string]any{
+				"quarterA": map[string]any{
+					"col1": map[string]any{
+						"num1": value,
+					},
+				},
+			}); err != nil {
+				log.Printf("Failed to send SSE: %v", err)
+				return
+			}
+			if f, ok := w.(http.Flusher); ok {
+				log.Printf("Flush")
+				f.Flush()
+			}
+		}
+	}
+}
+
+func quarterAHandler(w http.ResponseWriter, r *http.Request) {
+	log.Printf("Quarter A SSE connection established from %s", r.RemoteAddr)
+	sse := datastar.NewSSE(w, r)
+
+	// Send initial patches for both layouts
+	var html strings.Builder
+	html.WriteString(renderQuarterA("tv"))
+	html.WriteString(renderQuarterA("mobile"))
+	if html.Len() > 0 {
+		if err := sse.PatchElements(html.String()); err != nil {
+			log.Printf("Error sending initial patch elements for quarter A: %v", err)
+			return
+		}
+	}
+
+	// Listen for quarter A updates and heartbeats
 	ticker := time.NewTicker(30 * time.Second)
 	defer ticker.Stop()
 
 	for {
 		select {
+		case <-quarterAChan:
+			// Quarter A data updated, send patches
+			var html strings.Builder
+			html.WriteString(renderQuarterA("tv"))
+			html.WriteString(renderQuarterA("mobile"))
+			if html.Len() > 0 {
+				if err := sse.PatchElements(html.String()); err != nil {
+					log.Printf("Error sending patch elements for quarter A: %v", err)
+					return
+				}
+			}
 		case <-ticker.C:
 			// Send heartbeat comment to keep connection alive
-			// Use the underlying writer directly
 			if _, err := w.Write([]byte(": heartbeat\n\n")); err != nil {
 				log.Printf("Heartbeat write error: %v", err)
 				return
@@ -488,6 +591,151 @@ func sseHandler(w http.ResponseWriter, r *http.Request) {
 				flusher.Flush()
 			}
 		case <-r.Context().Done():
+			log.Printf("Quarter A SSE connection closed from %s", r.RemoteAddr)
+			return
+		}
+	}
+}
+
+func quarterBHandler(w http.ResponseWriter, r *http.Request) {
+	log.Printf("Quarter B SSE connection established from %s", r.RemoteAddr)
+	sse := datastar.NewSSE(w, r)
+
+	// Send initial patches for both layouts
+	var html strings.Builder
+	html.WriteString(renderQuarterB("tv"))
+	html.WriteString(renderQuarterB("mobile"))
+	if html.Len() > 0 {
+		if err := sse.PatchElements(html.String()); err != nil {
+			log.Printf("Error sending initial patch elements for quarter B: %v", err)
+			return
+		}
+	}
+
+	// Listen for quarter B updates and heartbeats
+	ticker := time.NewTicker(30 * time.Second)
+	defer ticker.Stop()
+
+	for {
+		select {
+		case <-quarterBChan:
+			// Quarter B data updated, send patches
+			var html strings.Builder
+			html.WriteString(renderQuarterB("tv"))
+			html.WriteString(renderQuarterB("mobile"))
+			if html.Len() > 0 {
+				if err := sse.PatchElements(html.String()); err != nil {
+					log.Printf("Error sending patch elements for quarter B: %v", err)
+					return
+				}
+			}
+		case <-ticker.C:
+			// Send heartbeat comment to keep connection alive
+			if _, err := w.Write([]byte(": heartbeat\n\n")); err != nil {
+				log.Printf("Heartbeat write error: %v", err)
+				return
+			}
+			if flusher, ok := w.(http.Flusher); ok {
+				flusher.Flush()
+			}
+		case <-r.Context().Done():
+			log.Printf("Quarter B SSE connection closed from %s", r.RemoteAddr)
+			return
+		}
+	}
+}
+
+func quarterCHandler(w http.ResponseWriter, r *http.Request) {
+	log.Printf("Quarter C SSE connection established from %s", r.RemoteAddr)
+	sse := datastar.NewSSE(w, r)
+
+	// Send initial patches for both layouts
+	var html strings.Builder
+	html.WriteString(renderQuarterC("tv"))
+	html.WriteString(renderQuarterC("mobile"))
+	if html.Len() > 0 {
+		if err := sse.PatchElements(html.String()); err != nil {
+			log.Printf("Error sending initial patch elements for quarter C: %v", err)
+			return
+		}
+	}
+
+	// Listen for quarter C updates and heartbeats
+	ticker := time.NewTicker(30 * time.Second)
+	defer ticker.Stop()
+
+	for {
+		select {
+		case <-quarterCChan:
+			// Quarter C data updated, send patches
+			var html strings.Builder
+			html.WriteString(renderQuarterC("tv"))
+			html.WriteString(renderQuarterC("mobile"))
+			if html.Len() > 0 {
+				if err := sse.PatchElements(html.String()); err != nil {
+					log.Printf("Error sending patch elements for quarter C: %v", err)
+					return
+				}
+			}
+		case <-ticker.C:
+			// Send heartbeat comment to keep connection alive
+			if _, err := w.Write([]byte(": heartbeat\n\n")); err != nil {
+				log.Printf("Heartbeat write error: %v", err)
+				return
+			}
+			if flusher, ok := w.(http.Flusher); ok {
+				flusher.Flush()
+			}
+		case <-r.Context().Done():
+			log.Printf("Quarter C SSE connection closed from %s", r.RemoteAddr)
+			return
+		}
+	}
+}
+
+func quarterDHandler(w http.ResponseWriter, r *http.Request) {
+	log.Printf("Quarter D SSE connection established from %s", r.RemoteAddr)
+	sse := datastar.NewSSE(w, r)
+
+	// Send initial patches for both layouts
+	var html strings.Builder
+	html.WriteString(renderQuarterD("tv"))
+	html.WriteString(renderQuarterD("mobile"))
+	if html.Len() > 0 {
+		if err := sse.PatchElements(html.String()); err != nil {
+			log.Printf("Error sending initial patch elements for quarter D: %v", err)
+			return
+		}
+	}
+
+	// Listen for quarter D updates and heartbeats
+	ticker := time.NewTicker(30 * time.Second)
+	defer ticker.Stop()
+
+	for {
+		select {
+		case <-quarterDChan:
+			// Quarter D data updated, send patches
+			var html strings.Builder
+			html.WriteString(renderQuarterD("tv"))
+			html.WriteString(renderQuarterD("mobile"))
+			if html.Len() > 0 {
+				if err := sse.PatchElements(html.String()); err != nil {
+					log.Printf("Error sending patch elements for quarter D: %v", err)
+					return
+				}
+			}
+		case <-ticker.C:
+			// Send heartbeat comment to keep connection alive
+			if _, err := w.Write([]byte(": heartbeat\n\n")); err != nil {
+				log.Printf("Heartbeat write error: %v", err)
+				return
+			}
+			if flusher, ok := w.(http.Flusher); ok {
+				flusher.Flush()
+			}
+		case <-r.Context().Done():
+			log.Printf("Quarter D SSE connection closed from %s", r.RemoteAddr)
 			return
 		}
 	}

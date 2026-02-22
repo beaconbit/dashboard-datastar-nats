@@ -1,0 +1,49 @@
+# Binaries
+reef
+reef-app
+server
+
+# Log files
+*.log
+sse_output.txt
+sse_test.log
+
+# Generated templ files
+*_templ.go
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Editor swap files
+.*.swp
+*.swp
+
+# Temporary files
+*.tmp
+*.temp
+
+# Backup files
+*.backup
+*.current
+*.fixed
+
+# OpenCode files
+.opencode/
+opencode.json
+
+# Test files
+test_*.js
+test_*.mjs
+
+# Python scripts (not part of core)
+add_ids*.py
+find_missing.py
+fix_ids*.py
+fix_quarterB.py
+
+# Command directory (if not needed)
+cmd/
+
+# Server binary
+server

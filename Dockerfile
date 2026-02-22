@@ -16,7 +16,7 @@ RUN apk --no-cache add ca-certificates
 WORKDIR /root/
 
 COPY --from=builder /app/server .
-COPY templates/ templates/
+
 COPY static/ static/
 
 EXPOSE 3001

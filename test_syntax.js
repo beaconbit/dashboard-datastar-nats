@@ -1,8 +1,8 @@
 const fs = require('fs');
 const vm = require('vm');
 
-// Read dashboard.html
-const html = fs.readFileSync('/root/reef/templates/dashboard.html', 'utf8');
+// Read dashboard.templ
+const html = fs.readFileSync('/root/reef/components/dashboard.templ', 'utf8');
 
 // Extract all script tags content (non-module)
 const scriptRegex = /<script(?:\s+[^>]*)?>(.*?)<\/script>/gs;

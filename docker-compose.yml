@@ -19,8 +19,7 @@ services:
       - nats
     environment:
       - NATS_URL=nats://nats:4222
-    volumes:
-      - ./templates:/root/templates
+
     restart: unless-stopped
 
   publisher:

@@ -1,0 +1,787 @@
+package components
+
+templ Dashboard(title string) {
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{ title }</title>
+      <script type="module" src="https://cdn.jsdelivr.net/gh/starfederation/datastar@1.0.0-RC.7/bundles/datastar.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            height: 100vh;
+            background: #111;
+            color: #eee;
+        }
+        body.tv-mode {
+            overflow: hidden;
+        }
+        body.mobile-mode {
+            overflow: auto;
+        }
+        .dashboard {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        /* TV layout: four quarters, no scrolling */
+        .tv .quarters {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
+            height: 100vh;
+            gap: 1rem;
+            padding: 1rem;
+        }
+        .quarter {
+            border-radius: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+        .quarter:hover {
+            filter: brightness(1.1);
+        }
+        .quarter-1 { background: linear-gradient(135deg, #1a7f1a, #0a5c0a); }
+        .quarter-2 { background: linear-gradient(135deg, #ff6b6b, #ee5a24); }
+        .quarter-3 { background: linear-gradient(135deg, #1dd1a1, #10ac84); }
+        .quarter-4 { background: linear-gradient(135deg, #f368e0, #ff9ff3); }
+        /* Quarter A specific styles */
+        .quarter-a-content {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            padding: 1rem;
+            gap: 1rem;
+        }
+        
+        /* Quarter B specific styles */
+        .quarter-b-content {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            padding: 1rem;
+            gap: 1rem;
+        }
+        
+        /* Quarter C specific styles */
+        .quarter-c-content {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            height: 100%;
+            padding: 1rem;
+            gap: 0.5rem;
+        }
+        .wait-time-rows {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            gap: 0.75rem;
+        }
+        .wait-time-row {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .wait-time-label {
+            flex: 1;
+            font-size: 1rem;
+            font-weight: bold;
+            color: white;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+        .wait-time-square {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 0.75rem;
+            width: 3.5rem;
+            height: 3.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: white;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+            transition: all 0.2s;
+        }
+        .wait-time-unit {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.8);
+            min-width: 4rem;
+        }
+        .wasted-minutes-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        .wasted-minutes-label {
+            font-size: 0.9rem;
+            font-weight: bold;
+            color: rgba(255, 255, 255, 0.9);
+            text-align: center;
+            margin-bottom: 0.25rem;
+        }
+        .wasted-minutes-line {
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-end;
+            flex: 1;
+            gap: 0.5rem;
+        }
+        .wasted-minute-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.25rem;
+        }
+        .wasted-minute-value {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 0.5rem;
+            width: 2.5rem;
+            height: 2.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            font-weight: 600;
+            color: white;
+        }
+        .wasted-minute-label {
+            font-size: 0.7rem;
+            color: rgba(255, 255, 255, 0.7);
+            text-align: center;
+        }
+        .wasted-minute-label.current {
+            font-weight: bold;
+            color: #ffdd59;
+        }
+        .column {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        .column-title {
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: white;
+            margin-bottom: 0.5rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+        .square-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: repeat(4, 1fr);
+            gap: 0.5rem;
+            flex: 1;
+        }
+        .square {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: white;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+            transition: all 0.2s;
+            min-height: 0;
+        }
+        .square:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.05);
+        }
+        /* Mobile adjustments for quarter A */
+        .mobile .quarter-a-content {
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        
+        /* Mobile adjustments for quarter B */
+        .mobile .quarter-b-content {
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        
+        /* Mobile adjustments for quarter C */
+        .mobile .quarter-c-content {
+            gap: 1rem;
+        }
+        .mobile .wait-time-rows {
+            gap: 1rem;
+        }
+        .mobile .wait-time-label {
+            font-size: 0.9rem;
+        }
+        .mobile .wait-time-square {
+            width: 3rem;
+            height: 3rem;
+            font-size: 1.3rem;
+        }
+        .mobile .wait-time-unit {
+            font-size: 0.9rem;
+            min-width: 3.5rem;
+        }
+        .mobile .wasted-minutes-line {
+            gap: 0.25rem;
+        }
+        .mobile .wasted-minute-value {
+            width: 2rem;
+            height: 2rem;
+            font-size: 0.9rem;
+        }
+        .mobile .wasted-minute-label {
+            font-size: 0.65rem;
+        }
+        .mobile .column {
+            flex: none;
+            width: 100%;
+        }
+        .mobile .column-title {
+            font-size: 1.1rem;
+        }
+        .mobile .square {
+            font-size: 1.2rem;
+        }
+        /* Mobile layout: vertical scroll, quarters stacked */
+        .mobile .quarters {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            padding: 1rem;
+            height: auto;
+            overflow-y: auto;
+        }
+        .mobile .quarter {
+            min-height: 25vh;
+            width: 100%;
+        }
+        /* Default: show TV layout for larger screens, hide mobile
+           Will be overridden by Datastar if it loads successfully */
+        .tv { display: block; }
+        .mobile { display: none; }
+        
+        /* Mobile layout for screens < 768px */
+        @media (max-width: 767px) {
+            .tv { display: none; }
+            .mobile { display: block; }
+            body { overflow: auto; } /* Enable scrolling for mobile */
+        }
+        
+        /* TV layout for screens >= 768px */  
+        @media (min-width: 768px) {
+            .tv { display: block; }
+            .mobile { display: none; }
+            body { overflow: hidden; } /* Disable scrolling for TV */
+        }
+        /* Indicator for testing */
+        .screen-indicator {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+	    opacity: 0.3;
+            background: rgba(0, 0, 0, 0.7);
+            color: #fff;
+            padding: 0.75rem 1.5rem;
+            border-radius: 1rem;
+            font-size: 1.2rem;
+            font-weight: bold;
+            z-index: 1000;
+            border: 2px solid #fff;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+        /* Quarter D - Quota columns */
+        .quota-columns {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 0.75rem;
+            width: 100%;
+            height: 100%;
+            padding: 1rem;
+            align-items: end;
+        }
+        .quota-column {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100%;
+            position: relative;
+        }
+        .quota-bar {
+            flex: 1;
+            width: 100%;
+            background: linear-gradient(to bottom, #555, #666);
+            border-radius: 0.5rem;
+            position: relative;
+            overflow: hidden;
+            min-height: 60px;
+            box-shadow: inset 0 2px 8px rgba(0,0,0,0.3);
+        }
+        .quota-fill {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, #2e7d32, #4caf50, #81c784);
+            border-radius: 0.5rem 0.5rem 0 0;
+            transition: height 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+            /* Height will be set inline via style attribute */
+        }
+        .quota-label {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            font-size: 0.7rem;
+            color: white;
+            text-align: center;
+            font-weight: 400;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+            opacity: 0.9;
+            padding: 2px 0;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 0 0 0.5rem 0.5rem;
+        }
+        .quota-column-title {
+            font-size: 1rem;
+            color: white;
+            text-align: center;
+            margin-bottom: 0.25rem;
+            font-weight: bold;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+        .quota-subscript {
+            font-size: 0.7rem;
+            color: #ccc;
+            text-align: center;
+            margin-bottom: 0.5rem;
+            opacity: 0.8;
+        }
+        /* Mobile adjustments for quarter D */
+        .mobile .quota-columns {
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(2, 1fr);
+            gap: 1rem;
+        }
+        .mobile .quota-column {
+            height: 100%;
+        }
+        .mobile .quota-bar {
+            min-height: 80px;
+        }
+    </style>
+</head>
+    <body data-class:tv-mode="$screen === 'tv'" data-class:mobile-mode="$screen === 'mobile'">
+    <div class="screen-indicator" data-text="'Screen: ' + $screen"></div>
+    <div id="status-bar" style="position: fixed; top: 0; left: 0; right: 0; background: rgba(0,0,0,0.8); color: #0f0; padding: 0.5rem; font-family: monospace; font-size: 12px; z-index: 9998; display: flex; justify-content: space-between;">
+        <span id="sse-status">SSE: connecting...</span>
+        <span id="datastar-status">Datastar: loading...</span>
+        <span id="last-update">Last update: never</span>
+        <span id="nats-status">NATS: active</span>
+
+    </div>
+    <div id="debug-panel" style="position: fixed; top: 30px; right: 10px; background: rgba(0,0,0,0.9); color: #0f0; padding: 0.5rem; font-family: monospace; font-size: 10px; z-index: 9997; max-width: 300px; max-height: 200px; overflow: auto; display: none;">
+        <button onclick="toggleDebug()">Toggle Debug</button>
+        <!-- Debug values removed to prevent early signal evaluation -->
+        <div><em>Debug panel - values will appear after Datastar initializes</em></div>
+    </div>
+    <div class="tv" data-show="true">
+        <div class="quarters">
+            <div id="tv-quarterA" class="quarter quarter-1" data-on:load="@get('/quarter/a')">
+                <div class="quarter-a-content">
+                    <div class="column">
+                        <div class="column-title">CBW 1</div>
+			<div id="tv-quarterA-col0" class="square-grid">
+			    <div class="square"><span>0</span></div>
+                            <div class="square"><span>0</span></div>
+                            <div class="square"><span>0</span></div>
+                            <div class="square"><span>0</span></div>
+                            <div class="square"><span>0</span></div>
+                            <div class="square"><span>0</span></div>
+                            <div class="square"><span>0</span></div>
+                            <div class="square"><span>0</span></div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="column-title">CBW 2</div>
+			<div id="tv-quarterA-col1" class="square-grid">
+                            <div class="square"><span>0</span></div>
+                            <div class="square"><span>0</span></div>
+                            <div class="square"><span>0</span></div>
+                            <div class="square"><span>0</span></div>
+                            <div class="square"><span>0</span></div>
+                            <div class="square"><span>0</span></div>
+                            <div class="square"><span>0</span></div>
+                            <div class="square"><span>0</span></div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="column-title">CBW 3</div>
+			<div id="tv-quarterA-col2" class="square-grid">
+                            <div class="square"><span>0</span></div>
+                            <div class="square"><span>0</span></div>
+                            <div class="square"><span>0</span></div>
+                            <div class="square"><span>0</span></div>
+                            <div class="square"><span>0</span></div>
+                            <div class="square"><span>0</span></div>
+                            <div class="square"><span>0</span></div>
+                            <div class="square"><span>0</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="tv-quarterB" class="quarter quarter-2" data-on:load="@get('/quarter/b')">
+                <div class="quarter-b-content">
+                    <div class="column">
+                        <div class="column-title">RCW 1</div>
+                        <div id="tv-quarterB-col0" class="square-grid">
+                            <div class="square"><span>0</span></div>
+                            <div class="square"><span>0</span></div>
+                            <div class="square"><span>0</span></div>
+                            <div class="square"><span>0</span></div>
+                            <div class="square"><span>0</span></div>
+                            <div class="square"><span>0</span></div>
+                            <div class="square"><span>0</span></div>
+                            <div class="square"><span>0</span></div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="column-title">RCW 2</div>
+                        <div id="tv-quarterB-col1" class="square-grid">
+                            <div class="square"><span>0</span></div>
+                            <div class="square"><span>0</span></div>
+                            <div class="square"><span>0</span></div>
+                            <div class="square"><span>0</span></div>
+                            <div class="square"><span>0</span></div>
+                            <div class="square"><span>0</span></div>
+                            <div class="square"><span>0</span></div>
+                            <div class="square"><span>0</span></div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="column-title">RCW 3</div>
+                        <div id="tv-quarterB-col2" class="square-grid">
+                            <div class="square"><span>0</span></div>
+                            <div class="square"><span>0</span></div>
+                            <div class="square"><span>0</span></div>
+                            <div class="square"><span>0</span></div>
+                            <div class="square"><span>0</span></div>
+                            <div class="square"><span>0</span></div>
+                            <div class="square"><span>0</span></div>
+                            <div class="square"><span>0</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="tv-quarterC" class="quarter quarter-3" data-on:load="@get('/quarter/c')">
+                <div class="quarter-c-content">
+                    <div class="wait-time-rows">
+                        <div class="wait-time-row">
+                            <div class="wait-time-label">CBW 1 Wait Time This Hour</div>
+                            <div id="tv-quarterC-cbw1-waitTime" class="wait-time-square">0</div>
+                            <div class="wait-time-unit">minutes</div>
+                        </div>
+                        <div class="wait-time-row">
+                            <div class="wait-time-label">CBW 2 Wait Time This Hour</div>
+                            <div id="tv-quarterC-cbw2-waitTime" class="wait-time-square">0</div>
+                            <div class="wait-time-unit">minutes</div>
+                        </div>
+                        <div class="wait-time-row">
+                            <div class="wait-time-label">CBW 3 Wait Time This Hour</div>
+                            <div id="tv-quarterC-cbw3-waitTime" class="wait-time-square">0</div>
+                            <div class="wait-time-unit">minutes</div>
+                        </div>
+                    </div>
+                    <div class="wasted-minutes-section">
+                        <div class="wasted-minutes-label">Total Wasted Minutes Previous Hours</div>
+                        <div class="wasted-minutes-line">
+                            <div class="wasted-minute-item">
+                                <div id="tv-quarterC-wastedMinutes-hour4" class="wasted-minute-value">0</div>
+                                <div class="wasted-minute-label">-4h</div>
+                            </div>
+                            <div class="wasted-minute-item">
+                                <div id="tv-quarterC-wastedMinutes-hour3" class="wasted-minute-value">0</div>
+                                <div class="wasted-minute-label">-3h</div>
+                            </div>
+                            <div class="wasted-minute-item">
+                                <div id="tv-quarterC-wastedMinutes-hour2" class="wasted-minute-value">0</div>
+                                <div class="wasted-minute-label">-2h</div>
+                            </div>
+                            <div class="wasted-minute-item">
+                                <div id="tv-quarterC-wastedMinutes-hour1" class="wasted-minute-value">0</div>
+                                <div class="wasted-minute-label">-1h</div>
+                            </div>
+                            <div class="wasted-minute-item">
+                                <div id="tv-quarterC-wastedMinutes-current" class="wasted-minute-value">0</div>
+                                <div class="wasted-minute-label current">current</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="tv-quarterD" class="quarter quarter-4" data-on:load="@get('/quarter/d')">
+                <div class="quota-columns">
+                    <div id="tv-quarterD-col0" class="quota-column">
+                        <div class="quota-column-title"></div>
+                        <div class="quota-subscript">0%</div>
+                        <div class="quota-bar">
+                            <div class="quota-fill" style="height: 0%"></div>
+                        </div>
+                        <div class="quota-label">0/0</div>
+                    </div>
+                    <div id="tv-quarterD-col1" class="quota-column">
+                        <div class="quota-column-title"></div>
+                        <div class="quota-subscript">0%</div>
+                        <div class="quota-bar">
+                            <div class="quota-fill" style="height: 0%"></div>
+                        </div>
+                        <div class="quota-label">0/0</div>
+                    </div>
+                    <div id="tv-quarterD-col2" class="quota-column">
+                        <div class="quota-column-title"></div>
+                        <div class="quota-subscript">0%</div>
+                        <div class="quota-bar">
+                            <div class="quota-fill" style="height: 0%"></div>
+                        </div>
+                        <div class="quota-label">0/0</div>
+                    </div>
+                    <div id="tv-quarterD-col3" class="quota-column">
+                        <div class="quota-column-title"></div>
+                        <div class="quota-subscript">0%</div>
+                        <div class="quota-bar">
+                            <div class="quota-fill" style="height: 0%"></div>
+                        </div>
+                        <div class="quota-label">0/0</div>
+                    </div>
+                    <div id="tv-quarterD-col4" class="quota-column">
+                        <div class="quota-column-title"></div>
+                        <div class="quota-subscript">0%</div>
+                        <div class="quota-bar">
+                            <div class="quota-fill" style="height: 0%"></div>
+                        </div>
+                        <div class="quota-label">0/0</div>
+                    </div>
+                    <div id="tv-quarterD-col5" class="quota-column">
+                        <div class="quota-column-title"></div>
+                        <div class="quota-subscript">0%</div>
+                        <div class="quota-bar">
+                            <div class="quota-fill" style="height: 0%"></div>
+                        </div>
+                        <div class="quota-label">0/0</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mobile" data-show="$screen === 'mobile'">
+        <div class="quarters">
+
+            <div id="mobile-quarterA" class="quarter quarter-1" data-on:load="@get('/quarter/a')">
+                <div class="quarter-a-content">
+                    <div class="column">
+                        <div class="column-title">CBW 1</div>
+                        <div id="mobile-quarterA-col0" class="square-grid">
+                            <div class="square"><span>0</span></div>
+                            <div class="square"><span>0</span></div>
+                            <div class="square"><span>0</span></div>
+                            <div class="square"><span>0</span></div>
+                            <div class="square"><span>0</span></div>
+                            <div class="square"><span>0</span></div>
+                            <div class="square"><span>0</span></div>
+                            <div class="square"><span>0</span></div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="column-title">CBW 2</div>
+                        <div id="mobile-quarterA-col1" class="square-grid">
+                            <div class="square"><span>0</span></div>
+                            <div class="square"><span>0</span></div>
+                            <div class="square"><span>0</span></div>
+                            <div class="square"><span>0</span></div>
+                            <div class="square"><span>0</span></div>
+                            <div class="square"><span>0</span></div>
+                            <div class="square"><span>0</span></div>
+                            <div class="square"><span>0</span></div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="column-title">CBW 3</div>
+                        <div id="mobile-quarterA-col2" class="square-grid">
+                            <div class="square"><span>0</span></div>
+                            <div class="square"><span>0</span></div>
+                            <div class="square"><span>0</span></div>
+                            <div class="square"><span>0</span></div>
+                            <div class="square"><span>0</span></div>
+                            <div class="square"><span>0</span></div>
+                            <div class="square"><span>0</span></div>
+                            <div class="square"><span>0</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="mobile-quarterB" class="quarter quarter-2" data-on:load="@get('/quarter/b')">
+                <div class="quarter-b-content">
+                    <div class="column">
+                        <div class="column-title">RCW 1</div>
+                        <div id="mobile-quarterB-col0" class="square-grid">
+                            <div class="square"><span>0</span></div>
+                            <div class="square"><span>0</span></div>
+                            <div class="square"><span>0</span></div>
+                            <div class="square"><span>0</span></div>
+                            <div class="square"><span>0</span></div>
+                            <div class="square"><span>0</span></div>
+                            <div class="square"><span>0</span></div>
+                            <div class="square"><span>0</span></div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="column-title">RCW 2</div>
+                        <div id="mobile-quarterB-col1" class="square-grid">
+                            <div class="square"><span>0</span></div>
+                            <div class="square"><span>0</span></div>
+                            <div class="square"><span>0</span></div>
+                            <div class="square"><span>0</span></div>
+                            <div class="square"><span>0</span></div>
+                            <div class="square"><span>0</span></div>
+                            <div class="square"><span>0</span></div>
+                            <div class="square"><span>0</span></div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="column-title">RCW 3</div>
+                        <div id="mobile-quarterB-col2" class="square-grid">
+                            <div class="square"><span>0</span></div>
+                            <div class="square"><span>0</span></div>
+                            <div class="square"><span>0</span></div>
+                            <div class="square"><span>0</span></div>
+                            <div class="square"><span>0</span></div>
+                            <div class="square"><span>0</span></div>
+                            <div class="square"><span>0</span></div>
+                            <div class="square"><span>0</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="mobile-quarterC" class="quarter quarter-3" data-on:load="@get('/quarter/c')">
+                <div class="quarter-c-content">
+                    <div class="wait-time-rows">
+                        <div class="wait-time-row">
+                            <div class="wait-time-label">CBW 1 Wait Time This Hour</div>
+                            <div id="mobile-quarterC-cbw1-waitTime" class="wait-time-square">0</div>
+                            <div class="wait-time-unit">minutes</div>
+                        </div>
+                        <div class="wait-time-row">
+                            <div class="wait-time-label">CBW 2 Wait Time This Hour</div>
+                            <div id="mobile-quarterC-cbw2-waitTime" class="wait-time-square">0</div>
+                            <div class="wait-time-unit">minutes</div>
+                        </div>
+                        <div class="wait-time-row">
+                            <div class="wait-time-label">CBW 3 Wait Time This Hour</div>
+                            <div id="mobile-quarterC-cbw3-waitTime" class="wait-time-square">0</div>
+                            <div class="wait-time-unit">minutes</div>
+                        </div>
+                    </div>
+                    <div class="wasted-minutes-section">
+                        <div class="wasted-minutes-label">Total Wasted Minutes Previous Hours</div>
+                        <div class="wasted-minutes-line">
+                            <div class="wasted-minute-item">
+                                <div id="mobile-quarterC-wastedMinutes-hour4" class="wasted-minute-value">0</div>
+                                <div class="wasted-minute-label">-4h</div>
+                            </div>
+                            <div class="wasted-minute-item">
+                                <div id="mobile-quarterC-wastedMinutes-hour3" class="wasted-minute-value">0</div>
+                                <div class="wasted-minute-label">-3h</div>
+                            </div>
+                            <div class="wasted-minute-item">
+                                <div id="mobile-quarterC-wastedMinutes-hour2" class="wasted-minute-value">0</div>
+                                <div class="wasted-minute-label">-2h</div>
+                            </div>
+                            <div class="wasted-minute-item">
+                                <div id="mobile-quarterC-wastedMinutes-hour1" class="wasted-minute-value">0</div>
+                                <div class="wasted-minute-label">-1h</div>
+                            </div>
+                            <div class="wasted-minute-item">
+                                <div id="mobile-quarterC-wastedMinutes-current" class="wasted-minute-value">0</div>
+                                <div class="wasted-minute-label current">current</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="mobile-quarterD" class="quarter quarter-4" data-on:load="@get('/quarter/d')">
+                <div class="quota-columns">
+                    <div id="mobile-quarterD-col0" class="quota-column">
+                        <div class="quota-column-title"></div>
+                        <div class="quota-subscript">0%</div>
+                        <div class="quota-bar">
+                            <div class="quota-fill" style="height: 0%"></div>
+                        </div>
+                        <div class="quota-label">0/0</div>
+                    </div>
+                    <div id="mobile-quarterD-col1" class="quota-column">
+                        <div class="quota-column-title"></div>
+                        <div class="quota-subscript">0%</div>
+                        <div class="quota-bar">
+                            <div class="quota-fill" style="height: 0%"></div>
+                        </div>
+                        <div class="quota-label">0/0</div>
+                    </div>
+                    <div id="mobile-quarterD-col2" class="quota-column">
+                        <div class="quota-column-title"></div>
+                        <div class="quota-subscript">0%</div>
+                        <div class="quota-bar">
+                            <div class="quota-fill" style="height: 0%"></div>
+                        </div>
+                        <div class="quota-label">0/0</div>
+                    </div>
+                    <div id="mobile-quarterD-col3" class="quota-column">
+                        <div class="quota-column-title"></div>
+                        <div class="quota-subscript">0%</div>
+                        <div class="quota-bar">
+                            <div class="quota-fill" style="height: 0%"></div>
+                        </div>
+                        <div class="quota-label">0/0</div>
+                    </div>
+                    <div id="mobile-quarterD-col4" class="quota-column">
+                        <div class="quota-column-title"></div>
+                        <div class="quota-subscript">0%</div>
+                        <div class="quota-bar">
+                            <div class="quota-fill" style="height: 0%"></div>
+                        </div>
+                        <div class="quota-label">0/0</div>
+                    </div>
+                    <div id="mobile-quarterD-col5" class="quota-column">
+                        <div class="quota-column-title"></div>
+                        <div class="quota-subscript">0%</div>
+                        <div class="quota-bar">
+                            <div class="quota-fill" style="height: 0%"></div>
+                        </div>
+                        <div class="quota-label">0/0</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
+
+}

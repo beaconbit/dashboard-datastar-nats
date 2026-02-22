@@ -30,12 +30,13 @@ Open http://localhost:3001 in a browser.
 
 ## Technology
 
-- Backend: Go net/http with HTML templates
+- Backend: Go net/http with templ components
 - Frontend: Datastar (loaded from CDN) for reactive signals
 - CSS: Custom responsive styles with flexbox/grid
 
 ## Project Structure
 
 - `main.go` – Go server
-- `templates/dashboard.html` – HTML template with embedded CSS/JS
-- `go.mod` – Go module definition# dashboard-datastar-nats
+- `components/dashboard.templ` – templ component with embedded CSS/JS
+- `components/sse_test.templ` – SSE test page
+- `go.mod` – Go module definition

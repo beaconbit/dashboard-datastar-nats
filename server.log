@@ -1,1 +1,73 @@
-2026/02/17 16:47:46 Server starting on :3001
+2026/02/22 15:38:30 Connected to NATS
+2026/02/22 15:38:30 Subscribed to quarterA.col1.num1
+2026/02/22 15:38:30 Subscribed to quarterA.col1.num2
+2026/02/22 15:38:30 Subscribed to quarterA.col1.num3
+2026/02/22 15:38:30 Subscribed to quarterA.col1.num4
+2026/02/22 15:38:30 Subscribed to quarterA.col1.num5
+2026/02/22 15:38:30 Subscribed to quarterA.col1.num6
+2026/02/22 15:38:30 Subscribed to quarterA.col1.num7
+2026/02/22 15:38:30 Subscribed to quarterA.col1.num8
+2026/02/22 15:38:30 Subscribed to quarterA.col2.num1
+2026/02/22 15:38:30 Subscribed to quarterA.col2.num2
+2026/02/22 15:38:30 Subscribed to quarterA.col2.num3
+2026/02/22 15:38:30 Subscribed to quarterA.col2.num4
+2026/02/22 15:38:30 Subscribed to quarterA.col2.num5
+2026/02/22 15:38:30 Subscribed to quarterA.col2.num6
+2026/02/22 15:38:30 Subscribed to quarterA.col2.num7
+2026/02/22 15:38:30 Subscribed to quarterA.col2.num8
+2026/02/22 15:38:30 Subscribed to quarterA.col3.num1
+2026/02/22 15:38:30 Subscribed to quarterA.col3.num2
+2026/02/22 15:38:30 Subscribed to quarterA.col3.num3
+2026/02/22 15:38:30 Subscribed to quarterA.col3.num4
+2026/02/22 15:38:30 Subscribed to quarterA.col3.num5
+2026/02/22 15:38:30 Subscribed to quarterA.col3.num6
+2026/02/22 15:38:30 Subscribed to quarterA.col3.num7
+2026/02/22 15:38:30 Subscribed to quarterA.col3.num8
+2026/02/22 15:38:30 Subscribed to quarterB.col1.num1
+2026/02/22 15:38:30 Subscribed to quarterB.col1.num2
+2026/02/22 15:38:30 Subscribed to quarterB.col1.num3
+2026/02/22 15:38:30 Subscribed to quarterB.col1.num4
+2026/02/22 15:38:30 Subscribed to quarterB.col1.num5
+2026/02/22 15:38:30 Subscribed to quarterB.col1.num6
+2026/02/22 15:38:30 Subscribed to quarterB.col1.num7
+2026/02/22 15:38:30 Subscribed to quarterB.col1.num8
+2026/02/22 15:38:30 Subscribed to quarterB.col2.num1
+2026/02/22 15:38:30 Subscribed to quarterB.col2.num2
+2026/02/22 15:38:30 Subscribed to quarterB.col2.num3
+2026/02/22 15:38:30 Subscribed to quarterB.col2.num4
+2026/02/22 15:38:30 Subscribed to quarterB.col2.num5
+2026/02/22 15:38:30 Subscribed to quarterB.col2.num6
+2026/02/22 15:38:30 Subscribed to quarterB.col2.num7
+2026/02/22 15:38:30 Subscribed to quarterB.col2.num8
+2026/02/22 15:38:30 Subscribed to quarterB.col3.num1
+2026/02/22 15:38:30 Subscribed to quarterB.col3.num2
+2026/02/22 15:38:30 Subscribed to quarterB.col3.num3
+2026/02/22 15:38:30 Subscribed to quarterB.col3.num4
+2026/02/22 15:38:30 Subscribed to quarterB.col3.num5
+2026/02/22 15:38:30 Subscribed to quarterB.col3.num6
+2026/02/22 15:38:30 Subscribed to quarterB.col3.num7
+2026/02/22 15:38:30 Subscribed to quarterB.col3.num8
+2026/02/22 15:38:30 Subscribed to quarterD.col1
+2026/02/22 15:38:30 Subscribed to quarterD.col2
+2026/02/22 15:38:30 Subscribed to quarterD.col3
+2026/02/22 15:38:30 Subscribed to quarterD.col4
+2026/02/22 15:38:30 Subscribed to quarterD.col5
+2026/02/22 15:38:30 Subscribed to quarterD.col6
+2026/02/22 15:38:30 Setting up Quarter C subscriptions
+2026/02/22 15:38:30 Subscribed to quarterC.cbw1.waitTime
+2026/02/22 15:38:30 Subscribed to quarterC.cbw2.waitTime
+2026/02/22 15:38:30 Subscribed to quarterC.cbw3.waitTime
+2026/02/22 15:38:30 Subscribed to quarterC.wastedMinutes.hour4
+2026/02/22 15:38:30 Subscribed to quarterC.wastedMinutes.hour3
+2026/02/22 15:38:30 Subscribed to quarterC.wastedMinutes.hour2
+2026/02/22 15:38:30 Subscribed to quarterC.wastedMinutes.hour1
+2026/02/22 15:38:30 Subscribed to quarterC.wastedMinutes.current
+2026/02/22 15:38:30 Server starting on :3001
+2026/02/22 15:38:43 Broadcasting update quarterB.col2.num5=999 to 0 clients
+2026/02/22 15:38:54 Broadcasting update quarterC.cbw2.waitTime=25 to 0 clients
+2026/02/22 15:38:54 Updated quarterC.cbw2.waitTime to 25
+2026/02/22 15:39:21 Broadcasting update quarterD.col3.current=75 to 0 clients
+2026/02/22 15:39:21 QuarterD updated quarterD.col3 to 75
+2026/02/22 15:39:47 SSE connection established from [::1]:38288
+2026/02/22 15:39:50 SSE connection closed from [::1]:38288
+2026/02/22 20:53:16 streamHandler activated

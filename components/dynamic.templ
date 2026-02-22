@@ -1,0 +1,239 @@
+package components
+
+import "strconv"
+
+func getNum(data map[string]interface{}, num int) int {
+	key := "num" + strconv.Itoa(num)
+	if val, ok := data[key]; ok {
+		switch v := val.(type) {
+		case int:
+			return v
+		case float64:
+			return int(v)
+		default:
+			return 0
+		}
+	}
+	return 0
+}
+
+func getWaitTime(data map[string]interface{}, cbw int) int {
+	key := "waitTime"
+	if cbwData, ok := data["cbw"+strconv.Itoa(cbw)].(map[string]interface{}); ok {
+		if val, ok := cbwData[key]; ok {
+			switch v := val.(type) {
+			case int:
+				return v
+			case float64:
+				return int(v)
+			default:
+				return 0
+			}
+		}
+	}
+	return 0
+}
+
+func getWastedMinute(data map[string]interface{}, hour string) int {
+	if val, ok := data[hour]; ok {
+		switch v := val.(type) {
+		case int:
+			return v
+		case float64:
+			return int(v)
+		default:
+			return 0
+		}
+	}
+	return 0
+}
+
+func getQuotaCurrent(data map[string]interface{}, col int) int {
+	key := "current"
+	if val, ok := data[key]; ok {
+		switch v := val.(type) {
+		case int:
+			return v
+		case float64:
+			return int(v)
+		default:
+			return 0
+		}
+	}
+	return 0
+}
+
+func getQuotaTarget(data map[string]interface{}, col int) int {
+	key := "target"
+	if val, ok := data[key]; ok {
+		switch v := val.(type) {
+		case int:
+			return v
+		case float64:
+			return int(v)
+		default:
+			return 0
+		}
+	}
+	return 100
+}
+
+func getTitle(data map[string]interface{}) string {
+	if val, ok := data["title"]; ok {
+		switch v := val.(type) {
+		case string:
+			return v
+		default:
+			return ""
+		}
+	}
+	return ""
+}
+
+func getQuotaPercentage(data map[string]interface{}, colIndex int) int {
+	current := getQuotaCurrent(data, colIndex)
+	target := getQuotaTarget(data, colIndex)
+	if target == 0 {
+		return 0
+	}
+	return int(float64(current) / float64(target) * 100)
+}
+
+templ ColumnQuarterA(layout string, colIndex int, data map[string]interface{}) {
+	<div id={ layout + "-quarterA-col" + strconv.Itoa(colIndex) } class="square-grid">
+		<div class="square">{ strconv.Itoa(getNum(data, 1)) }</div>
+		<div class="square">{ strconv.Itoa(getNum(data, 2)) }</div>
+		<div class="square">{ strconv.Itoa(getNum(data, 3)) }</div>
+		<div class="square">{ strconv.Itoa(getNum(data, 4)) }</div>
+		<div class="square">{ strconv.Itoa(getNum(data, 5)) }</div>
+		<div class="square">{ strconv.Itoa(getNum(data, 6)) }</div>
+		<div class="square">{ strconv.Itoa(getNum(data, 7)) }</div>
+		<div class="square">{ strconv.Itoa(getNum(data, 8)) }</div>
+	</div>
+}
+
+templ ColumnQuarterB(layout string, colIndex int, data map[string]interface{}) {
+	<div id={ layout + "-quarterB-col" + strconv.Itoa(colIndex) } class="square-grid">
+		<div class="square">{ strconv.Itoa(getNum(data, 1)) }</div>
+		<div class="square">{ strconv.Itoa(getNum(data, 2)) }</div>
+		<div class="square">{ strconv.Itoa(getNum(data, 3)) }</div>
+		<div class="square">{ strconv.Itoa(getNum(data, 4)) }</div>
+		<div class="square">{ strconv.Itoa(getNum(data, 5)) }</div>
+		<div class="square">{ strconv.Itoa(getNum(data, 6)) }</div>
+		<div class="square">{ strconv.Itoa(getNum(data, 7)) }</div>
+		<div class="square">{ strconv.Itoa(getNum(data, 8)) }</div>
+	</div>
+}
+
+templ WaitTimeQuarterC(layout string, cbwIndex int, data map[string]interface{}) {
+	<div id={ layout + "-quarterC-cbw" + strconv.Itoa(cbwIndex) + "-waitTime" } class="wait-time-square">
+		{ strconv.Itoa(getWaitTime(data, cbwIndex)) }
+	</div>
+}
+
+templ WastedMinutesQuarterC(layout string, data map[string]interface{}) {
+	<div class="wasted-minutes-line">
+		<div class="wasted-minute-item">
+			<div id={ layout + "-quarterC-wastedMinutes-hour4" } class="wasted-minute-value">{ strconv.Itoa(getWastedMinute(data, "hour4")) }</div>
+			<div class="wasted-minute-label">-4h</div>
+		</div>
+		<div class="wasted-minute-item">
+			<div id={ layout + "-quarterC-wastedMinutes-hour3" } class="wasted-minute-value">{ strconv.Itoa(getWastedMinute(data, "hour3")) }</div>
+			<div class="wasted-minute-label">-3h</div>
+		</div>
+		<div class="wasted-minute-item">
+			<div id={ layout + "-quarterC-wastedMinutes-hour2" } class="wasted-minute-value">{ strconv.Itoa(getWastedMinute(data, "hour2")) }</div>
+			<div class="wasted-minute-label">-2h</div>
+		</div>
+		<div class="wasted-minute-item">
+			<div id={ layout + "-quarterC-wastedMinutes-hour1" } class="wasted-minute-value">{ strconv.Itoa(getWastedMinute(data, "hour1")) }</div>
+			<div class="wasted-minute-label">-1h</div>
+		</div>
+		<div class="wasted-minute-item">
+			<div id={ layout + "-quarterC-wastedMinutes-current" } class="wasted-minute-value">{ strconv.Itoa(getWastedMinute(data, "current")) }</div>
+			<div class="wasted-minute-label">current</div>
+		</div>
+	</div>
+}
+
+templ QuotaColumnQuarterD(layout string, colIndex int, data map[string]interface{}) {
+	<div id={ layout + "-quarterD-col" + strconv.Itoa(colIndex) } class="quota-column">
+		<div class="quota-column-title">{ getTitle(data) }</div>
+		<div class="quota-subscript">{ strconv.Itoa(getQuotaPercentage(data, colIndex)) + "%" }</div>
+		<div class="quota-bar">
+			<div class="quota-fill" style={ "height: " + strconv.Itoa(getQuotaPercentage(data, colIndex)) + "%" }></div>
+		</div>
+		<div class="quota-label">{ strconv.Itoa(getQuotaCurrent(data, colIndex)) + "/" + strconv.Itoa(getQuotaTarget(data, colIndex)) }</div>
+	</div>
+}
+
+templ QuarterA(layout string, data map[string]interface{}) {
+	<div class="quarter-a-content">
+		<div class="column">
+			<div class="column-title">{ getTitle(data["col1"].(map[string]interface{})) }</div>
+			{ ColumnQuarterA(layout, 0, data["col1"].(map[string]interface{})) }
+		</div>
+		<div class="column">
+			<div class="column-title">{ getTitle(data["col2"].(map[string]interface{})) }</div>
+			{ ColumnQuarterA(layout, 1, data["col2"].(map[string]interface{})) }
+		</div>
+		<div class="column">
+			<div class="column-title">{ getTitle(data["col3"].(map[string]interface{})) }</div>
+			{ ColumnQuarterA(layout, 2, data["col3"].(map[string]interface{})) }
+		</div>
+	</div>
+}
+
+templ QuarterB(layout string, data map[string]interface{}) {
+	<div class="quarter-b-content">
+		<div class="column">
+			<div class="column-title">{ getTitle(data["col1"].(map[string]interface{})) }</div>
+			{ ColumnQuarterB(layout, 0, data["col1"].(map[string]interface{})) }
+		</div>
+		<div class="column">
+			<div class="column-title">{ getTitle(data["col2"].(map[string]interface{})) }</div>
+			{ ColumnQuarterB(layout, 1, data["col2"].(map[string]interface{})) }
+		</div>
+		<div class="column">
+			<div class="column-title">{ getTitle(data["col3"].(map[string]interface{})) }</div>
+			{ ColumnQuarterB(layout, 2, data["col3"].(map[string]interface{})) }
+		</div>
+	</div>
+}
+
+templ QuarterC(layout string, data map[string]interface{}) {
+	<div class="quarter-c-content">
+		<div class="wait-time-rows">
+			<div class="wait-time-row">
+				<div class="wait-time-label">CBW 1 Wait Time This Hour</div>
+				{ WaitTimeQuarterC(layout, 1, data) }
+				<div class="wait-time-unit">minutes</div>
+			</div>
+			<div class="wait-time-row">
+				<div class="wait-time-label">CBW 2 Wait Time This Hour</div>
+				{ WaitTimeQuarterC(layout, 2, data) }
+				<div class="wait-time-unit">minutes</div>
+			</div>
+			<div class="wait-time-row">
+				<div class="wait-time-label">CBW 3 Wait Time This Hour</div>
+				{ WaitTimeQuarterC(layout, 3, data) }
+				<div class="wait-time-unit">minutes</div>
+			</div>
+		</div>
+		<div class="wasted-minutes-section">
+			<div class="wasted-minutes-label">Total Wasted Minutes Previous Hours</div>
+			{ WastedMinutesQuarterC(layout, data["wastedMinutes"].(map[string]interface{})) }
+		</div>
+	</div>
+}
+
+templ QuarterD(layout string, data map[string]interface{}) {
+	<div class="quota-columns">
+		{ QuotaColumnQuarterD(layout, 0, data["col1"].(map[string]interface{})) }
+		{ QuotaColumnQuarterD(layout, 1, data["col2"].(map[string]interface{})) }
+		{ QuotaColumnQuarterD(layout, 2, data["col3"].(map[string]interface{})) }
+		{ QuotaColumnQuarterD(layout, 3, data["col4"].(map[string]interface{})) }
+		{ QuotaColumnQuarterD(layout, 4, data["col5"].(map[string]interface{})) }
+		{ QuotaColumnQuarterD(layout, 5, data["col6"].(map[string]interface{})) }
+	</div>
+}
