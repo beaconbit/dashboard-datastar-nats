@@ -9,6 +9,7 @@ import nats
 async def main():
     # Connect to NATS
     try:
+        print("Attempting to connect to NATS...")
         nc = await nats.connect("nats://nats:4222")
         print("Connected to NATS")
     except Exception as e:
@@ -36,8 +37,30 @@ async def main():
                 # Publish as JSON number
                 await nc.publish(topic, json.dumps(value).encode())
                 print(f"Published to {topic}: {value}")
+            print('DEBUG: After Quarter D')
+            # Publish to Quarter C topics (wait times)
+            print("DEBUG: Publishing Quarter C wait times")
+            for cbw in range(1, 4):
+                print(f"DEBUG: Iteration cbw={cbw}")
+                topic = f"quarterC.cbw{cbw}.waitTime"
+                value = random.randint(1, 30)  # wait time minutes
+                print(f"DEBUG: Publishing {topic}={value}")
+                await nc.publish(topic, json.dumps(value).encode())
+                print(f"Published to {topic}: {value}")
+            
+            # Publish to Quarter C wasted minutes topics
+            print("DEBUG: Publishing Quarter C wasted minutes")
+            wasted_keys = ["hour4", "hour3", "hour2", "hour1", "current"]
+            for key in wasted_keys:
+                print(f"DEBUG: Wasted key={key}")
+                topic = f"quarterC.wastedMinutes.{key}"
+                value = random.randint(50, 200)  # wasted minutes
+                print(f"DEBUG: Publishing {topic}={value}")
+                await nc.publish(topic, json.dumps(value).encode())
+                print(f"Published to {topic}: {value}")
             
             # Wait 10-30 seconds before next update batch
+            print("DEBUG: Sleeping before next batch")
             wait_time = random.uniform(10.0, 30.0)
             await asyncio.sleep(wait_time)
             

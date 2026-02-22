@@ -1,0 +1,1443 @@
+time="2026-02-20T04:43:00Z" level=warning msg="/root/reef/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"
+ Container reef-backend  Recreate
+ Container reef-backend  Recreated
+Attaching to reef-backend, reef-nats, reef-publisher
+reef-nats       | [1] 2026/02/20 04:43:00.990736 [INF] Starting nats-server
+reef-nats       | [1] 2026/02/20 04:43:00.990775 [INF]   Version:  2.12.4
+reef-nats       | [1] 2026/02/20 04:43:00.990778 [INF]   Git:      [34894c1]
+reef-nats       | [1] 2026/02/20 04:43:00.990837 [INF]   Name:     NA4MKGLYO5JRLWCLNLL2PC4IAASZCSDK757KDB33OUPLTOLCHPC4ZXOV
+reef-nats       | [1] 2026/02/20 04:43:00.990844 [INF]   Node:     scX666E0
+reef-nats       | [1] 2026/02/20 04:43:00.990874 [INF]   ID:       NA4MKGLYO5JRLWCLNLL2PC4IAASZCSDK757KDB33OUPLTOLCHPC4ZXOV
+reef-nats       | [1] 2026/02/20 04:43:00.992229 [INF] Starting JetStream
+reef-nats       | [1] 2026/02/20 04:43:00.992265 [WRN] Temporary storage directory used, data could be lost on system reboot
+reef-nats       | [1] 2026/02/20 04:43:00.993333 [INF]     _ ___ _____ ___ _____ ___ ___   _   __  __
+reef-nats       | [1] 2026/02/20 04:43:00.993349 [INF]  _ | | __|_   _/ __|_   _| _ \ __| /_\ |  \/  |
+reef-nats       | [1] 2026/02/20 04:43:00.993352 [INF] | || | _|  | | \__ \ | | |   / _| / _ \| |\/| |
+reef-nats       | [1] 2026/02/20 04:43:00.993354 [INF]  \__/|___| |_| |___/ |_| |_|_\___/_/ \_\_|  |_|
+reef-nats       | [1] 2026/02/20 04:43:00.993357 [INF] 
+reef-nats       | [1] 2026/02/20 04:43:00.993359 [INF]          https://docs.nats.io/jetstream
+reef-nats       | [1] 2026/02/20 04:43:00.993361 [INF] 
+reef-nats       | [1] 2026/02/20 04:43:00.993365 [INF] ---------------- JETSTREAM ----------------
+reef-nats       | [1] 2026/02/20 04:43:00.993369 [INF]   Strict:          true
+reef-nats       | [1] 2026/02/20 04:43:00.993375 [INF]   Max Memory:      5.82 GB
+reef-nats       | [1] 2026/02/20 04:43:00.993379 [INF]   Max Storage:     161.19 GB
+reef-nats       | [1] 2026/02/20 04:43:00.993382 [INF]   Store Directory: "/tmp/nats/jetstream"
+reef-nats       | [1] 2026/02/20 04:43:00.993384 [INF]   API Level:       2
+reef-nats       | [1] 2026/02/20 04:43:00.993387 [INF] -------------------------------------------
+reef-nats       | [1] 2026/02/20 04:43:00.994018 [INF] Took 1.762423ms to start JetStream
+reef-nats       | [1] 2026/02/20 04:43:00.994612 [INF] Listening for client connections on 0.0.0.0:4222
+reef-nats       | [1] 2026/02/20 04:43:00.994828 [INF] Server is ready
+reef-backend    | 2026/02/20 04:43:01 Connected to NATS
+reef-backend    | 2026/02/20 04:43:01 Subscribed to quarterA.col1.num1
+reef-backend    | 2026/02/20 04:43:01 Subscribed to quarterA.col1.num2
+reef-backend    | 2026/02/20 04:43:01 Subscribed to quarterA.col1.num3
+reef-backend    | 2026/02/20 04:43:01 Subscribed to quarterA.col1.num4
+reef-backend    | 2026/02/20 04:43:01 Subscribed to quarterA.col1.num5
+reef-backend    | 2026/02/20 04:43:01 Subscribed to quarterA.col1.num6
+reef-backend    | 2026/02/20 04:43:01 Subscribed to quarterA.col1.num7
+reef-backend    | 2026/02/20 04:43:01 Subscribed to quarterA.col1.num8
+reef-backend    | 2026/02/20 04:43:01 Subscribed to quarterA.col2.num1
+reef-backend    | 2026/02/20 04:43:01 Subscribed to quarterA.col2.num2
+reef-backend    | 2026/02/20 04:43:01 Subscribed to quarterA.col2.num3
+reef-backend    | 2026/02/20 04:43:01 Subscribed to quarterA.col2.num4
+reef-backend    | 2026/02/20 04:43:01 Subscribed to quarterA.col2.num5
+reef-backend    | 2026/02/20 04:43:01 Subscribed to quarterA.col2.num6
+reef-backend    | 2026/02/20 04:43:01 Subscribed to quarterA.col2.num7
+reef-backend    | 2026/02/20 04:43:01 Subscribed to quarterA.col2.num8
+reef-backend    | 2026/02/20 04:43:01 Subscribed to quarterA.col3.num1
+reef-backend    | 2026/02/20 04:43:01 Subscribed to quarterA.col3.num2
+reef-backend    | 2026/02/20 04:43:01 Subscribed to quarterA.col3.num3
+reef-backend    | 2026/02/20 04:43:01 Subscribed to quarterA.col3.num4
+reef-backend    | 2026/02/20 04:43:01 Subscribed to quarterA.col3.num5
+reef-backend    | 2026/02/20 04:43:01 Subscribed to quarterA.col3.num6
+reef-backend    | 2026/02/20 04:43:01 Subscribed to quarterA.col3.num7
+reef-backend    | 2026/02/20 04:43:01 Subscribed to quarterA.col3.num8
+reef-backend    | 2026/02/20 04:43:01 Server starting on :3001
+reef-publisher  | Attempting to connect to NATS...
+reef-publisher  | Connected to NATS
+reef-publisher  | Published to quarterA.col1.num1: 12
+reef-publisher  | Published to quarterA.col1.num2: 93
+reef-publisher  | Published to quarterA.col1.num3: 6
+reef-publisher  | Published to quarterA.col1.num4: 37
+reef-publisher  | Published to quarterA.col1.num5: 37
+reef-publisher  | Published to quarterA.col1.num6: 69
+reef-publisher  | Published to quarterA.col1.num7: 23
+reef-publisher  | Published to quarterA.col1.num8: 42
+reef-publisher  | Published to quarterA.col2.num1: 1
+reef-publisher  | Published to quarterA.col2.num2: 72
+reef-publisher  | Published to quarterA.col2.num3: 3
+reef-publisher  | Published to quarterA.col2.num4: 72
+reef-publisher  | Published to quarterA.col2.num5: 48
+reef-publisher  | Published to quarterA.col2.num6: 73
+reef-publisher  | Published to quarterA.col2.num7: 52
+reef-publisher  | Published to quarterA.col2.num8: 40
+reef-publisher  | Published to quarterA.col3.num1: 13
+reef-publisher  | Published to quarterA.col3.num2: 35
+reef-publisher  | Published to quarterA.col3.num3: 80
+reef-publisher  | Published to quarterA.col3.num4: 67
+reef-publisher  | Published to quarterA.col3.num5: 74
+reef-publisher  | Published to quarterA.col3.num6: 23
+reef-publisher  | Published to quarterA.col3.num7: 5
+reef-backend    | 2026/02/20 04:43:01 Broadcasting update quarterA.col2.num6=73 to 0 clients
+reef-publisher  | Published to quarterA.col3.num8: 23
+reef-publisher  | Published to quarterD.col1: 98
+reef-publisher  | Published to quarterD.col2: 72
+reef-publisher  | Published to quarterD.col3: 70
+reef-publisher  | Published to quarterD.col4: 39
+reef-publisher  | Published to quarterD.col5: 93
+reef-publisher  | Published to quarterD.col6: 64
+reef-publisher  | DEBUG: After Quarter D
+reef-publisher  | DEBUG: Publishing Quarter C wait times
+reef-publisher  | DEBUG: Iteration cbw=1
+reef-publisher  | DEBUG: Publishing quarterC.cbw1.waitTime=12
+reef-publisher  | Published to quarterC.cbw1.waitTime: 12
+reef-publisher  | DEBUG: Iteration cbw=2
+reef-publisher  | DEBUG: Publishing quarterC.cbw2.waitTime=29
+reef-publisher  | Published to quarterC.cbw2.waitTime: 29
+reef-publisher  | DEBUG: Iteration cbw=3
+reef-publisher  | DEBUG: Publishing quarterC.cbw3.waitTime=27
+reef-publisher  | Published to quarterC.cbw3.waitTime: 27
+reef-publisher  | DEBUG: Publishing Quarter C wasted minutes
+reef-publisher  | DEBUG: Wasted key=hour4
+reef-publisher  | DEBUG: Publishing quarterC.wastedMinutes.hour4=186
+reef-publisher  | Published to quarterC.wastedMinutes.hour4: 186
+reef-publisher  | DEBUG: Wasted key=hour3
+reef-publisher  | DEBUG: Publishing quarterC.wastedMinutes.hour3=195
+reef-publisher  | Published to quarterC.wastedMinutes.hour3: 195
+reef-publisher  | DEBUG: Wasted key=hour2
+reef-publisher  | DEBUG: Publishing quarterC.wastedMinutes.hour2=126
+reef-publisher  | Published to quarterC.wastedMinutes.hour2: 126
+reef-publisher  | DEBUG: Wasted key=hour1
+reef-publisher  | DEBUG: Publishing quarterC.wastedMinutes.hour1=112
+reef-publisher  | Published to quarterC.wastedMinutes.hour1: 112
+reef-publisher  | DEBUG: Wasted key=current
+reef-publisher  | DEBUG: Publishing quarterC.wastedMinutes.current=125
+reef-publisher  | Published to quarterC.wastedMinutes.current: 125
+reef-publisher  | DEBUG: Sleeping before next batch
+reef-backend    | 2026/02/20 04:43:01 Broadcast Updated quarterA.col2.num6 to 73
+reef-backend    | 2026/02/20 04:43:01 Broadcasting update quarterA.col1.num7=23 to 0 clients
+reef-backend    | 2026/02/20 04:43:01 Broadcast Updated quarterA.col1.num7 to 23
+reef-backend    | 2026/02/20 04:43:01 Broadcasting update quarterA.col3.num8=23 to 0 clients
+reef-backend    | 2026/02/20 04:43:01 Broadcast Updated quarterA.col3.num8 to 23
+reef-backend    | 2026/02/20 04:43:01 Broadcasting update quarterA.col2.num7=52 to 0 clients
+reef-backend    | 2026/02/20 04:43:01 Broadcast Updated quarterA.col2.num7 to 52
+reef-backend    | 2026/02/20 04:43:01 Broadcasting update quarterA.col2.num8=40 to 0 clients
+reef-backend    | 2026/02/20 04:43:01 Broadcast Updated quarterA.col2.num8 to 40
+reef-backend    | 2026/02/20 04:43:01 Broadcasting update quarterA.col1.num8=42 to 0 clients
+reef-backend    | 2026/02/20 04:43:01 Broadcast Updated quarterA.col1.num8 to 42
+reef-backend    | 2026/02/20 04:43:01 Broadcasting update quarterA.col3.num1=13 to 0 clients
+reef-backend    | 2026/02/20 04:43:01 Broadcast Updated quarterA.col3.num1 to 13
+reef-backend    | 2026/02/20 04:43:01 Broadcasting update quarterA.col2.num1=1 to 0 clients
+reef-backend    | 2026/02/20 04:43:01 Broadcast Updated quarterA.col2.num1 to 1
+reef-backend    | 2026/02/20 04:43:01 Broadcasting update quarterA.col2.num2=72 to 0 clients
+reef-backend    | 2026/02/20 04:43:01 Broadcast Updated quarterA.col2.num2 to 72
+reef-backend    | 2026/02/20 04:43:01 Broadcasting update quarterA.col3.num2=35 to 0 clients
+reef-backend    | 2026/02/20 04:43:01 Broadcast Updated quarterA.col3.num2 to 35
+reef-backend    | 2026/02/20 04:43:01 Broadcasting update quarterA.col3.num3=80 to 0 clients
+reef-backend    | 2026/02/20 04:43:01 Broadcast Updated quarterA.col3.num3 to 80
+reef-backend    | 2026/02/20 04:43:01 Broadcasting update quarterA.col2.num4=72 to 0 clients
+reef-backend    | 2026/02/20 04:43:01 Broadcast Updated quarterA.col2.num4 to 72
+reef-backend    | 2026/02/20 04:43:01 Broadcasting update quarterA.col3.num4=67 to 0 clients
+reef-backend    | 2026/02/20 04:43:01 Broadcast Updated quarterA.col3.num4 to 67
+reef-backend    | 2026/02/20 04:43:01 Broadcasting update quarterA.col3.num6=23 to 0 clients
+reef-backend    | 2026/02/20 04:43:01 Broadcast Updated quarterA.col3.num6 to 23
+reef-backend    | 2026/02/20 04:43:01 Broadcasting update quarterA.col3.num7=5 to 0 clients
+reef-backend    | 2026/02/20 04:43:01 Broadcast Updated quarterA.col3.num7 to 5
+reef-backend    | 2026/02/20 04:43:01 Broadcasting update quarterA.col3.num5=74 to 0 clients
+reef-backend    | 2026/02/20 04:43:01 Broadcast Updated quarterA.col3.num5 to 74
+reef-backend    | 2026/02/20 04:43:01 Broadcasting update quarterA.col1.num3=6 to 0 clients
+reef-backend    | 2026/02/20 04:43:01 Broadcast Updated quarterA.col1.num3 to 6
+reef-backend    | 2026/02/20 04:43:01 Broadcasting update quarterA.col1.num1=12 to 0 clients
+reef-backend    | 2026/02/20 04:43:01 Broadcast Updated quarterA.col1.num1 to 12
+reef-backend    | 2026/02/20 04:43:01 Broadcasting update quarterA.col2.num5=48 to 0 clients
+reef-backend    | 2026/02/20 04:43:01 Broadcast Updated quarterA.col2.num5 to 48
+reef-backend    | 2026/02/20 04:43:01 Broadcasting update quarterA.col1.num2=93 to 0 clients
+reef-backend    | 2026/02/20 04:43:01 Broadcast Updated quarterA.col1.num2 to 93
+reef-backend    | 2026/02/20 04:43:01 Broadcasting update quarterA.col1.num6=69 to 0 clients
+reef-backend    | 2026/02/20 04:43:01 Broadcast Updated quarterA.col1.num6 to 69
+reef-backend    | 2026/02/20 04:43:01 Broadcasting update quarterA.col1.num5=37 to 0 clients
+reef-backend    | 2026/02/20 04:43:01 Broadcast Updated quarterA.col1.num5 to 37
+reef-backend    | 2026/02/20 04:43:01 Broadcasting update quarterA.col2.num3=3 to 0 clients
+reef-backend    | 2026/02/20 04:43:01 Broadcast Updated quarterA.col2.num3 to 3
+reef-backend    | 2026/02/20 04:43:01 Broadcasting update quarterA.col1.num4=37 to 0 clients
+reef-backend    | 2026/02/20 04:43:01 Broadcast Updated quarterA.col1.num4 to 37
+reef-publisher  | Published to quarterA.col1.num1: 57
+reef-publisher  | Published to quarterA.col1.num2: 29
+reef-publisher  | Published to quarterA.col1.num3: 75
+reef-publisher  | Published to quarterA.col1.num4: 84
+reef-publisher  | Published to quarterA.col1.num5: 58
+reef-publisher  | Published to quarterA.col1.num6: 70
+reef-publisher  | Published to quarterA.col1.num7: 86
+reef-publisher  | Published to quarterA.col1.num8: 62
+reef-publisher  | Published to quarterA.col2.num1: 76
+reef-publisher  | Published to quarterA.col2.num2: 52
+reef-publisher  | Published to quarterA.col2.num3: 60
+reef-publisher  | Published to quarterA.col2.num4: 89
+reef-backend    | 2026/02/20 04:43:24 Broadcasting update quarterA.col3.num8=4 to 0 clients
+reef-publisher  | Published to quarterA.col2.num5: 12
+reef-backend    | 2026/02/20 04:43:24 Broadcasting update quarterA.col2.num4=89 to 0 clients
+reef-backend    | 2026/02/20 04:43:24 Broadcast Updated quarterA.col3.num8 to 4
+reef-backend    | 2026/02/20 04:43:24 Broadcasting update quarterA.col3.num2=57 to 0 clients
+reef-backend    | 2026/02/20 04:43:24 Broadcast Updated quarterA.col3.num2 to 57
+reef-backend    | 2026/02/20 04:43:24 Broadcasting update quarterA.col3.num4=86 to 0 clients
+reef-backend    | 2026/02/20 04:43:24 Broadcast Updated quarterA.col3.num4 to 86
+reef-backend    | 2026/02/20 04:43:24 Broadcasting update quarterA.col3.num3=12 to 0 clients
+reef-backend    | 2026/02/20 04:43:24 Broadcast Updated quarterA.col3.num3 to 12
+reef-backend    | 2026/02/20 04:43:24 Broadcasting update quarterA.col2.num5=12 to 0 clients
+reef-backend    | 2026/02/20 04:43:24 Broadcast Updated quarterA.col2.num5 to 12
+reef-backend    | 2026/02/20 04:43:24 Broadcasting update quarterA.col2.num6=49 to 0 clients
+reef-backend    | 2026/02/20 04:43:24 Broadcast Updated quarterA.col2.num6 to 49
+reef-backend    | 2026/02/20 04:43:24 Broadcasting update quarterA.col1.num7=86 to 0 clients
+reef-backend    | 2026/02/20 04:43:24 Broadcast Updated quarterA.col1.num7 to 86
+reef-backend    | 2026/02/20 04:43:24 Broadcasting update quarterA.col3.num7=10 to 0 clients
+reef-publisher  | Published to quarterA.col2.num6: 49
+reef-publisher  | Published to quarterA.col2.num7: 49
+reef-publisher  | Published to quarterA.col2.num8: 91
+reef-backend    | 2026/02/20 04:43:24 Broadcast Updated quarterA.col3.num7 to 10
+reef-publisher  | Published to quarterA.col3.num1: 83
+reef-backend    | 2026/02/20 04:43:24 Broadcasting update quarterA.col3.num6=34 to 0 clients
+reef-backend    | 2026/02/20 04:43:24 Broadcasting update quarterA.col2.num8=91 to 0 clients
+reef-backend    | 2026/02/20 04:43:24 Broadcasting update quarterA.col1.num8=62 to 0 clients
+reef-backend    | 2026/02/20 04:43:24 Broadcasting update quarterA.col3.num1=83 to 0 clients
+reef-backend    | 2026/02/20 04:43:24 Broadcast Updated quarterA.col1.num8 to 62
+reef-backend    | 2026/02/20 04:43:24 Broadcast Updated quarterA.col3.num1 to 83
+reef-backend    | 2026/02/20 04:43:24 Broadcasting update quarterA.col1.num6=70 to 0 clients
+reef-backend    | 2026/02/20 04:43:24 Broadcasting update quarterA.col2.num1=76 to 0 clients
+reef-backend    | 2026/02/20 04:43:24 Broadcasting update quarterA.col1.num3=75 to 0 clients
+reef-backend    | 2026/02/20 04:43:24 Broadcast Updated quarterA.col2.num1 to 76
+reef-backend    | 2026/02/20 04:43:24 Broadcasting update quarterA.col2.num3=60 to 0 clients
+reef-backend    | 2026/02/20 04:43:24 Broadcast Updated quarterA.col2.num3 to 60
+reef-backend    | 2026/02/20 04:43:24 Broadcasting update quarterA.col1.num4=84 to 0 clients
+reef-backend    | 2026/02/20 04:43:24 Broadcast Updated quarterA.col1.num4 to 84
+reef-backend    | 2026/02/20 04:43:24 Broadcasting update quarterA.col3.num5=17 to 0 clients
+reef-publisher  | Published to quarterA.col3.num2: 57
+reef-publisher  | Published to quarterA.col3.num3: 12
+reef-publisher  | Published to quarterA.col3.num4: 86
+reef-publisher  | Published to quarterA.col3.num5: 17
+reef-publisher  | Published to quarterA.col3.num6: 34
+reef-publisher  | Published to quarterA.col3.num7: 10
+reef-publisher  | Published to quarterA.col3.num8: 4
+reef-publisher  | Published to quarterD.col1: 75
+reef-publisher  | Published to quarterD.col2: 98
+reef-publisher  | Published to quarterD.col3: 83
+reef-publisher  | Published to quarterD.col4: 87
+reef-backend    | 2026/02/20 04:43:24 Broadcast Updated quarterA.col3.num5 to 17
+reef-backend    | 2026/02/20 04:43:24 Broadcast Updated quarterA.col2.num8 to 91
+reef-backend    | 2026/02/20 04:43:24 Broadcasting update quarterA.col1.num1=57 to 0 clients
+reef-backend    | 2026/02/20 04:43:24 Broadcast Updated quarterA.col1.num1 to 57
+reef-backend    | 2026/02/20 04:43:24 Broadcast Updated quarterA.col3.num6 to 34
+reef-backend    | 2026/02/20 04:43:24 Broadcasting update quarterA.col2.num7=49 to 0 clients
+reef-backend    | 2026/02/20 04:43:24 Broadcast Updated quarterA.col2.num7 to 49
+reef-backend    | 2026/02/20 04:43:24 Broadcasting update quarterA.col2.num2=52 to 0 clients
+reef-backend    | 2026/02/20 04:43:24 Broadcast Updated quarterA.col2.num2 to 52
+reef-backend    | 2026/02/20 04:43:24 Broadcast Updated quarterA.col2.num4 to 89
+reef-backend    | 2026/02/20 04:43:24 Broadcast Updated quarterA.col1.num6 to 70
+reef-backend    | 2026/02/20 04:43:24 Broadcast Updated quarterA.col1.num3 to 75
+reef-backend    | 2026/02/20 04:43:24 Broadcasting update quarterA.col1.num2=29 to 0 clients
+reef-backend    | 2026/02/20 04:43:24 Broadcast Updated quarterA.col1.num2 to 29
+reef-backend    | 2026/02/20 04:43:24 Broadcasting update quarterA.col1.num5=58 to 0 clients
+reef-backend    | 2026/02/20 04:43:24 Broadcast Updated quarterA.col1.num5 to 58
+reef-publisher  | Published to quarterD.col5: 22
+reef-publisher  | Published to quarterD.col6: 91
+reef-publisher  | DEBUG: After Quarter D
+reef-publisher  | DEBUG: Publishing Quarter C wait times
+reef-publisher  | DEBUG: Iteration cbw=1
+reef-publisher  | DEBUG: Publishing quarterC.cbw1.waitTime=2
+reef-publisher  | Published to quarterC.cbw1.waitTime: 2
+reef-publisher  | DEBUG: Iteration cbw=2
+reef-publisher  | DEBUG: Publishing quarterC.cbw2.waitTime=28
+reef-publisher  | Published to quarterC.cbw2.waitTime: 28
+reef-publisher  | DEBUG: Iteration cbw=3
+reef-publisher  | DEBUG: Publishing quarterC.cbw3.waitTime=27
+reef-publisher  | Published to quarterC.cbw3.waitTime: 27
+reef-publisher  | DEBUG: Publishing Quarter C wasted minutes
+reef-publisher  | DEBUG: Wasted key=hour4
+reef-publisher  | DEBUG: Publishing quarterC.wastedMinutes.hour4=190
+reef-publisher  | Published to quarterC.wastedMinutes.hour4: 190
+reef-publisher  | DEBUG: Wasted key=hour3
+reef-publisher  | DEBUG: Publishing quarterC.wastedMinutes.hour3=186
+reef-publisher  | Published to quarterC.wastedMinutes.hour3: 186
+reef-publisher  | DEBUG: Wasted key=hour2
+reef-publisher  | DEBUG: Publishing quarterC.wastedMinutes.hour2=189
+reef-publisher  | Published to quarterC.wastedMinutes.hour2: 189
+reef-publisher  | DEBUG: Wasted key=hour1
+reef-publisher  | DEBUG: Publishing quarterC.wastedMinutes.hour1=122
+reef-publisher  | Published to quarterC.wastedMinutes.hour1: 122
+reef-publisher  | DEBUG: Wasted key=current
+reef-publisher  | DEBUG: Publishing quarterC.wastedMinutes.current=199
+reef-publisher  | Published to quarterC.wastedMinutes.current: 199
+reef-publisher  | DEBUG: Sleeping before next batch
+reef-publisher  | Published to quarterA.col1.num1: 93
+reef-publisher  | Published to quarterA.col1.num2: 59
+reef-publisher  | Published to quarterA.col1.num3: 16
+reef-publisher  | Published to quarterA.col1.num4: 53
+reef-publisher  | Published to quarterA.col1.num5: 39
+reef-publisher  | Published to quarterA.col1.num6: 20
+reef-publisher  | Published to quarterA.col1.num7: 93
+reef-publisher  | Published to quarterA.col1.num8: 3
+reef-publisher  | Published to quarterA.col2.num1: 53
+reef-publisher  | Published to quarterA.col2.num2: 64
+reef-publisher  | Published to quarterA.col2.num3: 46
+reef-publisher  | Published to quarterA.col2.num4: 99
+reef-publisher  | Published to quarterA.col2.num5: 71
+reef-publisher  | Published to quarterA.col2.num6: 15
+reef-publisher  | Published to quarterA.col2.num7: 18
+reef-publisher  | Published to quarterA.col2.num8: 41
+reef-publisher  | Published to quarterA.col3.num1: 32
+reef-publisher  | Published to quarterA.col3.num2: 43
+reef-publisher  | Published to quarterA.col3.num3: 22
+reef-publisher  | Published to quarterA.col3.num4: 16
+reef-publisher  | Published to quarterA.col3.num5: 49
+reef-publisher  | Published to quarterA.col3.num6: 70
+reef-publisher  | Published to quarterA.col3.num7: 76
+reef-publisher  | Published to quarterA.col3.num8: 69
+reef-publisher  | Published to quarterD.col1: 51
+reef-publisher  | Published to quarterD.col2: 36
+reef-publisher  | Published to quarterD.col3: 17
+reef-publisher  | Published to quarterD.col4: 46
+reef-publisher  | Published to quarterD.col5: 95
+reef-publisher  | Published to quarterD.col6: 32
+reef-publisher  | DEBUG: After Quarter D
+reef-publisher  | DEBUG: Publishing Quarter C wait times
+reef-publisher  | DEBUG: Iteration cbw=1
+reef-publisher  | DEBUG: Publishing quarterC.cbw1.waitTime=10
+reef-publisher  | Published to quarterC.cbw1.waitTime: 10
+reef-publisher  | DEBUG: Iteration cbw=2
+reef-publisher  | DEBUG: Publishing quarterC.cbw2.waitTime=10
+reef-publisher  | Published to quarterC.cbw2.waitTime: 10
+reef-publisher  | DEBUG: Iteration cbw=3
+reef-publisher  | DEBUG: Publishing quarterC.cbw3.waitTime=11
+reef-publisher  | Published to quarterC.cbw3.waitTime: 11
+reef-publisher  | DEBUG: Publishing Quarter C wasted minutes
+reef-publisher  | DEBUG: Wasted key=hour4
+reef-publisher  | DEBUG: Publishing quarterC.wastedMinutes.hour4=55
+reef-publisher  | Published to quarterC.wastedMinutes.hour4: 55
+reef-publisher  | DEBUG: Wasted key=hour3
+reef-publisher  | DEBUG: Publishing quarterC.wastedMinutes.hour3=174
+reef-publisher  | Published to quarterC.wastedMinutes.hour3: 174
+reef-publisher  | DEBUG: Wasted key=hour2
+reef-publisher  | DEBUG: Publishing quarterC.wastedMinutes.hour2=64
+reef-publisher  | Published to quarterC.wastedMinutes.hour2: 64
+reef-publisher  | DEBUG: Wasted key=hour1
+reef-publisher  | DEBUG: Publishing quarterC.wastedMinutes.hour1=80
+reef-publisher  | Published to quarterC.wastedMinutes.hour1: 80
+reef-publisher  | DEBUG: Wasted key=current
+reef-publisher  | DEBUG: Publishing quarterC.wastedMinutes.current=196
+reef-publisher  | Published to quarterC.wastedMinutes.current: 196
+reef-publisher  | DEBUG: Sleeping before next batch
+reef-backend    | 2026/02/20 04:43:34 Broadcasting update quarterA.col3.num8=69 to 0 clients
+reef-backend    | 2026/02/20 04:43:34 Broadcasting update quarterA.col1.num6=20 to 0 clients
+reef-backend    | 2026/02/20 04:43:34 Broadcasting update quarterA.col3.num2=43 to 0 clients
+reef-backend    | 2026/02/20 04:43:34 Broadcast Updated quarterA.col3.num8 to 69
+reef-backend    | 2026/02/20 04:43:34 Broadcast Updated quarterA.col1.num6 to 20
+reef-backend    | 2026/02/20 04:43:34 Broadcasting update quarterA.col1.num5=39 to 0 clients
+reef-backend    | 2026/02/20 04:43:34 Broadcasting update quarterA.col3.num7=76 to 0 clients
+reef-backend    | 2026/02/20 04:43:34 Broadcasting update quarterA.col1.num1=93 to 0 clients
+reef-backend    | 2026/02/20 04:43:34 Broadcasting update quarterA.col1.num8=3 to 0 clients
+reef-backend    | 2026/02/20 04:43:34 Broadcasting update quarterA.col1.num3=16 to 0 clients
+reef-backend    | 2026/02/20 04:43:34 Broadcast Updated quarterA.col1.num1 to 93
+reef-backend    | 2026/02/20 04:43:34 Broadcast Updated quarterA.col1.num8 to 3
+reef-backend    | 2026/02/20 04:43:34 Broadcasting update quarterA.col2.num2=64 to 0 clients
+reef-backend    | 2026/02/20 04:43:34 Broadcast Updated quarterA.col2.num2 to 64
+reef-backend    | 2026/02/20 04:43:34 Broadcasting update quarterA.col2.num5=71 to 0 clients
+reef-backend    | 2026/02/20 04:43:34 Broadcasting update quarterA.col3.num6=70 to 0 clients
+reef-backend    | 2026/02/20 04:43:34 Broadcasting update quarterA.col1.num4=53 to 0 clients
+reef-backend    | 2026/02/20 04:43:34 Broadcast Updated quarterA.col1.num4 to 53
+reef-backend    | 2026/02/20 04:43:34 Broadcasting update quarterA.col2.num8=41 to 0 clients
+reef-backend    | 2026/02/20 04:43:34 Broadcast Updated quarterA.col1.num5 to 39
+reef-backend    | 2026/02/20 04:43:34 Broadcast Updated quarterA.col2.num8 to 41
+reef-backend    | 2026/02/20 04:43:34 Broadcast Updated quarterA.col1.num3 to 16
+reef-backend    | 2026/02/20 04:43:34 Broadcasting update quarterA.col1.num7=93 to 0 clients
+reef-backend    | 2026/02/20 04:43:34 Broadcast Updated quarterA.col1.num7 to 93
+reef-backend    | 2026/02/20 04:43:34 Broadcast Updated quarterA.col3.num6 to 70
+reef-backend    | 2026/02/20 04:43:34 Broadcast Updated quarterA.col2.num5 to 71
+reef-backend    | 2026/02/20 04:43:34 Broadcasting update quarterA.col2.num6=15 to 0 clients
+reef-backend    | 2026/02/20 04:43:34 Broadcast Updated quarterA.col2.num6 to 15
+reef-backend    | 2026/02/20 04:43:34 Broadcasting update quarterA.col3.num3=22 to 0 clients
+reef-backend    | 2026/02/20 04:43:34 Broadcast Updated quarterA.col3.num3 to 22
+reef-backend    | 2026/02/20 04:43:34 Broadcasting update quarterA.col3.num4=16 to 0 clients
+reef-backend    | 2026/02/20 04:43:34 Broadcast Updated quarterA.col3.num4 to 16
+reef-backend    | 2026/02/20 04:43:34 Broadcasting update quarterA.col3.num1=32 to 0 clients
+reef-backend    | 2026/02/20 04:43:34 Broadcast Updated quarterA.col3.num1 to 32
+reef-backend    | 2026/02/20 04:43:34 Broadcasting update quarterA.col3.num5=49 to 0 clients
+reef-backend    | 2026/02/20 04:43:34 Broadcast Updated quarterA.col3.num5 to 49
+reef-backend    | 2026/02/20 04:43:34 Broadcast Updated quarterA.col3.num2 to 43
+reef-backend    | 2026/02/20 04:43:34 Broadcast Updated quarterA.col3.num7 to 76
+reef-backend    | 2026/02/20 04:43:34 Broadcasting update quarterA.col2.num3=46 to 0 clients
+reef-backend    | 2026/02/20 04:43:34 Broadcast Updated quarterA.col2.num3 to 46
+reef-backend    | 2026/02/20 04:43:34 Broadcasting update quarterA.col2.num1=53 to 0 clients
+reef-backend    | 2026/02/20 04:43:34 Broadcast Updated quarterA.col2.num1 to 53
+reef-backend    | 2026/02/20 04:43:34 Broadcasting update quarterA.col2.num4=99 to 0 clients
+reef-backend    | 2026/02/20 04:43:34 Broadcast Updated quarterA.col2.num4 to 99
+reef-backend    | 2026/02/20 04:43:34 Broadcasting update quarterA.col2.num7=18 to 0 clients
+reef-backend    | 2026/02/20 04:43:34 Broadcast Updated quarterA.col2.num7 to 18
+reef-backend    | 2026/02/20 04:43:34 Broadcasting update quarterA.col1.num2=59 to 0 clients
+reef-backend    | 2026/02/20 04:43:34 Broadcast Updated quarterA.col1.num2 to 59
+reef-publisher  | Published to quarterA.col1.num1: 23
+reef-publisher  | Published to quarterA.col1.num2: 78
+reef-publisher  | Published to quarterA.col1.num3: 47
+reef-publisher  | Published to quarterA.col1.num4: 69
+reef-publisher  | Published to quarterA.col1.num5: 15
+reef-publisher  | Published to quarterA.col1.num6: 16
+reef-publisher  | Published to quarterA.col1.num7: 19
+reef-publisher  | Published to quarterA.col1.num8: 21
+reef-publisher  | Published to quarterA.col2.num1: 24
+reef-publisher  | Published to quarterA.col2.num2: 90
+reef-publisher  | Published to quarterA.col2.num3: 47
+reef-publisher  | Published to quarterA.col2.num4: 1
+reef-publisher  | Published to quarterA.col2.num5: 72
+reef-publisher  | Published to quarterA.col2.num6: 39
+reef-publisher  | Published to quarterA.col2.num7: 59
+reef-publisher  | Published to quarterA.col2.num8: 92
+reef-publisher  | Published to quarterA.col3.num1: 78
+reef-publisher  | Published to quarterA.col3.num2: 3
+reef-publisher  | Published to quarterA.col3.num3: 17
+reef-publisher  | Published to quarterA.col3.num4: 56
+reef-publisher  | Published to quarterA.col3.num5: 7
+reef-publisher  | Published to quarterA.col3.num6: 6
+reef-publisher  | Published to quarterA.col3.num7: 30
+reef-publisher  | Published to quarterA.col3.num8: 66
+reef-publisher  | Published to quarterD.col1: 49
+reef-publisher  | Published to quarterD.col2: 37
+reef-publisher  | Published to quarterD.col3: 34
+reef-publisher  | Published to quarterD.col4: 50
+reef-publisher  | Published to quarterD.col5: 70
+reef-publisher  | Published to quarterD.col6: 81
+reef-publisher  | DEBUG: After Quarter D
+reef-publisher  | DEBUG: Publishing Quarter C wait times
+reef-publisher  | DEBUG: Iteration cbw=1
+reef-publisher  | DEBUG: Publishing quarterC.cbw1.waitTime=15
+reef-publisher  | Published to quarterC.cbw1.waitTime: 15
+reef-publisher  | DEBUG: Iteration cbw=2
+reef-publisher  | DEBUG: Publishing quarterC.cbw2.waitTime=20
+reef-publisher  | Published to quarterC.cbw2.waitTime: 20
+reef-publisher  | DEBUG: Iteration cbw=3
+reef-publisher  | DEBUG: Publishing quarterC.cbw3.waitTime=9
+reef-publisher  | Published to quarterC.cbw3.waitTime: 9
+reef-publisher  | DEBUG: Publishing Quarter C wasted minutes
+reef-publisher  | DEBUG: Wasted key=hour4
+reef-publisher  | DEBUG: Publishing quarterC.wastedMinutes.hour4=192
+reef-publisher  | Published to quarterC.wastedMinutes.hour4: 192
+reef-publisher  | DEBUG: Wasted key=hour3
+reef-publisher  | DEBUG: Publishing quarterC.wastedMinutes.hour3=164
+reef-publisher  | Published to quarterC.wastedMinutes.hour3: 164
+reef-publisher  | DEBUG: Wasted key=hour2
+reef-publisher  | DEBUG: Publishing quarterC.wastedMinutes.hour2=51
+reef-publisher  | Published to quarterC.wastedMinutes.hour2: 51
+reef-publisher  | DEBUG: Wasted key=hour1
+reef-publisher  | DEBUG: Publishing quarterC.wastedMinutes.hour1=158
+reef-publisher  | Published to quarterC.wastedMinutes.hour1: 158
+reef-publisher  | DEBUG: Wasted key=current
+reef-publisher  | DEBUG: Publishing quarterC.wastedMinutes.current=156
+reef-publisher  | Published to quarterC.wastedMinutes.current: 156
+reef-publisher  | DEBUG: Sleeping before next batch
+reef-backend    | 2026/02/20 04:43:59 Broadcasting update quarterA.col3.num8=66 to 0 clients
+reef-backend    | 2026/02/20 04:43:59 Broadcasting update quarterA.col1.num7=19 to 0 clients
+reef-backend    | 2026/02/20 04:43:59 Broadcasting update quarterA.col2.num6=39 to 0 clients
+reef-backend    | 2026/02/20 04:43:59 Broadcasting update quarterA.col1.num6=16 to 0 clients
+reef-backend    | 2026/02/20 04:43:59 Broadcasting update quarterA.col3.num4=56 to 0 clients
+reef-backend    | 2026/02/20 04:43:59 Broadcast Updated quarterA.col1.num6 to 16
+reef-backend    | 2026/02/20 04:43:59 Broadcast Updated quarterA.col3.num4 to 56
+reef-backend    | 2026/02/20 04:43:59 Broadcasting update quarterA.col2.num4=1 to 0 clients
+reef-backend    | 2026/02/20 04:43:59 Broadcast Updated quarterA.col2.num4 to 1
+reef-backend    | 2026/02/20 04:43:59 Broadcasting update quarterA.col3.num7=30 to 0 clients
+reef-backend    | 2026/02/20 04:43:59 Broadcast Updated quarterA.col3.num7 to 30
+reef-backend    | 2026/02/20 04:43:59 Broadcasting update quarterA.col3.num3=17 to 0 clients
+reef-backend    | 2026/02/20 04:43:59 Broadcasting update quarterA.col3.num6=6 to 0 clients
+reef-backend    | 2026/02/20 04:43:59 Broadcast Updated quarterA.col1.num7 to 19
+reef-backend    | 2026/02/20 04:43:59 Broadcast Updated quarterA.col3.num6 to 6
+reef-backend    | 2026/02/20 04:43:59 Broadcast Updated quarterA.col3.num8 to 66
+reef-backend    | 2026/02/20 04:43:59 Broadcasting update quarterA.col2.num7=59 to 0 clients
+reef-backend    | 2026/02/20 04:43:59 Broadcasting update quarterA.col2.num5=72 to 0 clients
+reef-backend    | 2026/02/20 04:43:59 Broadcast Updated quarterA.col2.num7 to 59
+reef-backend    | 2026/02/20 04:43:59 Broadcast Updated quarterA.col2.num5 to 72
+reef-backend    | 2026/02/20 04:43:59 Broadcasting update quarterA.col2.num1=24 to 0 clients
+reef-backend    | 2026/02/20 04:43:59 Broadcasting update quarterA.col3.num1=78 to 0 clients
+reef-backend    | 2026/02/20 04:43:59 Broadcasting update quarterA.col2.num2=90 to 0 clients
+reef-backend    | 2026/02/20 04:43:59 Broadcasting update quarterA.col3.num2=3 to 0 clients
+reef-backend    | 2026/02/20 04:43:59 Broadcasting update quarterA.col1.num8=21 to 0 clients
+reef-backend    | 2026/02/20 04:43:59 Broadcast Updated quarterA.col3.num2 to 3
+reef-backend    | 2026/02/20 04:43:59 Broadcasting update quarterA.col2.num3=47 to 0 clients
+reef-backend    | 2026/02/20 04:43:59 Broadcast Updated quarterA.col1.num8 to 21
+reef-backend    | 2026/02/20 04:43:59 Broadcast Updated quarterA.col2.num6 to 39
+reef-backend    | 2026/02/20 04:43:59 Broadcast Updated quarterA.col3.num1 to 78
+reef-backend    | 2026/02/20 04:43:59 Broadcasting update quarterA.col1.num2=78 to 0 clients
+reef-backend    | 2026/02/20 04:43:59 Broadcast Updated quarterA.col1.num2 to 78
+reef-backend    | 2026/02/20 04:43:59 Broadcasting update quarterA.col1.num3=47 to 0 clients
+reef-backend    | 2026/02/20 04:43:59 Broadcast Updated quarterA.col1.num3 to 47
+reef-backend    | 2026/02/20 04:43:59 Broadcast Updated quarterA.col3.num3 to 17
+reef-backend    | 2026/02/20 04:43:59 Broadcasting update quarterA.col3.num5=7 to 0 clients
+reef-backend    | 2026/02/20 04:43:59 Broadcast Updated quarterA.col3.num5 to 7
+reef-backend    | 2026/02/20 04:43:59 Broadcasting update quarterA.col1.num4=69 to 0 clients
+reef-backend    | 2026/02/20 04:43:59 Broadcast Updated quarterA.col1.num4 to 69
+reef-backend    | 2026/02/20 04:43:59 Broadcasting update quarterA.col2.num8=92 to 0 clients
+reef-backend    | 2026/02/20 04:43:59 Broadcast Updated quarterA.col2.num8 to 92
+reef-backend    | 2026/02/20 04:43:59 Broadcasting update quarterA.col1.num5=15 to 0 clients
+reef-backend    | 2026/02/20 04:43:59 Broadcast Updated quarterA.col1.num5 to 15
+reef-backend    | 2026/02/20 04:43:59 Broadcast Updated quarterA.col2.num1 to 24
+reef-backend    | 2026/02/20 04:43:59 Broadcast Updated quarterA.col2.num2 to 90
+reef-backend    | 2026/02/20 04:43:59 Broadcasting update quarterA.col1.num1=23 to 0 clients
+reef-backend    | 2026/02/20 04:43:59 Broadcast Updated quarterA.col1.num1 to 23
+reef-backend    | 2026/02/20 04:43:59 Broadcast Updated quarterA.col2.num3 to 47
+reef-publisher  | Published to quarterA.col1.num1: 79
+reef-publisher  | Published to quarterA.col1.num2: 47
+reef-publisher  | Published to quarterA.col1.num3: 46
+reef-publisher  | Published to quarterA.col1.num4: 21
+reef-publisher  | Published to quarterA.col1.num5: 36
+reef-publisher  | Published to quarterA.col1.num6: 43
+reef-publisher  | Published to quarterA.col1.num7: 50
+reef-publisher  | Published to quarterA.col1.num8: 62
+reef-publisher  | Published to quarterA.col2.num1: 59
+reef-publisher  | Published to quarterA.col2.num2: 88
+reef-publisher  | Published to quarterA.col2.num3: 28
+reef-publisher  | Published to quarterA.col2.num4: 95
+reef-publisher  | Published to quarterA.col2.num5: 34
+reef-publisher  | Published to quarterA.col2.num6: 18
+reef-publisher  | Published to quarterA.col2.num7: 98
+reef-publisher  | Published to quarterA.col2.num8: 21
+reef-publisher  | Published to quarterA.col3.num1: 38
+reef-publisher  | Published to quarterA.col3.num2: 36
+reef-publisher  | Published to quarterA.col3.num3: 6
+reef-publisher  | Published to quarterA.col3.num4: 98
+reef-publisher  | Published to quarterA.col3.num5: 49
+reef-publisher  | Published to quarterA.col3.num6: 77
+reef-publisher  | Published to quarterA.col3.num7: 47
+reef-publisher  | Published to quarterA.col3.num8: 91
+reef-publisher  | Published to quarterD.col1: 70
+reef-publisher  | Published to quarterD.col2: 1
+reef-publisher  | Published to quarterD.col3: 61
+reef-publisher  | Published to quarterD.col4: 79
+reef-publisher  | Published to quarterD.col5: 7
+reef-publisher  | Published to quarterD.col6: 73
+reef-publisher  | DEBUG: After Quarter D
+reef-publisher  | DEBUG: Publishing Quarter C wait times
+reef-publisher  | DEBUG: Iteration cbw=1
+reef-publisher  | DEBUG: Publishing quarterC.cbw1.waitTime=30
+reef-publisher  | Published to quarterC.cbw1.waitTime: 30
+reef-publisher  | DEBUG: Iteration cbw=2
+reef-publisher  | DEBUG: Publishing quarterC.cbw2.waitTime=6
+reef-publisher  | Published to quarterC.cbw2.waitTime: 6
+reef-publisher  | DEBUG: Iteration cbw=3
+reef-publisher  | DEBUG: Publishing quarterC.cbw3.waitTime=22
+reef-publisher  | Published to quarterC.cbw3.waitTime: 22
+reef-publisher  | DEBUG: Publishing Quarter C wasted minutes
+reef-publisher  | DEBUG: Wasted key=hour4
+reef-publisher  | DEBUG: Publishing quarterC.wastedMinutes.hour4=145
+reef-publisher  | Published to quarterC.wastedMinutes.hour4: 145
+reef-publisher  | DEBUG: Wasted key=hour3
+reef-publisher  | DEBUG: Publishing quarterC.wastedMinutes.hour3=92
+reef-publisher  | Published to quarterC.wastedMinutes.hour3: 92
+reef-publisher  | DEBUG: Wasted key=hour2
+reef-publisher  | DEBUG: Publishing quarterC.wastedMinutes.hour2=135
+reef-publisher  | Published to quarterC.wastedMinutes.hour2: 135
+reef-publisher  | DEBUG: Wasted key=hour1
+reef-publisher  | DEBUG: Publishing quarterC.wastedMinutes.hour1=145
+reef-publisher  | Published to quarterC.wastedMinutes.hour1: 145
+reef-publisher  | DEBUG: Wasted key=current
+reef-publisher  | DEBUG: Publishing quarterC.wastedMinutes.current=96
+reef-publisher  | Published to quarterC.wastedMinutes.current: 96
+reef-publisher  | DEBUG: Sleeping before next batch
+reef-backend    | 2026/02/20 04:44:15 Broadcasting update quarterA.col3.num8=91 to 0 clients
+reef-backend    | 2026/02/20 04:44:15 Broadcast Updated quarterA.col3.num8 to 91
+reef-backend    | 2026/02/20 04:44:15 Broadcasting update quarterA.col1.num8=62 to 0 clients
+reef-backend    | 2026/02/20 04:44:15 Broadcasting update quarterA.col1.num6=43 to 0 clients
+reef-backend    | 2026/02/20 04:44:15 Broadcasting update quarterA.col2.num5=34 to 0 clients
+reef-backend    | 2026/02/20 04:44:15 Broadcast Updated quarterA.col1.num6 to 43
+reef-backend    | 2026/02/20 04:44:15 Broadcast Updated quarterA.col2.num5 to 34
+reef-backend    | 2026/02/20 04:44:15 Broadcasting update quarterA.col1.num7=50 to 0 clients
+reef-backend    | 2026/02/20 04:44:15 Broadcasting update quarterA.col2.num4=95 to 0 clients
+reef-backend    | 2026/02/20 04:44:15 Broadcast Updated quarterA.col2.num4 to 95
+reef-backend    | 2026/02/20 04:44:15 Broadcasting update quarterA.col3.num7=47 to 0 clients
+reef-backend    | 2026/02/20 04:44:15 Broadcasting update quarterA.col2.num3=28 to 0 clients
+reef-backend    | 2026/02/20 04:44:15 Broadcast Updated quarterA.col3.num7 to 47
+reef-backend    | 2026/02/20 04:44:15 Broadcasting update quarterA.col1.num4=21 to 0 clients
+reef-backend    | 2026/02/20 04:44:15 Broadcasting update quarterA.col3.num4=98 to 0 clients
+reef-backend    | 2026/02/20 04:44:15 Broadcasting update quarterA.col3.num3=6 to 0 clients
+reef-backend    | 2026/02/20 04:44:15 Broadcast Updated quarterA.col3.num4 to 98
+reef-backend    | 2026/02/20 04:44:15 Broadcast Updated quarterA.col3.num3 to 6
+reef-backend    | 2026/02/20 04:44:15 Broadcast Updated quarterA.col1.num8 to 62
+reef-backend    | 2026/02/20 04:44:15 Broadcasting update quarterA.col3.num6=77 to 0 clients
+reef-backend    | 2026/02/20 04:44:15 Broadcasting update quarterA.col2.num8=21 to 0 clients
+reef-backend    | 2026/02/20 04:44:15 Broadcast Updated quarterA.col2.num8 to 21
+reef-backend    | 2026/02/20 04:44:15 Broadcasting update quarterA.col2.num2=88 to 0 clients
+reef-backend    | 2026/02/20 04:44:15 Broadcasting update quarterA.col1.num3=46 to 0 clients
+reef-backend    | 2026/02/20 04:44:15 Broadcast Updated quarterA.col1.num3 to 46
+reef-backend    | 2026/02/20 04:44:15 Broadcast Updated quarterA.col1.num7 to 50
+reef-backend    | 2026/02/20 04:44:15 Broadcasting update quarterA.col2.num1=59 to 0 clients
+reef-backend    | 2026/02/20 04:44:15 Broadcasting update quarterA.col2.num7=98 to 0 clients
+reef-backend    | 2026/02/20 04:44:15 Broadcast Updated quarterA.col2.num1 to 59
+reef-backend    | 2026/02/20 04:44:15 Broadcast Updated quarterA.col2.num7 to 98
+reef-backend    | 2026/02/20 04:44:15 Broadcasting update quarterA.col1.num5=36 to 0 clients
+reef-backend    | 2026/02/20 04:44:15 Broadcasting update quarterA.col1.num2=47 to 0 clients
+reef-backend    | 2026/02/20 04:44:15 Broadcasting update quarterA.col3.num2=36 to 0 clients
+reef-backend    | 2026/02/20 04:44:15 Broadcasting update quarterA.col3.num1=38 to 0 clients
+reef-backend    | 2026/02/20 04:44:15 Broadcast Updated quarterA.col3.num2 to 36
+reef-backend    | 2026/02/20 04:44:15 Broadcast Updated quarterA.col3.num1 to 38
+reef-backend    | 2026/02/20 04:44:15 Broadcast Updated quarterA.col1.num5 to 36
+reef-backend    | 2026/02/20 04:44:15 Broadcast Updated quarterA.col2.num3 to 28
+reef-backend    | 2026/02/20 04:44:15 Broadcasting update quarterA.col1.num1=79 to 0 clients
+reef-backend    | 2026/02/20 04:44:15 Broadcast Updated quarterA.col1.num1 to 79
+reef-backend    | 2026/02/20 04:44:15 Broadcast Updated quarterA.col3.num6 to 77
+reef-backend    | 2026/02/20 04:44:15 Broadcast Updated quarterA.col1.num4 to 21
+reef-backend    | 2026/02/20 04:44:15 Broadcast Updated quarterA.col2.num2 to 88
+reef-backend    | 2026/02/20 04:44:15 Broadcasting update quarterA.col2.num6=18 to 0 clients
+reef-backend    | 2026/02/20 04:44:15 Broadcast Updated quarterA.col2.num6 to 18
+reef-backend    | 2026/02/20 04:44:15 Broadcasting update quarterA.col3.num5=49 to 0 clients
+reef-backend    | 2026/02/20 04:44:15 Broadcast Updated quarterA.col3.num5 to 49
+reef-backend    | 2026/02/20 04:44:15 Broadcast Updated quarterA.col1.num2 to 47
+reef-publisher  | Published to quarterA.col1.num1: 19
+reef-publisher  | Published to quarterA.col1.num2: 43
+reef-publisher  | Published to quarterA.col1.num3: 67
+reef-publisher  | Published to quarterA.col1.num4: 63
+reef-publisher  | Published to quarterA.col1.num5: 13
+reef-publisher  | Published to quarterA.col1.num6: 37
+reef-publisher  | Published to quarterA.col1.num7: 83
+reef-publisher  | Published to quarterA.col1.num8: 97
+reef-publisher  | Published to quarterA.col2.num1: 66
+reef-publisher  | Published to quarterA.col2.num2: 88
+reef-publisher  | Published to quarterA.col2.num3: 60
+reef-publisher  | Published to quarterA.col2.num4: 7
+reef-publisher  | Published to quarterA.col2.num5: 73
+reef-publisher  | Published to quarterA.col2.num6: 82
+reef-publisher  | Published to quarterA.col2.num7: 33
+reef-publisher  | Published to quarterA.col2.num8: 57
+reef-publisher  | Published to quarterA.col3.num1: 45
+reef-publisher  | Published to quarterA.col3.num2: 83
+reef-publisher  | Published to quarterA.col3.num3: 8
+reef-publisher  | Published to quarterA.col3.num4: 65
+reef-publisher  | Published to quarterA.col3.num5: 54
+reef-publisher  | Published to quarterA.col3.num6: 75
+reef-publisher  | Published to quarterA.col3.num7: 69
+reef-publisher  | Published to quarterA.col3.num8: 46
+reef-publisher  | Published to quarterD.col1: 76
+reef-publisher  | Published to quarterD.col2: 60
+reef-publisher  | Published to quarterD.col3: 70
+reef-publisher  | Published to quarterD.col4: 53
+reef-publisher  | Published to quarterD.col5: 26
+reef-publisher  | Published to quarterD.col6: 75
+reef-publisher  | DEBUG: After Quarter D
+reef-publisher  | DEBUG: Publishing Quarter C wait times
+reef-publisher  | DEBUG: Iteration cbw=1
+reef-publisher  | DEBUG: Publishing quarterC.cbw1.waitTime=17
+reef-publisher  | Published to quarterC.cbw1.waitTime: 17
+reef-publisher  | DEBUG: Iteration cbw=2
+reef-publisher  | DEBUG: Publishing quarterC.cbw2.waitTime=7
+reef-publisher  | Published to quarterC.cbw2.waitTime: 7
+reef-publisher  | DEBUG: Iteration cbw=3
+reef-publisher  | DEBUG: Publishing quarterC.cbw3.waitTime=4
+reef-publisher  | Published to quarterC.cbw3.waitTime: 4
+reef-publisher  | DEBUG: Publishing Quarter C wasted minutes
+reef-publisher  | DEBUG: Wasted key=hour4
+reef-publisher  | DEBUG: Publishing quarterC.wastedMinutes.hour4=97
+reef-publisher  | Published to quarterC.wastedMinutes.hour4: 97
+reef-publisher  | DEBUG: Wasted key=hour3
+reef-publisher  | DEBUG: Publishing quarterC.wastedMinutes.hour3=154
+reef-publisher  | Published to quarterC.wastedMinutes.hour3: 154
+reef-publisher  | DEBUG: Wasted key=hour2
+reef-publisher  | DEBUG: Publishing quarterC.wastedMinutes.hour2=189
+reef-publisher  | Published to quarterC.wastedMinutes.hour2: 189
+reef-publisher  | DEBUG: Wasted key=hour1
+reef-publisher  | DEBUG: Publishing quarterC.wastedMinutes.hour1=90
+reef-publisher  | Published to quarterC.wastedMinutes.hour1: 90
+reef-publisher  | DEBUG: Wasted key=current
+reef-publisher  | DEBUG: Publishing quarterC.wastedMinutes.current=75
+reef-publisher  | Published to quarterC.wastedMinutes.current: 75
+reef-publisher  | DEBUG: Sleeping before next batch
+reef-backend    | 2026/02/20 04:44:39 Broadcasting update quarterA.col3.num8=46 to 0 clients
+reef-backend    | 2026/02/20 04:44:39 Broadcasting update quarterA.col1.num2=43 to 0 clients
+reef-backend    | 2026/02/20 04:44:39 Broadcast Updated quarterA.col1.num2 to 43
+reef-backend    | 2026/02/20 04:44:39 Broadcasting update quarterA.col1.num3=67 to 0 clients
+reef-backend    | 2026/02/20 04:44:39 Broadcast Updated quarterA.col1.num3 to 67
+reef-backend    | 2026/02/20 04:44:39 Broadcasting update quarterA.col1.num4=63 to 0 clients
+reef-backend    | 2026/02/20 04:44:39 Broadcast Updated quarterA.col1.num4 to 63
+reef-backend    | 2026/02/20 04:44:39 Broadcasting update quarterA.col1.num5=13 to 0 clients
+reef-backend    | 2026/02/20 04:44:39 Broadcast Updated quarterA.col1.num5 to 13
+reef-backend    | 2026/02/20 04:44:39 Broadcasting update quarterA.col1.num6=37 to 0 clients
+reef-backend    | 2026/02/20 04:44:39 Broadcast Updated quarterA.col1.num6 to 37
+reef-backend    | 2026/02/20 04:44:39 Broadcasting update quarterA.col1.num7=83 to 0 clients
+reef-backend    | 2026/02/20 04:44:39 Broadcast Updated quarterA.col1.num7 to 83
+reef-backend    | 2026/02/20 04:44:39 Broadcasting update quarterA.col1.num8=97 to 0 clients
+reef-backend    | 2026/02/20 04:44:39 Broadcast Updated quarterA.col1.num8 to 97
+reef-backend    | 2026/02/20 04:44:39 Broadcasting update quarterA.col2.num1=66 to 0 clients
+reef-backend    | 2026/02/20 04:44:39 Broadcast Updated quarterA.col2.num1 to 66
+reef-backend    | 2026/02/20 04:44:39 Broadcasting update quarterA.col2.num2=88 to 0 clients
+reef-backend    | 2026/02/20 04:44:39 Broadcast Updated quarterA.col2.num2 to 88
+reef-backend    | 2026/02/20 04:44:39 Broadcasting update quarterA.col2.num3=60 to 0 clients
+reef-backend    | 2026/02/20 04:44:39 Broadcast Updated quarterA.col2.num3 to 60
+reef-backend    | 2026/02/20 04:44:39 Broadcasting update quarterA.col3.num5=54 to 0 clients
+reef-backend    | 2026/02/20 04:44:39 Broadcast Updated quarterA.col3.num5 to 54
+reef-backend    | 2026/02/20 04:44:39 Broadcast Updated quarterA.col3.num8 to 46
+reef-backend    | 2026/02/20 04:44:39 Broadcasting update quarterA.col2.num4=7 to 0 clients
+reef-backend    | 2026/02/20 04:44:39 Broadcast Updated quarterA.col2.num4 to 7
+reef-backend    | 2026/02/20 04:44:39 Broadcasting update quarterA.col1.num1=19 to 0 clients
+reef-backend    | 2026/02/20 04:44:39 Broadcast Updated quarterA.col1.num1 to 19
+reef-backend    | 2026/02/20 04:44:39 Broadcasting update quarterA.col3.num3=8 to 0 clients
+reef-backend    | 2026/02/20 04:44:39 Broadcast Updated quarterA.col3.num3 to 8
+reef-backend    | 2026/02/20 04:44:39 Broadcasting update quarterA.col3.num4=65 to 0 clients
+reef-backend    | 2026/02/20 04:44:39 Broadcast Updated quarterA.col3.num4 to 65
+reef-backend    | 2026/02/20 04:44:39 Broadcasting update quarterA.col2.num7=33 to 0 clients
+reef-backend    | 2026/02/20 04:44:39 Broadcast Updated quarterA.col2.num7 to 33
+reef-backend    | 2026/02/20 04:44:39 Broadcasting update quarterA.col2.num5=73 to 0 clients
+reef-backend    | 2026/02/20 04:44:39 Broadcast Updated quarterA.col2.num5 to 73
+reef-backend    | 2026/02/20 04:44:39 Broadcasting update quarterA.col2.num6=82 to 0 clients
+reef-backend    | 2026/02/20 04:44:39 Broadcast Updated quarterA.col2.num6 to 82
+reef-backend    | 2026/02/20 04:44:39 Broadcasting update quarterA.col3.num6=75 to 0 clients
+reef-backend    | 2026/02/20 04:44:39 Broadcast Updated quarterA.col3.num6 to 75
+reef-backend    | 2026/02/20 04:44:39 Broadcasting update quarterA.col3.num2=83 to 0 clients
+reef-backend    | 2026/02/20 04:44:39 Broadcast Updated quarterA.col3.num2 to 83
+reef-backend    | 2026/02/20 04:44:39 Broadcasting update quarterA.col2.num8=57 to 0 clients
+reef-backend    | 2026/02/20 04:44:39 Broadcast Updated quarterA.col2.num8 to 57
+reef-backend    | 2026/02/20 04:44:39 Broadcasting update quarterA.col3.num1=45 to 0 clients
+reef-backend    | 2026/02/20 04:44:39 Broadcast Updated quarterA.col3.num1 to 45
+reef-backend    | 2026/02/20 04:44:39 Broadcasting update quarterA.col3.num7=69 to 0 clients
+reef-backend    | 2026/02/20 04:44:39 Broadcast Updated quarterA.col3.num7 to 69
+reef-publisher  | Published to quarterA.col1.num1: 80
+reef-publisher  | Published to quarterA.col1.num2: 41
+reef-publisher  | Published to quarterA.col1.num3: 7
+reef-publisher  | Published to quarterA.col1.num4: 74
+reef-publisher  | Published to quarterA.col1.num5: 41
+reef-publisher  | Published to quarterA.col1.num6: 41
+reef-publisher  | Published to quarterA.col1.num7: 51
+reef-publisher  | Published to quarterA.col1.num8: 95
+reef-publisher  | Published to quarterA.col2.num1: 83
+reef-publisher  | Published to quarterA.col2.num2: 79
+reef-publisher  | Published to quarterA.col2.num3: 65
+reef-publisher  | Published to quarterA.col2.num4: 2
+reef-publisher  | Published to quarterA.col2.num5: 64
+reef-publisher  | Published to quarterA.col2.num6: 90
+reef-publisher  | Published to quarterA.col2.num7: 8
+reef-publisher  | Published to quarterA.col2.num8: 49
+reef-publisher  | Published to quarterA.col3.num1: 28
+reef-publisher  | Published to quarterA.col3.num2: 3
+reef-publisher  | Published to quarterA.col3.num3: 93
+reef-publisher  | Published to quarterA.col3.num4: 41
+reef-publisher  | Published to quarterA.col3.num5: 68
+reef-publisher  | Published to quarterA.col3.num6: 92
+reef-publisher  | Published to quarterA.col3.num7: 84
+reef-publisher  | Published to quarterA.col3.num8: 38
+reef-publisher  | Published to quarterD.col1: 1
+reef-publisher  | Published to quarterD.col2: 78
+reef-publisher  | Published to quarterD.col3: 9
+reef-publisher  | Published to quarterD.col4: 96
+reef-publisher  | Published to quarterD.col5: 82
+reef-publisher  | Published to quarterD.col6: 66
+reef-publisher  | DEBUG: After Quarter D
+reef-publisher  | DEBUG: Publishing Quarter C wait times
+reef-publisher  | DEBUG: Iteration cbw=1
+reef-publisher  | DEBUG: Publishing quarterC.cbw1.waitTime=18
+reef-publisher  | Published to quarterC.cbw1.waitTime: 18
+reef-publisher  | DEBUG: Iteration cbw=2
+reef-publisher  | DEBUG: Publishing quarterC.cbw2.waitTime=20
+reef-publisher  | Published to quarterC.cbw2.waitTime: 20
+reef-publisher  | DEBUG: Iteration cbw=3
+reef-publisher  | DEBUG: Publishing quarterC.cbw3.waitTime=21
+reef-publisher  | Published to quarterC.cbw3.waitTime: 21
+reef-publisher  | DEBUG: Publishing Quarter C wasted minutes
+reef-publisher  | DEBUG: Wasted key=hour4
+reef-publisher  | DEBUG: Publishing quarterC.wastedMinutes.hour4=102
+reef-publisher  | Published to quarterC.wastedMinutes.hour4: 102
+reef-publisher  | DEBUG: Wasted key=hour3
+reef-publisher  | DEBUG: Publishing quarterC.wastedMinutes.hour3=129
+reef-publisher  | Published to quarterC.wastedMinutes.hour3: 129
+reef-publisher  | DEBUG: Wasted key=hour2
+reef-publisher  | DEBUG: Publishing quarterC.wastedMinutes.hour2=112
+reef-publisher  | Published to quarterC.wastedMinutes.hour2: 112
+reef-publisher  | DEBUG: Wasted key=hour1
+reef-publisher  | DEBUG: Publishing quarterC.wastedMinutes.hour1=52
+reef-publisher  | Published to quarterC.wastedMinutes.hour1: 52
+reef-publisher  | DEBUG: Wasted key=current
+reef-publisher  | DEBUG: Publishing quarterC.wastedMinutes.current=194
+reef-publisher  | Published to quarterC.wastedMinutes.current: 194
+reef-publisher  | DEBUG: Sleeping before next batch
+reef-backend    | 2026/02/20 04:45:01 Broadcasting update quarterA.col1.num8=95 to 0 clients
+reef-backend    | 2026/02/20 04:45:01 Broadcasting update quarterA.col1.num7=51 to 0 clients
+reef-backend    | 2026/02/20 04:45:01 Broadcast Updated quarterA.col1.num7 to 51
+reef-backend    | 2026/02/20 04:45:01 Broadcast Updated quarterA.col1.num8 to 95
+reef-backend    | 2026/02/20 04:45:01 Broadcasting update quarterA.col2.num1=83 to 0 clients
+reef-backend    | 2026/02/20 04:45:01 Broadcast Updated quarterA.col2.num1 to 83
+reef-backend    | 2026/02/20 04:45:01 Broadcasting update quarterA.col1.num3=7 to 0 clients
+reef-backend    | 2026/02/20 04:45:01 Broadcast Updated quarterA.col1.num3 to 7
+reef-backend    | 2026/02/20 04:45:01 Broadcasting update quarterA.col1.num1=80 to 0 clients
+reef-backend    | 2026/02/20 04:45:01 Broadcast Updated quarterA.col1.num1 to 80
+reef-backend    | 2026/02/20 04:45:01 Broadcasting update quarterA.col2.num8=49 to 0 clients
+reef-backend    | 2026/02/20 04:45:01 Broadcast Updated quarterA.col2.num8 to 49
+reef-backend    | 2026/02/20 04:45:01 Broadcasting update quarterA.col1.num2=41 to 0 clients
+reef-backend    | 2026/02/20 04:45:01 Broadcast Updated quarterA.col1.num2 to 41
+reef-backend    | 2026/02/20 04:45:01 Broadcasting update quarterA.col2.num2=79 to 0 clients
+reef-backend    | 2026/02/20 04:45:01 Broadcast Updated quarterA.col2.num2 to 79
+reef-backend    | 2026/02/20 04:45:01 Broadcasting update quarterA.col3.num1=28 to 0 clients
+reef-backend    | 2026/02/20 04:45:01 Broadcast Updated quarterA.col3.num1 to 28
+reef-backend    | 2026/02/20 04:45:01 Broadcasting update quarterA.col2.num3=65 to 0 clients
+reef-backend    | 2026/02/20 04:45:01 Broadcast Updated quarterA.col2.num3 to 65
+reef-backend    | 2026/02/20 04:45:01 Broadcasting update quarterA.col3.num2=3 to 0 clients
+reef-backend    | 2026/02/20 04:45:01 Broadcast Updated quarterA.col3.num2 to 3
+reef-backend    | 2026/02/20 04:45:01 Broadcasting update quarterA.col2.num4=2 to 0 clients
+reef-backend    | 2026/02/20 04:45:01 Broadcast Updated quarterA.col2.num4 to 2
+reef-backend    | 2026/02/20 04:45:01 Broadcasting update quarterA.col3.num3=93 to 0 clients
+reef-backend    | 2026/02/20 04:45:01 Broadcast Updated quarterA.col3.num3 to 93
+reef-backend    | 2026/02/20 04:45:01 Broadcasting update quarterA.col2.num5=64 to 0 clients
+reef-backend    | 2026/02/20 04:45:01 Broadcast Updated quarterA.col2.num5 to 64
+reef-backend    | 2026/02/20 04:45:01 Broadcasting update quarterA.col3.num4=41 to 0 clients
+reef-backend    | 2026/02/20 04:45:01 Broadcast Updated quarterA.col3.num4 to 41
+reef-backend    | 2026/02/20 04:45:01 Broadcasting update quarterA.col2.num6=90 to 0 clients
+reef-backend    | 2026/02/20 04:45:01 Broadcast Updated quarterA.col2.num6 to 90
+reef-backend    | 2026/02/20 04:45:01 Broadcasting update quarterA.col3.num5=68 to 0 clients
+reef-backend    | 2026/02/20 04:45:01 Broadcast Updated quarterA.col3.num5 to 68
+reef-backend    | 2026/02/20 04:45:01 Broadcasting update quarterA.col2.num7=8 to 0 clients
+reef-backend    | 2026/02/20 04:45:01 Broadcast Updated quarterA.col2.num7 to 8
+reef-backend    | 2026/02/20 04:45:01 Broadcasting update quarterA.col3.num6=92 to 0 clients
+reef-backend    | 2026/02/20 04:45:01 Broadcast Updated quarterA.col3.num6 to 92
+reef-backend    | 2026/02/20 04:45:01 Broadcasting update quarterA.col3.num7=84 to 0 clients
+reef-backend    | 2026/02/20 04:45:01 Broadcast Updated quarterA.col3.num7 to 84
+reef-backend    | 2026/02/20 04:45:01 Broadcasting update quarterA.col1.num6=41 to 0 clients
+reef-backend    | 2026/02/20 04:45:01 Broadcast Updated quarterA.col1.num6 to 41
+reef-backend    | 2026/02/20 04:45:01 Broadcasting update quarterA.col1.num5=41 to 0 clients
+reef-backend    | 2026/02/20 04:45:01 Broadcast Updated quarterA.col1.num5 to 41
+reef-backend    | 2026/02/20 04:45:01 Broadcasting update quarterA.col3.num8=38 to 0 clients
+reef-backend    | 2026/02/20 04:45:01 Broadcast Updated quarterA.col3.num8 to 38
+reef-backend    | 2026/02/20 04:45:01 Broadcasting update quarterA.col1.num4=74 to 0 clients
+reef-backend    | 2026/02/20 04:45:01 Broadcast Updated quarterA.col1.num4 to 74
+reef-publisher  | Published to quarterA.col1.num1: 96
+reef-publisher  | Published to quarterA.col1.num2: 21
+reef-publisher  | Published to quarterA.col1.num3: 55
+reef-publisher  | Published to quarterA.col1.num4: 75
+reef-publisher  | Published to quarterA.col1.num5: 57
+reef-publisher  | Published to quarterA.col1.num6: 57
+reef-publisher  | Published to quarterA.col1.num7: 33
+reef-publisher  | Published to quarterA.col1.num8: 14
+reef-publisher  | Published to quarterA.col2.num1: 80
+reef-publisher  | Published to quarterA.col2.num2: 34
+reef-publisher  | Published to quarterA.col2.num3: 32
+reef-publisher  | Published to quarterA.col2.num4: 61
+reef-publisher  | Published to quarterA.col2.num5: 35
+reef-publisher  | Published to quarterA.col2.num6: 97
+reef-publisher  | Published to quarterA.col2.num7: 57
+reef-publisher  | Published to quarterA.col2.num8: 2
+reef-publisher  | Published to quarterA.col3.num1: 20
+reef-publisher  | Published to quarterA.col3.num2: 90
+reef-publisher  | Published to quarterA.col3.num3: 51
+reef-publisher  | Published to quarterA.col3.num4: 43
+reef-publisher  | Published to quarterA.col3.num5: 42
+reef-publisher  | Published to quarterA.col3.num6: 92
+reef-publisher  | Published to quarterA.col3.num7: 32
+reef-publisher  | Published to quarterA.col3.num8: 6
+reef-publisher  | Published to quarterD.col1: 22
+reef-publisher  | Published to quarterD.col2: 24
+reef-publisher  | Published to quarterD.col3: 78
+reef-publisher  | Published to quarterD.col4: 36
+reef-publisher  | Published to quarterD.col5: 37
+reef-publisher  | Published to quarterD.col6: 88
+reef-publisher  | DEBUG: After Quarter D
+reef-publisher  | DEBUG: Publishing Quarter C wait times
+reef-publisher  | DEBUG: Iteration cbw=1
+reef-publisher  | DEBUG: Publishing quarterC.cbw1.waitTime=3
+reef-publisher  | Published to quarterC.cbw1.waitTime: 3
+reef-publisher  | DEBUG: Iteration cbw=2
+reef-publisher  | DEBUG: Publishing quarterC.cbw2.waitTime=18
+reef-publisher  | Published to quarterC.cbw2.waitTime: 18
+reef-publisher  | DEBUG: Iteration cbw=3
+reef-publisher  | DEBUG: Publishing quarterC.cbw3.waitTime=24
+reef-publisher  | Published to quarterC.cbw3.waitTime: 24
+reef-publisher  | DEBUG: Publishing Quarter C wasted minutes
+reef-publisher  | DEBUG: Wasted key=hour4
+reef-publisher  | DEBUG: Publishing quarterC.wastedMinutes.hour4=112
+reef-publisher  | Published to quarterC.wastedMinutes.hour4: 112
+reef-publisher  | DEBUG: Wasted key=hour3
+reef-publisher  | DEBUG: Publishing quarterC.wastedMinutes.hour3=176
+reef-publisher  | Published to quarterC.wastedMinutes.hour3: 176
+reef-publisher  | DEBUG: Wasted key=hour2
+reef-publisher  | DEBUG: Publishing quarterC.wastedMinutes.hour2=56
+reef-publisher  | Published to quarterC.wastedMinutes.hour2: 56
+reef-publisher  | DEBUG: Wasted key=hour1
+reef-publisher  | DEBUG: Publishing quarterC.wastedMinutes.hour1=108
+reef-publisher  | Published to quarterC.wastedMinutes.hour1: 108
+reef-publisher  | DEBUG: Wasted key=current
+reef-publisher  | DEBUG: Publishing quarterC.wastedMinutes.current=87
+reef-publisher  | Published to quarterC.wastedMinutes.current: 87
+reef-publisher  | DEBUG: Sleeping before next batch
+reef-backend    | 2026/02/20 04:45:16 Broadcasting update quarterA.col3.num8=6 to 0 clients
+reef-backend    | 2026/02/20 04:45:16 Broadcast Updated quarterA.col3.num8 to 6
+reef-backend    | 2026/02/20 04:45:16 Broadcasting update quarterA.col2.num3=32 to 0 clients
+reef-backend    | 2026/02/20 04:45:16 Broadcast Updated quarterA.col2.num3 to 32
+reef-backend    | 2026/02/20 04:45:16 Broadcasting update quarterA.col2.num7=57 to 0 clients
+reef-backend    | 2026/02/20 04:45:16 Broadcasting update quarterA.col1.num5=57 to 0 clients
+reef-backend    | 2026/02/20 04:45:16 Broadcasting update quarterA.col2.num8=2 to 0 clients
+reef-backend    | 2026/02/20 04:45:16 Broadcast Updated quarterA.col1.num5 to 57
+reef-backend    | 2026/02/20 04:45:16 Broadcasting update quarterA.col3.num1=20 to 0 clients
+reef-backend    | 2026/02/20 04:45:16 Broadcast Updated quarterA.col2.num8 to 2
+reef-backend    | 2026/02/20 04:45:16 Broadcasting update quarterA.col1.num2=21 to 0 clients
+reef-backend    | 2026/02/20 04:45:16 Broadcast Updated quarterA.col1.num2 to 21
+reef-backend    | 2026/02/20 04:45:16 Broadcast Updated quarterA.col3.num1 to 20
+reef-backend    | 2026/02/20 04:45:16 Broadcasting update quarterA.col2.num4=61 to 0 clients
+reef-backend    | 2026/02/20 04:45:16 Broadcasting update quarterA.col3.num2=90 to 0 clients
+reef-backend    | 2026/02/20 04:45:16 Broadcast Updated quarterA.col3.num2 to 90
+reef-backend    | 2026/02/20 04:45:16 Broadcasting update quarterA.col2.num5=35 to 0 clients
+reef-backend    | 2026/02/20 04:45:16 Broadcast Updated quarterA.col2.num7 to 57
+reef-backend    | 2026/02/20 04:45:16 Broadcast Updated quarterA.col2.num5 to 35
+reef-backend    | 2026/02/20 04:45:16 Broadcasting update quarterA.col3.num5=42 to 0 clients
+reef-backend    | 2026/02/20 04:45:16 Broadcast Updated quarterA.col3.num5 to 42
+reef-backend    | 2026/02/20 04:45:16 Broadcasting update quarterA.col3.num6=92 to 0 clients
+reef-backend    | 2026/02/20 04:45:16 Broadcast Updated quarterA.col3.num6 to 92
+reef-backend    | 2026/02/20 04:45:16 Broadcasting update quarterA.col3.num7=32 to 0 clients
+reef-backend    | 2026/02/20 04:45:16 Broadcast Updated quarterA.col3.num7 to 32
+reef-backend    | 2026/02/20 04:45:16 Broadcasting update quarterA.col1.num3=55 to 0 clients
+reef-backend    | 2026/02/20 04:45:16 Broadcast Updated quarterA.col1.num3 to 55
+reef-backend    | 2026/02/20 04:45:16 Broadcasting update quarterA.col1.num1=96 to 0 clients
+reef-backend    | 2026/02/20 04:45:16 Broadcast Updated quarterA.col1.num1 to 96
+reef-backend    | 2026/02/20 04:45:16 Broadcasting update quarterA.col1.num4=75 to 0 clients
+reef-backend    | 2026/02/20 04:45:16 Broadcast Updated quarterA.col1.num4 to 75
+reef-backend    | 2026/02/20 04:45:16 Broadcast Updated quarterA.col2.num4 to 61
+reef-backend    | 2026/02/20 04:45:16 Broadcasting update quarterA.col2.num6=97 to 0 clients
+reef-backend    | 2026/02/20 04:45:16 Broadcast Updated quarterA.col2.num6 to 97
+reef-backend    | 2026/02/20 04:45:16 Broadcasting update quarterA.col3.num4=43 to 0 clients
+reef-backend    | 2026/02/20 04:45:16 Broadcast Updated quarterA.col3.num4 to 43
+reef-backend    | 2026/02/20 04:45:16 Broadcasting update quarterA.col3.num3=51 to 0 clients
+reef-backend    | 2026/02/20 04:45:16 Broadcast Updated quarterA.col3.num3 to 51
+reef-backend    | 2026/02/20 04:45:16 Broadcasting update quarterA.col1.num7=33 to 0 clients
+reef-backend    | 2026/02/20 04:45:16 Broadcast Updated quarterA.col1.num7 to 33
+reef-backend    | 2026/02/20 04:45:16 Broadcasting update quarterA.col1.num6=57 to 0 clients
+reef-backend    | 2026/02/20 04:45:16 Broadcast Updated quarterA.col1.num6 to 57
+reef-backend    | 2026/02/20 04:45:16 Broadcasting update quarterA.col2.num1=80 to 0 clients
+reef-backend    | 2026/02/20 04:45:16 Broadcast Updated quarterA.col2.num1 to 80
+reef-backend    | 2026/02/20 04:45:16 Broadcasting update quarterA.col1.num8=14 to 0 clients
+reef-backend    | 2026/02/20 04:45:16 Broadcast Updated quarterA.col1.num8 to 14
+reef-backend    | 2026/02/20 04:45:16 Broadcasting update quarterA.col2.num2=34 to 0 clients
+reef-backend    | 2026/02/20 04:45:16 Broadcast Updated quarterA.col2.num2 to 34
+reef-publisher  | Published to quarterA.col1.num1: 9
+reef-publisher  | Published to quarterA.col1.num2: 65
+reef-publisher  | Published to quarterA.col1.num3: 28
+reef-publisher  | Published to quarterA.col1.num4: 60
+reef-publisher  | Published to quarterA.col1.num5: 26
+reef-publisher  | Published to quarterA.col1.num6: 21
+reef-publisher  | Published to quarterA.col1.num7: 35
+reef-publisher  | Published to quarterA.col1.num8: 46
+reef-publisher  | Published to quarterA.col2.num1: 99
+reef-publisher  | Published to quarterA.col2.num2: 59
+reef-publisher  | Published to quarterA.col2.num3: 5
+reef-publisher  | Published to quarterA.col2.num4: 30
+reef-publisher  | Published to quarterA.col2.num5: 14
+reef-publisher  | Published to quarterA.col2.num6: 7
+reef-publisher  | Published to quarterA.col2.num7: 67
+reef-publisher  | Published to quarterA.col2.num8: 79
+reef-publisher  | Published to quarterA.col3.num1: 15
+reef-publisher  | Published to quarterA.col3.num2: 66
+reef-publisher  | Published to quarterA.col3.num3: 38
+reef-publisher  | Published to quarterA.col3.num4: 57
+reef-publisher  | Published to quarterA.col3.num5: 91
+reef-publisher  | Published to quarterA.col3.num6: 70
+reef-publisher  | Published to quarterA.col3.num7: 3
+reef-publisher  | Published to quarterA.col3.num8: 96
+reef-publisher  | Published to quarterD.col1: 22
+reef-publisher  | Published to quarterD.col2: 26
+reef-publisher  | Published to quarterD.col3: 49
+reef-publisher  | Published to quarterD.col4: 90
+reef-publisher  | Published to quarterD.col5: 66
+reef-publisher  | Published to quarterD.col6: 37
+reef-publisher  | DEBUG: After Quarter D
+reef-publisher  | DEBUG: Publishing Quarter C wait times
+reef-publisher  | DEBUG: Iteration cbw=1
+reef-publisher  | DEBUG: Publishing quarterC.cbw1.waitTime=7
+reef-publisher  | Published to quarterC.cbw1.waitTime: 7
+reef-publisher  | DEBUG: Iteration cbw=2
+reef-publisher  | DEBUG: Publishing quarterC.cbw2.waitTime=25
+reef-publisher  | Published to quarterC.cbw2.waitTime: 25
+reef-publisher  | DEBUG: Iteration cbw=3
+reef-publisher  | DEBUG: Publishing quarterC.cbw3.waitTime=4
+reef-publisher  | Published to quarterC.cbw3.waitTime: 4
+reef-publisher  | DEBUG: Publishing Quarter C wasted minutes
+reef-publisher  | DEBUG: Wasted key=hour4
+reef-publisher  | DEBUG: Publishing quarterC.wastedMinutes.hour4=58
+reef-publisher  | Published to quarterC.wastedMinutes.hour4: 58
+reef-publisher  | DEBUG: Wasted key=hour3
+reef-publisher  | DEBUG: Publishing quarterC.wastedMinutes.hour3=106
+reef-publisher  | Published to quarterC.wastedMinutes.hour3: 106
+reef-publisher  | DEBUG: Wasted key=hour2
+reef-publisher  | DEBUG: Publishing quarterC.wastedMinutes.hour2=159
+reef-publisher  | Published to quarterC.wastedMinutes.hour2: 159
+reef-publisher  | DEBUG: Wasted key=hour1
+reef-publisher  | DEBUG: Publishing quarterC.wastedMinutes.hour1=77
+reef-publisher  | Published to quarterC.wastedMinutes.hour1: 77
+reef-publisher  | DEBUG: Wasted key=current
+reef-publisher  | DEBUG: Publishing quarterC.wastedMinutes.current=181
+reef-publisher  | Published to quarterC.wastedMinutes.current: 181
+reef-publisher  | DEBUG: Sleeping before next batch
+reef-backend    | 2026/02/20 04:45:42 Broadcasting update quarterA.col3.num8=96 to 0 clients
+reef-backend    | 2026/02/20 04:45:42 Broadcasting update quarterA.col1.num5=26 to 0 clients
+reef-backend    | 2026/02/20 04:45:42 Broadcasting update quarterA.col2.num4=30 to 0 clients
+reef-backend    | 2026/02/20 04:45:42 Broadcast Updated quarterA.col2.num4 to 30
+reef-backend    | 2026/02/20 04:45:42 Broadcast Updated quarterA.col3.num8 to 96
+reef-backend    | 2026/02/20 04:45:42 Broadcast Updated quarterA.col1.num5 to 26
+reef-backend    | 2026/02/20 04:45:42 Broadcasting update quarterA.col3.num3=38 to 0 clients
+reef-backend    | 2026/02/20 04:45:42 Broadcast Updated quarterA.col3.num3 to 38
+reef-backend    | 2026/02/20 04:45:42 Broadcasting update quarterA.col1.num3=28 to 0 clients
+reef-backend    | 2026/02/20 04:45:42 Broadcasting update quarterA.col1.num7=35 to 0 clients
+reef-backend    | 2026/02/20 04:45:42 Broadcast Updated quarterA.col1.num7 to 35
+reef-backend    | 2026/02/20 04:45:42 Broadcasting update quarterA.col3.num2=66 to 0 clients
+reef-backend    | 2026/02/20 04:45:42 Broadcasting update quarterA.col3.num5=91 to 0 clients
+reef-backend    | 2026/02/20 04:45:42 Broadcasting update quarterA.col2.num3=5 to 0 clients
+reef-backend    | 2026/02/20 04:45:42 Broadcast Updated quarterA.col3.num2 to 66
+reef-backend    | 2026/02/20 04:45:42 Broadcast Updated quarterA.col2.num3 to 5
+reef-backend    | 2026/02/20 04:45:42 Broadcasting update quarterA.col2.num5=14 to 0 clients
+reef-backend    | 2026/02/20 04:45:42 Broadcasting update quarterA.col1.num8=46 to 0 clients
+reef-backend    | 2026/02/20 04:45:42 Broadcast Updated quarterA.col2.num5 to 14
+reef-backend    | 2026/02/20 04:45:42 Broadcasting update quarterA.col2.num8=79 to 0 clients
+reef-backend    | 2026/02/20 04:45:42 Broadcasting update quarterA.col3.num1=15 to 0 clients
+reef-backend    | 2026/02/20 04:45:42 Broadcast Updated quarterA.col2.num8 to 79
+reef-backend    | 2026/02/20 04:45:42 Broadcasting update quarterA.col1.num2=65 to 0 clients
+reef-backend    | 2026/02/20 04:45:42 Broadcasting update quarterA.col2.num6=7 to 0 clients
+reef-backend    | 2026/02/20 04:45:42 Broadcast Updated quarterA.col1.num2 to 65
+reef-backend    | 2026/02/20 04:45:42 Broadcast Updated quarterA.col2.num6 to 7
+reef-backend    | 2026/02/20 04:45:42 Broadcast Updated quarterA.col3.num1 to 15
+reef-backend    | 2026/02/20 04:45:42 Broadcasting update quarterA.col2.num1=99 to 0 clients
+reef-backend    | 2026/02/20 04:45:42 Broadcasting update quarterA.col1.num6=21 to 0 clients
+reef-backend    | 2026/02/20 04:45:42 Broadcast Updated quarterA.col1.num6 to 21
+reef-backend    | 2026/02/20 04:45:42 Broadcast Updated quarterA.col1.num3 to 28
+reef-backend    | 2026/02/20 04:45:42 Broadcasting update quarterA.col1.num4=60 to 0 clients
+reef-backend    | 2026/02/20 04:45:42 Broadcast Updated quarterA.col1.num4 to 60
+reef-backend    | 2026/02/20 04:45:42 Broadcasting update quarterA.col2.num2=59 to 0 clients
+reef-backend    | 2026/02/20 04:45:42 Broadcast Updated quarterA.col2.num2 to 59
+reef-backend    | 2026/02/20 04:45:42 Broadcasting update quarterA.col3.num4=57 to 0 clients
+reef-backend    | 2026/02/20 04:45:42 Broadcast Updated quarterA.col3.num4 to 57
+reef-backend    | 2026/02/20 04:45:42 Broadcasting update quarterA.col3.num6=70 to 0 clients
+reef-backend    | 2026/02/20 04:45:42 Broadcast Updated quarterA.col3.num6 to 70
+reef-backend    | 2026/02/20 04:45:42 Broadcasting update quarterA.col3.num7=3 to 0 clients
+reef-backend    | 2026/02/20 04:45:42 Broadcast Updated quarterA.col3.num7 to 3
+reef-backend    | 2026/02/20 04:45:42 Broadcast Updated quarterA.col3.num5 to 91
+reef-backend    | 2026/02/20 04:45:42 Broadcasting update quarterA.col2.num7=67 to 0 clients
+reef-backend    | 2026/02/20 04:45:42 Broadcast Updated quarterA.col2.num7 to 67
+reef-backend    | 2026/02/20 04:45:42 Broadcast Updated quarterA.col1.num8 to 46
+reef-backend    | 2026/02/20 04:45:42 Broadcasting update quarterA.col1.num1=9 to 0 clients
+reef-backend    | 2026/02/20 04:45:42 Broadcast Updated quarterA.col1.num1 to 9
+reef-backend    | 2026/02/20 04:45:42 Broadcast Updated quarterA.col2.num1 to 99
+reef-publisher  | Published to quarterA.col1.num1: 42
+reef-publisher  | Published to quarterA.col1.num2: 79
+reef-publisher  | Published to quarterA.col1.num3: 14
+reef-publisher  | Published to quarterA.col1.num4: 27
+reef-publisher  | Published to quarterA.col1.num5: 65
+reef-publisher  | Published to quarterA.col1.num6: 27
+reef-publisher  | Published to quarterA.col1.num7: 10
+reef-publisher  | Published to quarterA.col1.num8: 73
+reef-publisher  | Published to quarterA.col2.num1: 77
+reef-publisher  | Published to quarterA.col2.num2: 43
+reef-publisher  | Published to quarterA.col2.num3: 40
+reef-publisher  | Published to quarterA.col2.num4: 27
+reef-publisher  | Published to quarterA.col2.num5: 5
+reef-publisher  | Published to quarterA.col2.num6: 52
+reef-publisher  | Published to quarterA.col2.num7: 83
+reef-publisher  | Published to quarterA.col2.num8: 75
+reef-publisher  | Published to quarterA.col3.num1: 19
+reef-publisher  | Published to quarterA.col3.num2: 29
+reef-publisher  | Published to quarterA.col3.num3: 11
+reef-publisher  | Published to quarterA.col3.num4: 38
+reef-publisher  | Published to quarterA.col3.num5: 43
+reef-publisher  | Published to quarterA.col3.num6: 22
+reef-publisher  | Published to quarterA.col3.num7: 7
+reef-publisher  | Published to quarterA.col3.num8: 5
+reef-publisher  | Published to quarterD.col1: 98
+reef-publisher  | Published to quarterD.col2: 20
+reef-publisher  | Published to quarterD.col3: 97
+reef-publisher  | Published to quarterD.col4: 61
+reef-publisher  | Published to quarterD.col5: 16
+reef-publisher  | Published to quarterD.col6: 22
+reef-publisher  | DEBUG: After Quarter D
+reef-publisher  | DEBUG: Publishing Quarter C wait times
+reef-publisher  | DEBUG: Iteration cbw=1
+reef-publisher  | DEBUG: Publishing quarterC.cbw1.waitTime=28
+reef-publisher  | Published to quarterC.cbw1.waitTime: 28
+reef-publisher  | DEBUG: Iteration cbw=2
+reef-publisher  | DEBUG: Publishing quarterC.cbw2.waitTime=16
+reef-publisher  | Published to quarterC.cbw2.waitTime: 16
+reef-publisher  | DEBUG: Iteration cbw=3
+reef-publisher  | DEBUG: Publishing quarterC.cbw3.waitTime=8
+reef-publisher  | Published to quarterC.cbw3.waitTime: 8
+reef-publisher  | DEBUG: Publishing Quarter C wasted minutes
+reef-publisher  | DEBUG: Wasted key=hour4
+reef-publisher  | DEBUG: Publishing quarterC.wastedMinutes.hour4=186
+reef-publisher  | Published to quarterC.wastedMinutes.hour4: 186
+reef-publisher  | DEBUG: Wasted key=hour3
+reef-publisher  | DEBUG: Publishing quarterC.wastedMinutes.hour3=152
+reef-publisher  | Published to quarterC.wastedMinutes.hour3: 152
+reef-publisher  | DEBUG: Wasted key=hour2
+reef-publisher  | DEBUG: Publishing quarterC.wastedMinutes.hour2=83
+reef-backend    | 2026/02/20 04:45:57 Broadcasting update quarterA.col3.num8=5 to 0 clients
+reef-backend    | 2026/02/20 04:45:57 Broadcast Updated quarterA.col3.num8 to 5
+reef-backend    | 2026/02/20 04:45:57 Broadcasting update quarterA.col1.num7=10 to 0 clients
+reef-backend    | 2026/02/20 04:45:57 Broadcast Updated quarterA.col1.num7 to 10
+reef-backend    | 2026/02/20 04:45:57 Broadcasting update quarterA.col1.num4=27 to 0 clients
+reef-publisher  | Published to quarterC.wastedMinutes.hour2: 83
+reef-backend    | 2026/02/20 04:45:57 Broadcasting update quarterA.col3.num4=38 to 0 clients
+reef-publisher  | DEBUG: Wasted key=hour1
+reef-publisher  | DEBUG: Publishing quarterC.wastedMinutes.hour1=102
+reef-publisher  | Published to quarterC.wastedMinutes.hour1: 102
+reef-publisher  | DEBUG: Wasted key=current
+reef-publisher  | DEBUG: Publishing quarterC.wastedMinutes.current=177
+reef-publisher  | Published to quarterC.wastedMinutes.current: 177
+reef-publisher  | DEBUG: Sleeping before next batch
+reef-backend    | 2026/02/20 04:45:57 Broadcasting update quarterA.col3.num6=22 to 0 clients
+reef-backend    | 2026/02/20 04:45:57 Broadcasting update quarterA.col1.num1=42 to 0 clients
+reef-backend    | 2026/02/20 04:45:57 Broadcasting update quarterA.col3.num7=7 to 0 clients
+reef-backend    | 2026/02/20 04:45:57 Broadcast Updated quarterA.col1.num1 to 42
+reef-backend    | 2026/02/20 04:45:57 Broadcasting update quarterA.col2.num8=75 to 0 clients
+reef-backend    | 2026/02/20 04:45:57 Broadcast Updated quarterA.col3.num7 to 7
+reef-backend    | 2026/02/20 04:45:57 Broadcasting update quarterA.col3.num2=29 to 0 clients
+reef-backend    | 2026/02/20 04:45:57 Broadcasting update quarterA.col3.num3=11 to 0 clients
+reef-backend    | 2026/02/20 04:45:57 Broadcast Updated quarterA.col3.num2 to 29
+reef-backend    | 2026/02/20 04:45:57 Broadcast Updated quarterA.col3.num3 to 11
+reef-backend    | 2026/02/20 04:45:57 Broadcast Updated quarterA.col1.num4 to 27
+reef-backend    | 2026/02/20 04:45:57 Broadcasting update quarterA.col1.num2=79 to 0 clients
+reef-backend    | 2026/02/20 04:45:57 Broadcast Updated quarterA.col3.num6 to 22
+reef-backend    | 2026/02/20 04:45:57 Broadcast Updated quarterA.col1.num2 to 79
+reef-backend    | 2026/02/20 04:45:57 Broadcasting update quarterA.col2.num1=77 to 0 clients
+reef-backend    | 2026/02/20 04:45:57 Broadcasting update quarterA.col2.num4=27 to 0 clients
+reef-backend    | 2026/02/20 04:45:57 Broadcast Updated quarterA.col2.num1 to 77
+reef-backend    | 2026/02/20 04:45:57 Broadcast Updated quarterA.col2.num4 to 27
+reef-backend    | 2026/02/20 04:45:57 Broadcasting update quarterA.col2.num2=43 to 0 clients
+reef-backend    | 2026/02/20 04:45:57 Broadcasting update quarterA.col2.num5=5 to 0 clients
+reef-backend    | 2026/02/20 04:45:57 Broadcasting update quarterA.col2.num7=83 to 0 clients
+reef-backend    | 2026/02/20 04:45:57 Broadcast Updated quarterA.col2.num5 to 5
+reef-backend    | 2026/02/20 04:45:57 Broadcasting update quarterA.col3.num5=43 to 0 clients
+reef-backend    | 2026/02/20 04:45:57 Broadcasting update quarterA.col1.num3=14 to 0 clients
+reef-backend    | 2026/02/20 04:45:57 Broadcast Updated quarterA.col1.num3 to 14
+reef-backend    | 2026/02/20 04:45:57 Broadcasting update quarterA.col2.num6=52 to 0 clients
+reef-backend    | 2026/02/20 04:45:57 Broadcast Updated quarterA.col2.num6 to 52
+reef-backend    | 2026/02/20 04:45:57 Broadcast Updated quarterA.col2.num2 to 43
+reef-backend    | 2026/02/20 04:45:57 Broadcasting update quarterA.col1.num5=65 to 0 clients
+reef-backend    | 2026/02/20 04:45:57 Broadcast Updated quarterA.col1.num5 to 65
+reef-backend    | 2026/02/20 04:45:57 Broadcasting update quarterA.col1.num8=73 to 0 clients
+reef-backend    | 2026/02/20 04:45:57 Broadcast Updated quarterA.col1.num8 to 73
+reef-backend    | 2026/02/20 04:45:57 Broadcasting update quarterA.col3.num1=19 to 0 clients
+reef-backend    | 2026/02/20 04:45:57 Broadcast Updated quarterA.col3.num1 to 19
+reef-backend    | 2026/02/20 04:45:57 Broadcast Updated quarterA.col3.num4 to 38
+reef-backend    | 2026/02/20 04:45:57 Broadcast Updated quarterA.col2.num8 to 75
+reef-backend    | 2026/02/20 04:45:57 Broadcasting update quarterA.col2.num3=40 to 0 clients
+reef-backend    | 2026/02/20 04:45:57 Broadcast Updated quarterA.col2.num3 to 40
+reef-backend    | 2026/02/20 04:45:57 Broadcasting update quarterA.col1.num6=27 to 0 clients
+reef-backend    | 2026/02/20 04:45:57 Broadcast Updated quarterA.col3.num5 to 43
+reef-backend    | 2026/02/20 04:45:57 Broadcast Updated quarterA.col1.num6 to 27
+reef-backend    | 2026/02/20 04:45:57 Broadcast Updated quarterA.col2.num7 to 83
+reef-publisher  | Published to quarterA.col1.num1: 75
+reef-publisher  | Published to quarterA.col1.num2: 54
+reef-publisher  | Published to quarterA.col1.num3: 81
+reef-publisher  | Published to quarterA.col1.num4: 35
+reef-publisher  | Published to quarterA.col1.num5: 71
+reef-publisher  | Published to quarterA.col1.num6: 20
+reef-publisher  | Published to quarterA.col1.num7: 34
+reef-publisher  | Published to quarterA.col1.num8: 88
+reef-publisher  | Published to quarterA.col2.num1: 20
+reef-publisher  | Published to quarterA.col2.num2: 65
+reef-publisher  | Published to quarterA.col2.num3: 82
+reef-publisher  | Published to quarterA.col2.num4: 43
+reef-publisher  | Published to quarterA.col2.num5: 74
+reef-publisher  | Published to quarterA.col2.num6: 55
+reef-publisher  | Published to quarterA.col2.num7: 60
+reef-publisher  | Published to quarterA.col2.num8: 20
+reef-publisher  | Published to quarterA.col3.num1: 41
+reef-publisher  | Published to quarterA.col3.num2: 26
+reef-publisher  | Published to quarterA.col3.num3: 78
+reef-publisher  | Published to quarterA.col3.num4: 66
+reef-publisher  | Published to quarterA.col3.num5: 23
+reef-publisher  | Published to quarterA.col3.num6: 51
+reef-publisher  | Published to quarterA.col3.num7: 39
+reef-publisher  | Published to quarterA.col3.num8: 58
+reef-publisher  | Published to quarterD.col1: 44
+reef-publisher  | Published to quarterD.col2: 40
+reef-publisher  | Published to quarterD.col3: 4
+reef-publisher  | Published to quarterD.col4: 20
+reef-publisher  | Published to quarterD.col5: 9
+reef-publisher  | Published to quarterD.col6: 72
+reef-publisher  | DEBUG: After Quarter D
+reef-publisher  | DEBUG: Publishing Quarter C wait times
+reef-publisher  | DEBUG: Iteration cbw=1
+reef-publisher  | DEBUG: Publishing quarterC.cbw1.waitTime=6
+reef-publisher  | Published to quarterC.cbw1.waitTime: 6
+reef-publisher  | DEBUG: Iteration cbw=2
+reef-publisher  | DEBUG: Publishing quarterC.cbw2.waitTime=24
+reef-publisher  | Published to quarterC.cbw2.waitTime: 24
+reef-publisher  | DEBUG: Iteration cbw=3
+reef-publisher  | DEBUG: Publishing quarterC.cbw3.waitTime=3
+reef-publisher  | Published to quarterC.cbw3.waitTime: 3
+reef-publisher  | DEBUG: Publishing Quarter C wasted minutes
+reef-publisher  | DEBUG: Wasted key=hour4
+reef-publisher  | DEBUG: Publishing quarterC.wastedMinutes.hour4=177
+reef-publisher  | Published to quarterC.wastedMinutes.hour4: 177
+reef-publisher  | DEBUG: Wasted key=hour3
+reef-publisher  | DEBUG: Publishing quarterC.wastedMinutes.hour3=98
+reef-publisher  | Published to quarterC.wastedMinutes.hour3: 98
+reef-publisher  | DEBUG: Wasted key=hour2
+reef-publisher  | DEBUG: Publishing quarterC.wastedMinutes.hour2=194
+reef-publisher  | Published to quarterC.wastedMinutes.hour2: 194
+reef-publisher  | DEBUG: Wasted key=hour1
+reef-publisher  | DEBUG: Publishing quarterC.wastedMinutes.hour1=121
+reef-publisher  | Published to quarterC.wastedMinutes.hour1: 121
+reef-publisher  | DEBUG: Wasted key=current
+reef-publisher  | DEBUG: Publishing quarterC.wastedMinutes.current=63
+reef-publisher  | Published to quarterC.wastedMinutes.current: 63
+reef-publisher  | DEBUG: Sleeping before next batch
+reef-backend    | 2026/02/20 04:46:13 Broadcasting update quarterA.col1.num4=35 to 0 clients
+reef-backend    | 2026/02/20 04:46:13 Broadcast Updated quarterA.col1.num4 to 35
+reef-backend    | 2026/02/20 04:46:13 Broadcasting update quarterA.col2.num6=55 to 0 clients
+reef-backend    | 2026/02/20 04:46:13 Broadcasting update quarterA.col1.num2=54 to 0 clients
+reef-backend    | 2026/02/20 04:46:13 Broadcast Updated quarterA.col1.num2 to 54
+reef-backend    | 2026/02/20 04:46:13 Broadcasting update quarterA.col3.num1=41 to 0 clients
+reef-backend    | 2026/02/20 04:46:13 Broadcast Updated quarterA.col3.num1 to 41
+reef-backend    | 2026/02/20 04:46:13 Broadcasting update quarterA.col3.num4=66 to 0 clients
+reef-backend    | 2026/02/20 04:46:13 Broadcast Updated quarterA.col3.num4 to 66
+reef-backend    | 2026/02/20 04:46:13 Broadcasting update quarterA.col1.num1=75 to 0 clients
+reef-backend    | 2026/02/20 04:46:13 Broadcasting update quarterA.col3.num2=26 to 0 clients
+reef-backend    | 2026/02/20 04:46:13 Broadcast Updated quarterA.col1.num1 to 75
+reef-backend    | 2026/02/20 04:46:13 Broadcasting update quarterA.col2.num8=20 to 0 clients
+reef-backend    | 2026/02/20 04:46:13 Broadcasting update quarterA.col3.num3=78 to 0 clients
+reef-backend    | 2026/02/20 04:46:13 Broadcasting update quarterA.col1.num5=71 to 0 clients
+reef-backend    | 2026/02/20 04:46:13 Broadcast Updated quarterA.col2.num8 to 20
+reef-backend    | 2026/02/20 04:46:13 Broadcast Updated quarterA.col1.num5 to 71
+reef-backend    | 2026/02/20 04:46:13 Broadcast Updated quarterA.col2.num6 to 55
+reef-backend    | 2026/02/20 04:46:13 Broadcast Updated quarterA.col3.num2 to 26
+reef-backend    | 2026/02/20 04:46:13 Broadcasting update quarterA.col3.num8=58 to 0 clients
+reef-backend    | 2026/02/20 04:46:13 Broadcasting update quarterA.col3.num7=39 to 0 clients
+reef-backend    | 2026/02/20 04:46:13 Broadcast Updated quarterA.col3.num8 to 58
+reef-backend    | 2026/02/20 04:46:13 Broadcast Updated quarterA.col3.num7 to 39
+reef-backend    | 2026/02/20 04:46:13 Broadcasting update quarterA.col2.num7=60 to 0 clients
+reef-backend    | 2026/02/20 04:46:13 Broadcasting update quarterA.col1.num7=34 to 0 clients
+reef-backend    | 2026/02/20 04:46:13 Broadcast Updated quarterA.col1.num7 to 34
+reef-backend    | 2026/02/20 04:46:13 Broadcast Updated quarterA.col3.num3 to 78
+reef-backend    | 2026/02/20 04:46:13 Broadcasting update quarterA.col1.num6=20 to 0 clients
+reef-backend    | 2026/02/20 04:46:13 Broadcast Updated quarterA.col1.num6 to 20
+reef-backend    | 2026/02/20 04:46:13 Broadcasting update quarterA.col1.num3=81 to 0 clients
+reef-backend    | 2026/02/20 04:46:13 Broadcast Updated quarterA.col1.num3 to 81
+reef-backend    | 2026/02/20 04:46:13 Broadcasting update quarterA.col1.num8=88 to 0 clients
+reef-backend    | 2026/02/20 04:46:13 Broadcast Updated quarterA.col1.num8 to 88
+reef-backend    | 2026/02/20 04:46:13 Broadcasting update quarterA.col2.num1=20 to 0 clients
+reef-backend    | 2026/02/20 04:46:13 Broadcast Updated quarterA.col2.num1 to 20
+reef-backend    | 2026/02/20 04:46:13 Broadcasting update quarterA.col2.num2=65 to 0 clients
+reef-backend    | 2026/02/20 04:46:13 Broadcast Updated quarterA.col2.num2 to 65
+reef-backend    | 2026/02/20 04:46:13 Broadcasting update quarterA.col2.num3=82 to 0 clients
+reef-backend    | 2026/02/20 04:46:13 Broadcast Updated quarterA.col2.num3 to 82
+reef-backend    | 2026/02/20 04:46:13 Broadcasting update quarterA.col2.num4=43 to 0 clients
+reef-backend    | 2026/02/20 04:46:13 Broadcasting update quarterA.col2.num5=74 to 0 clients
+reef-backend    | 2026/02/20 04:46:13 Broadcast Updated quarterA.col2.num4 to 43
+reef-backend    | 2026/02/20 04:46:13 Broadcast Updated quarterA.col2.num5 to 74
+reef-backend    | 2026/02/20 04:46:13 Broadcasting update quarterA.col3.num6=51 to 0 clients
+reef-backend    | 2026/02/20 04:46:13 Broadcast Updated quarterA.col3.num6 to 51
+reef-backend    | 2026/02/20 04:46:13 Broadcasting update quarterA.col3.num5=23 to 0 clients
+reef-backend    | 2026/02/20 04:46:13 Broadcast Updated quarterA.col3.num5 to 23
+reef-backend    | 2026/02/20 04:46:13 Broadcast Updated quarterA.col2.num7 to 60
+reef-publisher  | Published to quarterA.col1.num1: 16
+reef-publisher  | Published to quarterA.col1.num2: 92
+reef-publisher  | Published to quarterA.col1.num3: 22
+reef-publisher  | Published to quarterA.col1.num4: 63
+reef-publisher  | Published to quarterA.col1.num5: 50
+reef-publisher  | Published to quarterA.col1.num6: 92
+reef-publisher  | Published to quarterA.col1.num7: 66
+reef-publisher  | Published to quarterA.col1.num8: 79
+reef-publisher  | Published to quarterA.col2.num1: 46
+reef-publisher  | Published to quarterA.col2.num2: 92
+reef-publisher  | Published to quarterA.col2.num3: 87
+reef-publisher  | Published to quarterA.col2.num4: 14
+reef-publisher  | Published to quarterA.col2.num5: 67
+reef-publisher  | Published to quarterA.col2.num6: 12
+reef-publisher  | Published to quarterA.col2.num7: 15
+reef-publisher  | Published to quarterA.col2.num8: 29
+reef-publisher  | Published to quarterA.col3.num1: 29
+reef-publisher  | Published to quarterA.col3.num2: 95
+reef-publisher  | Published to quarterA.col3.num3: 13
+reef-publisher  | Published to quarterA.col3.num4: 64
+reef-publisher  | Published to quarterA.col3.num5: 16
+reef-publisher  | Published to quarterA.col3.num6: 76
+reef-publisher  | Published to quarterA.col3.num7: 75
+reef-publisher  | Published to quarterA.col3.num8: 6
+reef-publisher  | Published to quarterD.col1: 73
+reef-publisher  | Published to quarterD.col2: 94
+reef-publisher  | Published to quarterD.col3: 50
+reef-publisher  | Published to quarterD.col4: 24
+reef-publisher  | Published to quarterD.col5: 77
+reef-publisher  | Published to quarterD.col6: 72
+reef-publisher  | DEBUG: After Quarter D
+reef-publisher  | DEBUG: Publishing Quarter C wait times
+reef-publisher  | DEBUG: Iteration cbw=1
+reef-publisher  | DEBUG: Publishing quarterC.cbw1.waitTime=16
+reef-publisher  | Published to quarterC.cbw1.waitTime: 16
+reef-publisher  | DEBUG: Iteration cbw=2
+reef-publisher  | DEBUG: Publishing quarterC.cbw2.waitTime=28
+reef-publisher  | Published to quarterC.cbw2.waitTime: 28
+reef-publisher  | DEBUG: Iteration cbw=3
+reef-publisher  | DEBUG: Publishing quarterC.cbw3.waitTime=26
+reef-publisher  | Published to quarterC.cbw3.waitTime: 26
+reef-publisher  | DEBUG: Publishing Quarter C wasted minutes
+reef-publisher  | DEBUG: Wasted key=hour4
+reef-publisher  | DEBUG: Publishing quarterC.wastedMinutes.hour4=150
+reef-publisher  | Published to quarterC.wastedMinutes.hour4: 150
+reef-publisher  | DEBUG: Wasted key=hour3
+reef-publisher  | DEBUG: Publishing quarterC.wastedMinutes.hour3=107
+reef-publisher  | Published to quarterC.wastedMinutes.hour3: 107
+reef-publisher  | DEBUG: Wasted key=hour2
+reef-publisher  | DEBUG: Publishing quarterC.wastedMinutes.hour2=90
+reef-publisher  | Published to quarterC.wastedMinutes.hour2: 90
+reef-publisher  | DEBUG: Wasted key=hour1
+reef-publisher  | DEBUG: Publishing quarterC.wastedMinutes.hour1=182
+reef-publisher  | Published to quarterC.wastedMinutes.hour1: 182
+reef-publisher  | DEBUG: Wasted key=current
+reef-publisher  | DEBUG: Publishing quarterC.wastedMinutes.current=161
+reef-publisher  | Published to quarterC.wastedMinutes.current: 161
+reef-publisher  | DEBUG: Sleeping before next batch
+reef-backend    | 2026/02/20 04:46:34 Broadcasting update quarterA.col3.num8=6 to 0 clients
+reef-backend    | 2026/02/20 04:46:34 Broadcasting update quarterA.col2.num4=14 to 0 clients
+reef-backend    | 2026/02/20 04:46:34 Broadcasting update quarterA.col3.num3=13 to 0 clients
+reef-backend    | 2026/02/20 04:46:34 Broadcast Updated quarterA.col3.num3 to 13
+reef-backend    | 2026/02/20 04:46:34 Broadcast Updated quarterA.col2.num4 to 14
+reef-backend    | 2026/02/20 04:46:34 Broadcast Updated quarterA.col3.num8 to 6
+reef-backend    | 2026/02/20 04:46:34 Broadcasting update quarterA.col1.num2=92 to 0 clients
+reef-backend    | 2026/02/20 04:46:34 Broadcast Updated quarterA.col1.num2 to 92
+reef-backend    | 2026/02/20 04:46:34 Broadcasting update quarterA.col2.num7=15 to 0 clients
+reef-backend    | 2026/02/20 04:46:34 Broadcasting update quarterA.col3.num6=76 to 0 clients
+reef-backend    | 2026/02/20 04:46:34 Broadcasting update quarterA.col1.num1=16 to 0 clients
+reef-backend    | 2026/02/20 04:46:34 Broadcasting update quarterA.col2.num2=92 to 0 clients
+reef-backend    | 2026/02/20 04:46:34 Broadcasting update quarterA.col3.num7=75 to 0 clients
+reef-backend    | 2026/02/20 04:46:34 Broadcast Updated quarterA.col2.num2 to 92
+reef-backend    | 2026/02/20 04:46:34 Broadcasting update quarterA.col1.num5=50 to 0 clients
+reef-backend    | 2026/02/20 04:46:34 Broadcast Updated quarterA.col1.num5 to 50
+reef-backend    | 2026/02/20 04:46:34 Broadcasting update quarterA.col2.num3=87 to 0 clients
+reef-backend    | 2026/02/20 04:46:34 Broadcast Updated quarterA.col2.num3 to 87
+reef-backend    | 2026/02/20 04:46:34 Broadcasting update quarterA.col1.num6=92 to 0 clients
+reef-backend    | 2026/02/20 04:46:34 Broadcast Updated quarterA.col1.num6 to 92
+reef-backend    | 2026/02/20 04:46:34 Broadcasting update quarterA.col3.num1=29 to 0 clients
+reef-backend    | 2026/02/20 04:46:34 Broadcasting update quarterA.col1.num8=79 to 0 clients
+reef-backend    | 2026/02/20 04:46:34 Broadcasting update quarterA.col3.num4=64 to 0 clients
+reef-backend    | 2026/02/20 04:46:34 Broadcast Updated quarterA.col3.num1 to 29
+reef-backend    | 2026/02/20 04:46:34 Broadcast Updated quarterA.col3.num4 to 64
+reef-backend    | 2026/02/20 04:46:34 Broadcast Updated quarterA.col1.num1 to 16
+reef-backend    | 2026/02/20 04:46:34 Broadcasting update quarterA.col2.num6=12 to 0 clients
+reef-backend    | 2026/02/20 04:46:34 Broadcast Updated quarterA.col2.num6 to 12
+reef-backend    | 2026/02/20 04:46:34 Broadcast Updated quarterA.col3.num7 to 75
+reef-backend    | 2026/02/20 04:46:34 Broadcasting update quarterA.col3.num2=95 to 0 clients
+reef-backend    | 2026/02/20 04:46:34 Broadcast Updated quarterA.col3.num2 to 95
+reef-backend    | 2026/02/20 04:46:34 Broadcasting update quarterA.col2.num8=29 to 0 clients
+reef-backend    | 2026/02/20 04:46:34 Broadcast Updated quarterA.col2.num8 to 29
+reef-backend    | 2026/02/20 04:46:34 Broadcasting update quarterA.col3.num5=16 to 0 clients
+reef-backend    | 2026/02/20 04:46:34 Broadcast Updated quarterA.col3.num5 to 16
+reef-backend    | 2026/02/20 04:46:34 Broadcasting update quarterA.col1.num7=66 to 0 clients
+reef-backend    | 2026/02/20 04:46:34 Broadcast Updated quarterA.col1.num7 to 66
+reef-backend    | 2026/02/20 04:46:34 Broadcasting update quarterA.col1.num3=22 to 0 clients
+reef-backend    | 2026/02/20 04:46:34 Broadcast Updated quarterA.col1.num3 to 22
+reef-backend    | 2026/02/20 04:46:34 Broadcast Updated quarterA.col2.num7 to 15
+reef-backend    | 2026/02/20 04:46:34 Broadcasting update quarterA.col1.num4=63 to 0 clients
+reef-backend    | 2026/02/20 04:46:34 Broadcast Updated quarterA.col1.num4 to 63
+reef-backend    | 2026/02/20 04:46:34 Broadcasting update quarterA.col2.num1=46 to 0 clients
+reef-backend    | 2026/02/20 04:46:34 Broadcast Updated quarterA.col2.num1 to 46
+reef-backend    | 2026/02/20 04:46:34 Broadcast Updated quarterA.col3.num6 to 76
+reef-backend    | 2026/02/20 04:46:34 Broadcasting update quarterA.col2.num5=67 to 0 clients
+reef-backend    | 2026/02/20 04:46:34 Broadcast Updated quarterA.col2.num5 to 67
+reef-backend    | 2026/02/20 04:46:34 Broadcast Updated quarterA.col1.num8 to 79
+reef-publisher  | Published to quarterA.col1.num1: 24
+reef-publisher  | Published to quarterA.col1.num2: 98
+reef-publisher  | Published to quarterA.col1.num3: 49
+reef-publisher  | Published to quarterA.col1.num4: 26
+reef-publisher  | Published to quarterA.col1.num5: 36
+reef-publisher  | Published to quarterA.col1.num6: 86
+reef-publisher  | Published to quarterA.col1.num7: 40
+reef-publisher  | Published to quarterA.col1.num8: 94
+reef-publisher  | Published to quarterA.col2.num1: 7
+reef-publisher  | Published to quarterA.col2.num2: 94
+reef-publisher  | Published to quarterA.col2.num3: 93
+reef-publisher  | Published to quarterA.col2.num4: 49
+reef-publisher  | Published to quarterA.col2.num5: 90
+reef-publisher  | Published to quarterA.col2.num6: 51
+reef-publisher  | Published to quarterA.col2.num7: 26
+reef-publisher  | Published to quarterA.col2.num8: 49
+reef-publisher  | Published to quarterA.col3.num1: 42
+reef-publisher  | Published to quarterA.col3.num2: 86
+reef-publisher  | Published to quarterA.col3.num3: 39
+reef-publisher  | Published to quarterA.col3.num4: 12
+reef-publisher  | Published to quarterA.col3.num5: 44
+reef-publisher  | Published to quarterA.col3.num6: 69
+reef-publisher  | Published to quarterA.col3.num7: 23
+reef-publisher  | Published to quarterA.col3.num8: 67
+reef-publisher  | Published to quarterD.col1: 81
+reef-publisher  | Published to quarterD.col2: 87
+reef-publisher  | Published to quarterD.col3: 77
+reef-publisher  | Published to quarterD.col4: 38
+reef-publisher  | Published to quarterD.col5: 55
+reef-publisher  | Published to quarterD.col6: 48
+reef-publisher  | DEBUG: After Quarter D
+reef-publisher  | DEBUG: Publishing Quarter C wait times
+reef-publisher  | DEBUG: Iteration cbw=1
+reef-publisher  | DEBUG: Publishing quarterC.cbw1.waitTime=11
+reef-publisher  | Published to quarterC.cbw1.waitTime: 11
+reef-publisher  | DEBUG: Iteration cbw=2
+reef-publisher  | DEBUG: Publishing quarterC.cbw2.waitTime=11
+reef-publisher  | Published to quarterC.cbw2.waitTime: 11
+reef-publisher  | DEBUG: Iteration cbw=3
+reef-publisher  | DEBUG: Publishing quarterC.cbw3.waitTime=14
+reef-publisher  | Published to quarterC.cbw3.waitTime: 14
+reef-publisher  | DEBUG: Publishing Quarter C wasted minutes
+reef-publisher  | DEBUG: Wasted key=hour4
+reef-publisher  | DEBUG: Publishing quarterC.wastedMinutes.hour4=67
+reef-publisher  | Published to quarterC.wastedMinutes.hour4: 67
+reef-publisher  | DEBUG: Wasted key=hour3
+reef-publisher  | DEBUG: Publishing quarterC.wastedMinutes.hour3=175
+reef-publisher  | Published to quarterC.wastedMinutes.hour3: 175
+reef-publisher  | DEBUG: Wasted key=hour2
+reef-publisher  | DEBUG: Publishing quarterC.wastedMinutes.hour2=78
+reef-publisher  | Published to quarterC.wastedMinutes.hour2: 78
+reef-publisher  | DEBUG: Wasted key=hour1
+reef-publisher  | DEBUG: Publishing quarterC.wastedMinutes.hour1=62
+reef-publisher  | Published to quarterC.wastedMinutes.hour1: 62
+reef-publisher  | DEBUG: Wasted key=current
+reef-publisher  | DEBUG: Publishing quarterC.wastedMinutes.current=135
+reef-publisher  | Published to quarterC.wastedMinutes.current: 135
+reef-publisher  | DEBUG: Sleeping before next batch
+reef-backend    | 2026/02/20 04:46:57 Broadcasting update quarterA.col3.num8=67 to 0 clients
+reef-backend    | 2026/02/20 04:46:57 Broadcasting update quarterA.col2.num3=93 to 0 clients
+reef-backend    | 2026/02/20 04:46:57 Broadcast Updated quarterA.col2.num3 to 93
+reef-backend    | 2026/02/20 04:46:57 Broadcast Updated quarterA.col3.num8 to 67
+reef-backend    | 2026/02/20 04:46:57 Broadcasting update quarterA.col1.num5=36 to 0 clients
+reef-backend    | 2026/02/20 04:46:57 Broadcasting update quarterA.col1.num1=24 to 0 clients
+reef-backend    | 2026/02/20 04:46:57 Broadcasting update quarterA.col3.num4=12 to 0 clients
+reef-backend    | 2026/02/20 04:46:57 Broadcast Updated quarterA.col3.num4 to 12
+reef-backend    | 2026/02/20 04:46:57 Broadcast Updated quarterA.col1.num1 to 24
+reef-backend    | 2026/02/20 04:46:57 Broadcasting update quarterA.col1.num3=49 to 0 clients
+reef-backend    | 2026/02/20 04:46:57 Broadcast Updated quarterA.col1.num3 to 49
+reef-backend    | 2026/02/20 04:46:57 Broadcasting update quarterA.col1.num8=94 to 0 clients
+reef-backend    | 2026/02/20 04:46:57 Broadcasting update quarterA.col3.num6=69 to 0 clients
+reef-backend    | 2026/02/20 04:46:57 Broadcasting update quarterA.col3.num7=23 to 0 clients
+reef-backend    | 2026/02/20 04:46:57 Broadcast Updated quarterA.col3.num6 to 69
+reef-backend    | 2026/02/20 04:46:57 Broadcasting update quarterA.col2.num1=7 to 0 clients
+reef-backend    | 2026/02/20 04:46:57 Broadcasting update quarterA.col3.num3=39 to 0 clients
+reef-backend    | 2026/02/20 04:46:57 Broadcasting update quarterA.col3.num1=42 to 0 clients
+reef-backend    | 2026/02/20 04:46:57 Broadcast Updated quarterA.col3.num3 to 39
+reef-backend    | 2026/02/20 04:46:57 Broadcast Updated quarterA.col3.num1 to 42
+reef-backend    | 2026/02/20 04:46:57 Broadcasting update quarterA.col3.num5=44 to 0 clients
+reef-backend    | 2026/02/20 04:46:57 Broadcast Updated quarterA.col3.num5 to 44
+reef-backend    | 2026/02/20 04:46:57 Broadcasting update quarterA.col1.num2=98 to 0 clients
+reef-backend    | 2026/02/20 04:46:57 Broadcast Updated quarterA.col1.num2 to 98
+reef-backend    | 2026/02/20 04:46:57 Broadcasting update quarterA.col2.num6=51 to 0 clients
+reef-backend    | 2026/02/20 04:46:57 Broadcasting update quarterA.col2.num8=49 to 0 clients
+reef-backend    | 2026/02/20 04:46:57 Broadcast Updated quarterA.col2.num8 to 49
+reef-backend    | 2026/02/20 04:46:57 Broadcast Updated quarterA.col2.num6 to 51
+reef-backend    | 2026/02/20 04:46:57 Broadcasting update quarterA.col1.num7=40 to 0 clients
+reef-backend    | 2026/02/20 04:46:57 Broadcast Updated quarterA.col1.num7 to 40
+reef-backend    | 2026/02/20 04:46:57 Broadcast Updated quarterA.col1.num8 to 94
+reef-backend    | 2026/02/20 04:46:57 Broadcasting update quarterA.col1.num4=26 to 0 clients
+reef-backend    | 2026/02/20 04:46:57 Broadcast Updated quarterA.col1.num4 to 26
+reef-backend    | 2026/02/20 04:46:57 Broadcast Updated quarterA.col3.num7 to 23
+reef-backend    | 2026/02/20 04:46:57 Broadcast Updated quarterA.col2.num1 to 7
+reef-backend    | 2026/02/20 04:46:57 Broadcasting update quarterA.col2.num4=49 to 0 clients
+reef-backend    | 2026/02/20 04:46:57 Broadcast Updated quarterA.col2.num4 to 49
+reef-backend    | 2026/02/20 04:46:57 Broadcasting update quarterA.col1.num6=86 to 0 clients
+reef-backend    | 2026/02/20 04:46:57 Broadcast Updated quarterA.col1.num6 to 86
+reef-backend    | 2026/02/20 04:46:57 Broadcasting update quarterA.col2.num2=94 to 0 clients
+reef-backend    | 2026/02/20 04:46:57 Broadcast Updated quarterA.col2.num2 to 94
+reef-backend    | 2026/02/20 04:46:57 Broadcasting update quarterA.col2.num5=90 to 0 clients
+reef-backend    | 2026/02/20 04:46:57 Broadcast Updated quarterA.col2.num5 to 90
+reef-backend    | 2026/02/20 04:46:57 Broadcasting update quarterA.col2.num7=26 to 0 clients
+reef-backend    | 2026/02/20 04:46:57 Broadcast Updated quarterA.col2.num7 to 26
+reef-backend    | 2026/02/20 04:46:57 Broadcast Updated quarterA.col1.num5 to 36
+reef-backend    | 2026/02/20 04:46:57 Broadcasting update quarterA.col3.num2=86 to 0 clients
+reef-backend    | 2026/02/20 04:46:57 Broadcast Updated quarterA.col3.num2 to 86
+Gracefully stopping... (press Ctrl+C again to force)
+ Container reef-backend  Stopping
+ Container reef-publisher  Stopping
+ Container reef-backend  Stopped
+ Container reef-publisher  Stopped
+ Container reef-nats  Stopping
+ Container reef-nats  Stopped
+

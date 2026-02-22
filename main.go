@@ -12,6 +12,7 @@ import (
 	"time"
 
 	"github.com/nats-io/nats.go"
+	"github.com/starfederation/datastar-go/datastar"
 )
 
 type DashboardData struct {
@@ -125,23 +126,32 @@ var (
 		},
 	}
 	// SSE broadcast
-	sseClients   = make(map[chan UpdateMessage]bool)
+	sseClients   = make(map[*datastar.ServerSentEventGenerator]bool)
 	sseClientsMu sync.RWMutex
 )
 
+var nc *nats.Conn
+
 func main() {
+	var err error
 	// Connect to NATS
-	nc, err := nats.Connect("nats://nats:4222")
+	nc, err = nats.Connect("nats://nats:4222")
 	if err != nil {
 		log.Printf("Failed to connect to NATS: %v", err)
 	} else {
 		defer nc.Close()
 		log.Println("Connected to NATS")
 
-		// Subscribe to all Quarter A number topics
+			// Subscribe to all Quarter A number topics
 		subscribeToQuarterATopics(nc)
-		// Subscribe to Quarter D topics
-		subscribeToQuarterDTopics(nc)
+
+			// Subscribe to Quarter D topics
+
+		//subscribeToQuarterDTopics(nc)
+
+			// Subscribe to Quarter C topics
+
+		//subscribeToQuarterCTopics(nc)
 	}
 
 	// Start periodic updates for Quarter D (fallback if no NATS messages)
@@ -152,6 +162,7 @@ func main() {
 	// Serve static files from /static path
 	fs := http.FileServer(http.Dir("static"))
 	http.Handle("/static/", http.StripPrefix("/static", fs))
+	http.HandleFunc("/stream", streamHandler)
 
 	http.HandleFunc("/", dashboardHandler)
 	http.HandleFunc("/sse", sseHandler)
@@ -193,7 +204,7 @@ func subscribeToQuarterATopics(nc *nats.Conn) {
 				// Broadcast update to SSE clients
 				path := fmt.Sprintf("quarterA.%s.%s", colKey, numKey)
 				broadcastUpdate(UpdateMessage{Path: path, Value: value})
-				log.Printf("Updated %s to %d", msg.Subject, value)
+				//log.Printf("Broadcast Updated %s to %d", msg.Subject, value)
 			})
 
 			if err != nil {
@@ -246,6 +257,64 @@ func subscribeToQuarterDTopics(nc *nats.Conn) {
 	}
 }
 
+func subscribeToQuarterCTopics(nc *nats.Conn) {
+	log.Printf("Setting up Quarter C subscriptions")
+	// Subscribe to topics for Quarter C wait times (3 topics)
+	for cbw := 1; cbw <= 3; cbw++ {
+		topic := fmt.Sprintf("quarterC.cbw%d.waitTime", cbw)
+		_, err := nc.Subscribe(topic, func(msg *nats.Msg) {
+			var value int
+			if err := json.Unmarshal(msg.Data, &value); err != nil {
+				log.Printf("Error unmarshaling value from %s: %v", msg.Subject, err)
+				return
+			}
+			// Update store
+			store.Lock()
+			quarterC := store.Data["quarterC"].(map[string]interface{})
+			cbwKey := fmt.Sprintf("cbw%d", cbw)
+			cbwData := quarterC[cbwKey].(map[string]interface{})
+			cbwData["waitTime"] = value
+			store.Unlock()
+			// Broadcast update
+			path := fmt.Sprintf("quarterC.%s.waitTime", cbwKey)
+			broadcastUpdate(UpdateMessage{Path: path, Value: value})
+			log.Printf("Updated %s to %d", msg.Subject, value)
+		})
+		if err != nil {
+			log.Printf("Failed to subscribe to %s: %v", topic, err)
+		} else {
+			log.Printf("Subscribed to %s", topic)
+		}
+	}
+	// Subscribe to topics for wasted minutes (5 topics)
+	wastedKeys := []string{"hour4", "hour3", "hour2", "hour1", "current"}
+	for _, key := range wastedKeys {
+		topic := fmt.Sprintf("quarterC.wastedMinutes.%s", key)
+		_, err := nc.Subscribe(topic, func(msg *nats.Msg) {
+			var value int
+			if err := json.Unmarshal(msg.Data, &value); err != nil {
+				log.Printf("Error unmarshaling value from %s: %v", msg.Subject, err)
+				return
+			}
+			// Update store
+			store.Lock()
+			quarterC := store.Data["quarterC"].(map[string]interface{})
+			wastedMinutes := quarterC["wastedMinutes"].(map[string]interface{})
+			wastedMinutes[key] = value
+			store.Unlock()
+			// Broadcast update
+			path := fmt.Sprintf("quarterC.wastedMinutes.%s", key)
+			broadcastUpdate(UpdateMessage{Path: path, Value: value})
+			log.Printf("Updated %s to %d", msg.Subject, value)
+		})
+		if err != nil {
+			log.Printf("Failed to subscribe to %s: %v", topic, err)
+		} else {
+			log.Printf("Subscribed to %s", topic)
+		}
+	}
+}
+
 func startQuarterDUpdates() {
 	go func() {
 		log.Println("Starting Quarter D periodic updates (every 30 seconds)")
@@ -289,12 +358,19 @@ func broadcastUpdate(update UpdateMessage) {
 	sseClientsMu.RLock()
 	defer sseClientsMu.RUnlock()
 	clientCount := len(sseClients)
-	log.Printf("Broadcasting update %s=%d to %d clients", update.Path, update.Value, clientCount)
-	for clientChan := range sseClients {
-		select {
-		case clientChan <- update:
-		default:
-			log.Printf("Client channel full, skipping")
+	if false {
+	    log.Printf("Broadcasting update %s=%d to %d clients", update.Path, update.Value, clientCount)
+	}
+
+	// Convert to Datastar patch signals format
+	signals := map[string]any{update.Path: update.Value}
+
+	for sse := range sseClients {
+		// Patch signals using Datastar SDK
+		err := sse.MarshalAndPatchSignals(signals)
+		if err != nil {
+			log.Printf("Error patching signals: %v", err)
+			// Connection may be closed, we'll clean up in sseHandler defer
 		}
 	}
 }
@@ -309,57 +385,108 @@ func dashboardHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+
+func streamHandler(w http.ResponseWriter, r *http.Request) {
+
+    log.Printf("streamHandler activated")
+    sse := datastar.NewSSE(w, r)
+
+    // Buffer of 64 so slow clients don't block the NATS subscription
+    msgCh := make(chan *nats.Msg, 64)
+
+    col := 1
+    num := 1
+    topic := fmt.Sprintf("quarterA.col%d.num%d", col, num)
+    sub, err := nc.ChanSubscribe(topic, msgCh)
+    if err != nil {
+        http.Error(w, "Failed to subscribe to NATS", http.StatusInternalServerError)
+        return
+    }
+    defer sub.Unsubscribe()
+
+    // Keep the connection open until the client disconnects
+    ctx := r.Context()
+    for {
+        select {
+        case <-ctx.Done():
+            return
+        case msg, ok := <-msgCh:
+            if !ok {
+		log.Printf("Not good msg received, breaking")
+                return
+            }
+
+            // Expect the NATS message payload to be an int
+            var value int
+            if err := json.Unmarshal(msg.Data, &value); err != nil {
+                log.Printf("Failed to unmarshal NATS message on subject %s: %v", msg.Subject, err)
+                continue
+            }
+	    log.Printf("Stream NATS message was: %s", msg.Data)
+	    log.Printf("Stream NATS value was: %s", value)
+
+            if err := sse.MarshalAndPatchSignals(map[string]any{
+		"quarterA": map[string]any{
+		    "col1": map[string]any{
+			"num1": value,
+		    },
+		},
+	    }); err != nil {
+                log.Printf("Failed to send SSE: %v", err)
+                return
+            }
+	    if f, ok := w.(http.Flusher); ok {
+                log.Printf("Flush")
+		f.Flush()
+	    }
+        }
+    }
+}
+
 func sseHandler(w http.ResponseWriter, r *http.Request) {
 	log.Printf("SSE connection established from %s", r.RemoteAddr)
 
-	w.Header().Set("Content-Type", "text/event-stream")
-	w.Header().Set("Cache-Control", "private, no-cache, no-store, must-revalidate, max-age=0")
-	w.Header().Set("Connection", "keep-alive")
-	w.Header().Set("Access-Control-Allow-Origin", "*")
-	w.Header().Set("X-Accel-Buffering", "no")
-	w.Header().Set("X-Content-Type-Options", "nosniff")
-
-	flusher, ok := w.(http.Flusher)
-	if !ok {
-		http.Error(w, "Streaming unsupported!", http.StatusInternalServerError)
-		return
-	}
-
-	// Create a channel for this client
-	clientChan := make(chan UpdateMessage, 100)
+	// Create Datastar SSE generator
+	sse := datastar.NewSSE(w, r)
 	sseClientsMu.Lock()
-	sseClients[clientChan] = true
+	sseClients[sse] = true
 	sseClientsMu.Unlock()
 
 	// Clean up when connection closes
 	defer func() {
 		log.Printf("SSE connection closed from %s", r.RemoteAddr)
 		sseClientsMu.Lock()
-		delete(sseClients, clientChan)
+		delete(sseClients, sse)
 		sseClientsMu.Unlock()
-		close(clientChan)
 	}()
 
-	// Send initial store
+	// Send initial store as init event (nested format for backward compatibility)
 	store.RLock()
 	initialData, _ := json.Marshal(store.Data)
 	store.RUnlock()
 
-	fmt.Fprintf(w, "event: init\ndata: %s\n\n", initialData)
-	flusher.Flush()
+	err := sse.Send(datastar.EventType("init"), []string{string(initialData)})
+	if err != nil {
+		log.Printf("Error sending initial data: %v", err)
+		return
+	}
 
-	// Listen for updates and heartbeat
+	// Listen for heartbeats and connection closure
+	ticker := time.NewTicker(30 * time.Second)
+	defer ticker.Stop()
+
 	for {
 		select {
-		case update := <-clientChan:
-			// Send update as SSE event
-			updateData, _ := json.Marshal(update)
-			fmt.Fprintf(w, "event: update\ndata: %s\n\n", updateData)
-			flusher.Flush()
-		case <-time.After(30 * time.Second):
-			// Send heartbeat to keep connection alive
-			fmt.Fprintf(w, ": heartbeat\n\n")
-			flusher.Flush()
+		case <-ticker.C:
+			// Send heartbeat comment to keep connection alive
+			// Use the underlying writer directly
+			if _, err := w.Write([]byte(": heartbeat\n\n")); err != nil {
+				log.Printf("Heartbeat write error: %v", err)
+				return
+			}
+			if flusher, ok := w.(http.Flusher); ok {
+				flusher.Flush()
+			}
 		case <-r.Context().Done():
 			return
 		}

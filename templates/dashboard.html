@@ -4,210 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{.Title}}</title>
-    <script>console.log('Dashboard loading');</script>
-    <script>
-      // Track Datastar loading state
-      window.datastarLoadFailed = false;
-       window.datastarLoadAttempts = 0;
-     </script>
-     <link rel="preload" href="/static/datastar.js?v=datastar-fix" as="script" crossorigin="anonymous">
-      <script data-cfasync="false">
-       // Datastar loading and initialization
-      (function() {
-        console.log('Starting Datastar initialization...');
-        const MAX_WAIT = 10000; // 10 seconds
-        const start = Date.now();
-        let datastarLoadAttempts = 0;
-        
-        // Track loading state
-        window.datastarLoadFailed = false;
-        window.datastarLoaded = false;
-        
-        // URLs for Datastar - add cache busting to avoid Cloudflare caching issues
-        const LOCAL_URL = '/static/datastar.js?v=datastar-fix';
-        const CDN_URL = 'https://cdn.jsdelivr.net/gh/starfederation/datastar@v1.0.0-RC.7/bundles/datastar.js?v=datastar-fix';
-        
-        // Function to load Datastar as ES module using dynamic import
-        async function loadDatastarModule() {
-          try {
-            console.log('Trying to load Datastar from local:', LOCAL_URL);
-            const module = await import(LOCAL_URL);
-            console.log('✅ Datastar module loaded from local, exports:', Object.keys(module));
-            return module;
-          } catch (localErr) {
-            console.warn('Local Datastar failed, trying CDN:', localErr.message);
-            try {
-              const module = await import(CDN_URL);
-              console.log('✅ Datastar module loaded from CDN, exports:', Object.keys(module));
-              return module;
-            } catch (cdnErr) {
-              console.error('❌ Both local and CDN Datastar failed:', cdnErr.message);
-              throw new Error('Failed to load Datastar from any source');
-            }
-          }
-        }
-        
-        // Alternative: load via script tag with type="module"
-        function loadDatastarViaScriptTag() {
-          return new Promise((resolve, reject) => {
-            console.log('Trying to load Datastar via script tag...');
-            const script = document.createElement('script');
-            script.type = 'module';
-            
-            // Create an inline module that imports Datastar and attaches to window
-            script.textContent = `
-              import * as datastarModule from '${LOCAL_URL}';
-              window.datastar = datastarModule;
-              window.datastarLoaded = true;
-              console.log('✅ Datastar loaded via script tag');
-            `;
-            
-            script.onload = () => {
-              console.log('Datastar script tag loaded');
-              if (window.datastar) {
-                resolve(window.datastar);
-              } else {
-                reject(new Error('Datastar not attached to window after script load'));
-              }
-            };
-            
-            script.onerror = (err) => {
-              console.error('Script tag load error:', err);
-              reject(new Error('Script tag load failed'));
-            };
-            
-            document.head.appendChild(script);
-          });
-        }
-        
-        // Main initialization function
-        async function initDatastar() {
-          try {
-            // Try dynamic import first
-            let datastarModule;
-            try {
-              datastarModule = await loadDatastarModule();
-            } catch (importErr) {
-              console.warn('Dynamic import failed, trying script tag:', importErr.message);
-              datastarModule = await loadDatastarViaScriptTag();
-            }
-            
-            if (!datastarModule) {
-              console.error('❌ No Datastar module loaded');
-              return false;
-            }
-            
-            window.datastar = datastarModule;
-            window.datastarLoaded = true;
-            console.log('✅ Datastar module ready');
-            
-            // Get the exported functions - check for minified names (T=mergePaths, O=mergePatch, X=root)
-            const mergePathsFunc = datastarModule.mergePaths || datastarModule.T;
-            const mergePatchFunc = datastarModule.mergePatch || datastarModule.O;
-            const rootObj = datastarModule.root || datastarModule.X;
-            
-            if (!mergePathsFunc) {
-              console.error('❌ mergePaths/T not found in Datastar exports');
-              console.log('Available exports:', Object.keys(datastarModule).join(', '));
-              return false;
-            }
-            
-            console.log('✅ mergePaths found:', typeof mergePathsFunc);
-            console.log('✅ mergePatch found:', typeof mergePatchFunc);
-            console.log('✅ root object:', rootObj);
-            
-            // Parse and initialize store from data-store attribute
-            try {
-              const dataStoreAttr = document.body.getAttribute('data-store');
-              if (dataStoreAttr && typeof mergePatchFunc === 'function') {
-                const storeData = JSON.parse(dataStoreAttr);
-                console.log('📦 Initializing store from data-store:', Object.keys(storeData));
-                mergePatchFunc(storeData);
-                console.log('✅ Store initialized via mergePatch');
-              }
-            } catch (err) {
-              console.error('❌ Failed to initialize store from data-store:', err);
-            }
-            
-            // Create the Datastar.patch wrapper with multiple signature support
-            window.Datastar = {
-              patch: function(path, value) {
-                console.log('🔧 Datastar.patch:', path, '=', value);
-                try {
-                  // Try signature: mergePaths(path, value)
-                  mergePathsFunc(path, value);
-                } catch (err1) {
-                  console.warn('First mergePaths signature failed, trying array format:', err1.message);
-                  try {
-                    // Try signature: mergePaths([[path, value]])
-                    mergePathsFunc([[path, value]]);
-                  } catch (err2) {
-                    console.error('❌ All mergePaths signatures failed:', err2);
-                  }
-                }
-              },
-              store: function(storeName) {
-                if (rootObj && rootObj[storeName] !== undefined) {
-                  return rootObj[storeName];
-                }
-                console.warn('store(): store not found:', storeName);
-                return null;
-              }
-            };
-            
-            console.log('✅ Datastar wrapper created');
-            window.DatastarReady = true;
-            
-            // Send debug beacon
-            const basePath = window.location.pathname.includes('/dashboard') ? '/dashboard' : '';
-            fetch(`${basePath}/api/debug?event=datastar-loaded`).catch(() => {});
-            
-            // Process pending updates
-            if (window.processPendingUpdates) {
-              console.log('🔄 Processing pending updates');
-              window.processPendingUpdates();
-            }
-            
-            return true;
-            
-          } catch (err) {
-            console.error('❌ Datastar initialization error:', err);
-            return false;
-          }
-        }
-        
-        // Wait for Datastar with retries
-        async function waitForDatastar() {
-          datastarLoadAttempts++;
-          
-          if (window.datastarLoadFailed) {
-            console.error('❌ Datastar marked as failed earlier');
-            return false;
-          }
-          
-          const elapsed = Date.now() - start;
-          if (elapsed > MAX_WAIT) {
-            console.error(`❌ Datastar failed to initialize after ${MAX_WAIT}ms`);
-            return false;
-          }
-          
-          console.log(`⏳ Datastar attempt ${datastarLoadAttempts}, elapsed ${elapsed}ms`);
-          
-          if (await initDatastar()) {
-            console.log('✅ Datastar initialization complete');
-            return true;
-          }
-          
-          // Not ready yet, try again
-          setTimeout(waitForDatastar, 500);
-          return false;
-        }
-        
-        // Start the loading process
-        waitForDatastar();
-      })();
-    </script>
-    </script>
+      <script type="module" src="https://cdn.jsdelivr.net/gh/starfederation/datastar@1.0.0-RC.7/bundles/datastar.js"></script>
     <style>
         * {
             margin: 0;
@@ -496,6 +293,7 @@
             position: fixed;
             top: 1rem;
             right: 1rem;
+	    opacity: 0.3;
             background: rgba(0, 0, 0, 0.7);
             color: #fff;
             padding: 0.75rem 1.5rem;
@@ -588,45 +386,40 @@
         }
     </style>
 </head>
-    <body data-store='{"screen": "tv", "counters": {"q1": 0, "q2": 0, "q3": 0, "q4": 0}, "quarterA": {"col1": {"title": "CBW 1", "num1": 45, "num2": 23, "num3": 78, "num4": 12, "num5": 89, "num6": 34, "num7": 67, "num8": 91}, "col2": {"title": "CBW 2", "num1": 56, "num2": 33, "num3": 81, "num4": 19, "num5": 72, "num6": 44, "num7": 95, "num8": 28}, "col3": {"title": "CBW 3", "num1": 37, "num2": 64, "num3": 22, "num4": 88, "num5": 15, "num6": 53, "num7": 76, "num8": 41}}, "quarterB": {"col1": {"title": "RCW 1", "num1": 82, "num2": 17, "num3": 93, "num4": 41, "num5": 26, "num6": 58, "num7": 39, "num8": 74}, "col2": {"title": "RCW 2", "num1": 65, "num2": 29, "num3": 84, "num4": 36, "num5": 71, "num6": 13, "num7": 92, "num8": 47}, "col3": {"title": "RCW 3", "num1": 18, "num2": 55, "num3": 27, "num4": 63, "num5": 89, "num6": 32, "num7": 76, "num8": 44}}, "quarterC": {"cbw1": {"waitTime": 5}, "cbw2": {"waitTime": 3}, "cbw3": {"waitTime": 7}, "wastedMinutes": {"hour4": 120, "hour3": 95, "hour2": 80, "hour1": 65, "current": 150}}, "quarterD": {"col1": {"title": "Quota₁", "current": 34, "target": 100}, "col2": {"title": "Quota₂", "current": 89, "target": 100}, "col3": {"title": "Quota₃", "current": 50, "target": 100}, "col4": {"title": "Quota₄", "current": 45, "target": 100}, "col5": {"title": "Quota₅", "current": 67, "target": 100}, "col6": {"title": "Quota₆", "current": 23, "target": 100}}}'
-      data-class:tv-mode="$screen === 'tv'"
-      data-class:mobile-mode="$screen === 'mobile'">
+    <body data-class:tv-mode="$screen === 'tv'" data-class:mobile-mode="$screen === 'mobile'">
     <div class="screen-indicator" data-text="'Screen: ' + $screen"></div>
     <div id="status-bar" style="position: fixed; top: 0; left: 0; right: 0; background: rgba(0,0,0,0.8); color: #0f0; padding: 0.5rem; font-family: monospace; font-size: 12px; z-index: 9998; display: flex; justify-content: space-between;">
         <span id="sse-status">SSE: connecting...</span>
         <span id="datastar-status">Datastar: loading...</span>
         <span id="last-update">Last update: never</span>
         <span id="nats-status">NATS: active</span>
+	<button data-on:click="@get('/dashboard/stream')">click</button>
     </div>
     <div id="debug-panel" style="position: fixed; top: 30px; right: 10px; background: rgba(0,0,0,0.9); color: #0f0; padding: 0.5rem; font-family: monospace; font-size: 10px; z-index: 9997; max-width: 300px; max-height: 200px; overflow: auto; display: none;">
         <button onclick="toggleDebug()">Toggle Debug</button>
         <!-- Debug values removed to prevent early signal evaluation -->
         <div><em>Debug panel - values will appear after Datastar initializes</em></div>
     </div>
-    <div id="loading-message" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(0,0,0,0.8); color: white; padding: 2rem; border-radius: 1rem; z-index: 9999;">
-        Dashboard loading...<br>
-        <small id="loading-detail">Waiting for Datastar</small>
-    </div>
-    <div class="tv" data-show="$screen === 'tv'">
+    <div class="tv" data-show="true">
         <div class="quarters">
             <div class="quarter quarter-1">
                 <div class="quarter-a-content">
                     <div class="column">
                         <div class="column-title">CBW 1</div>
-                        <div class="square-grid">
-                            <div class="square" data-text="$quarterA.col1.num1" data-on:click="randomizeSquare('col1', 'num1')"></div>
-                            <div class="square" data-text="$quarterA.col1.num2" data-on:click="randomizeSquare('col1', 'num2')"></div>
-                            <div class="square" data-text="$quarterA.col1.num3" data-on:click="randomizeSquare('col1', 'num3')"></div>
-                            <div class="square" data-text="$quarterA.col1.num4" data-on:click="randomizeSquare('col1', 'num4')"></div>
-                            <div class="square" data-text="$quarterA.col1.num5" data-on:click="randomizeSquare('col1', 'num5')"></div>
-                            <div class="square" data-text="$quarterA.col1.num6" data-on:click="randomizeSquare('col1', 'num6')"></div>
-                            <div class="square" data-text="$quarterA.col1.num7" data-on:click="randomizeSquare('col1', 'num7')"></div>
-                            <div class="square" data-text="$quarterA.col1.num8" data-on:click="randomizeSquare('col1', 'num8')"></div>
+			<div class="square-grid" data-signals="{quarterA: {col1: {num1: 2, num2: 2, num3: 2, num4: 2, num5: 2, num6: 2, num7: 2, num8: 2}}}">
+			    <div class="square"  data-on:click="console.log('bingbong')"><span data-text="$quarterA.col1.num2">0</span></div>
+                            <div class="square"  data-on:click="$quarterA.col1.num2 = '5'"><span data-text="$quarterA.col1.num2">0</span></div>
+                            <div class="square"  data-on:click="$quarterA.col1.num3 = '5'"><span data-text="$quarterA.col1.num3">0</span></div>
+                            <div class="square"  data-on:click="$quarterA.col1.num4 = '5'"><span data-text="$quarterA.col1.num4">0</span></div>
+                            <div class="square"  data-on:click="$quarterA.col1.num5 = '5'"><span data-text="$quarterA.col1.num5">0</span></div>
+                            <div class="square"  data-on:click="$quarterA.col1.num6 = '5'"><span data-text="$quarterA.col1.num6">0</span></div>
+                            <div class="square"  data-on:click="$quarterA.col1.num7 = '5'"><span data-text="$quarterA.col1.num7">0</span></div>
+                            <div class="square"  data-on:click="$quarterA.col1.num8 = '5'"><span data-text="$quarterA.col1.num8">0</span></div>
                         </div>
                     </div>
                     <div class="column">
                         <div class="column-title">CBW 2</div>
-                        <div class="square-grid">
+			<div class="square-grid" data-signals="{quarterA: {col2: {num1: 2, num2: 2, num3: 2, num4: 2, num5: 2, num6: 2, num7: 2, num8: 2}}}">
                             <div class="square" data-text="$quarterA.col2.num1" data-on:click="randomizeSquare('col2', 'num1')"></div>
                             <div class="square" data-text="$quarterA.col2.num2" data-on:click="randomizeSquare('col2', 'num2')"></div>
                             <div class="square" data-text="$quarterA.col2.num3" data-on:click="randomizeSquare('col2', 'num3')"></div>
@@ -639,7 +432,7 @@
                     </div>
                     <div class="column">
                         <div class="column-title">CBW 3</div>
-                        <div class="square-grid">
+			<div class="square-grid" data-signals="{quarterA: {col3: {num1: 2, num2: 2, num3: 2, num4: 2, num5: 2, num6: 2, num7: 2, num8: 2}}}">
                             <div class="square" data-text="$quarterA.col3.num1" data-on:click="randomizeSquare('col3', 'num1')"></div>
                             <div class="square" data-text="$quarterA.col3.num2" data-on:click="randomizeSquare('col3', 'num2')"></div>
                             <div class="square" data-text="$quarterA.col3.num3" data-on:click="randomizeSquare('col3', 'num3')"></div>
@@ -652,6 +445,7 @@
                     </div>
                 </div>
             </div>
+	    <!--
             <div class="quarter quarter-2">
                 <div class="quarter-b-content">
                     <div class="column">
@@ -793,10 +587,13 @@
                     </div>
                 </div>
             </div>
+	    -->
         </div>
     </div>
     <div class="mobile" data-show="$screen === 'mobile'">
         <div class="quarters">
+
+	    <!--
             <div class="quarter quarter-1">
                 <div class="quarter-a-content">
                     <div class="column">
@@ -981,377 +778,8 @@
                     </div>
                 </div>
             </div>
+	    -->
         </div>
     </div>
-    <script>
-        // Status functions
-        function updateStatus(elementId, text) {
-            const element = document.getElementById(elementId);
-            if (element) {
-                element.textContent = text;
-            }
-        }
-        
-        function updateLastUpdateTime() {
-            const now = new Date();
-            updateStatus('last-update', 'Last update: ' + now.toLocaleTimeString());
-        }
-        
-        // Determine screen type based on viewport dimensions
-        function detectScreenType() {
-            const width = window.innerWidth;
-            console.log('Screen detection: width =', width);
-            // Simple detection: mobile if width < 768px, otherwise TV
-            if (width < 768) {
-                console.log('Detected mobile');
-                return 'mobile';
-            }
-            console.log('Detected TV');
-            return 'tv';
-        }
-        // Update screen signal on resize
-        function updateScreen() {
-            const screen = detectScreenType();
-            console.log('Setting screen to:', screen);
-            Datastar.patch('screen', screen);
-        }
-        // Randomize a specific square number
-        function randomizeSquare(colName, numName) {
-            const newValue = Math.floor(Math.random() * 99) + 1;
-            Datastar.patch(`quarterA.${colName}.${numName}`, newValue);
-        }
-        
-        // Randomize a specific square number in quarter B
-        function randomizeSquareB(colName, numName) {
-            const newValue = Math.floor(Math.random() * 99) + 1;
-            Datastar.patch(`quarterB.${colName}.${numName}`, newValue);
-        }
-        
-         // Update signal via Datastar or fallback DOM update
-         function updateSignal(path, value) {
-             console.log('📤 updateSignal called:', path, '=', value);
-             
-             // Check if Datastar is ready
-             if (typeof Datastar !== 'undefined' && typeof Datastar.patch === 'function') {
-                 console.log('✅ Datastar.patch available, calling');
-                 Datastar.patch(path, value);
-                 return;
-             }
-             
-             // Datastar not ready yet
-             console.log('⏳ Datastar.patch not available yet, queuing update');
-             
-             // Initialize queue if not exists
-             if (!window.pendingUpdates) {
-                 window.pendingUpdates = [];
-                 window.processPendingUpdates = function() {
-                     if (!window.pendingUpdates || window.pendingUpdates.length === 0) return;
-                     console.log(`🔄 Processing ${window.pendingUpdates.length} pending updates`);
-                     const updates = [...window.pendingUpdates];
-                     window.pendingUpdates = [];
-                     updates.forEach(([p, v]) => {
-                         if (typeof Datastar !== 'undefined' && typeof Datastar.patch === 'function') {
-                             Datastar.patch(p, v);
-                         } else {
-                             // Still not ready, push back
-                             window.pendingUpdates.push([p, v]);
-                         }
-                     });
-                 };
-             }
-             
-             // Add to queue
-             window.pendingUpdates.push([path, value]);
-             
-             // Try again after a short delay
-             setTimeout(() => {
-                 if (typeof Datastar !== 'undefined' && typeof Datastar.patch === 'function') {
-                     console.log('🔄 Retrying queued updates');
-                     window.processPendingUpdates();
-                 }
-             }, 500);
-         }
-        
-        // Connect to SSE for real-time updates
-        function setupSSE() {
-            console.log('Setting up SSE connection...');
-            updateStatus('sse-status', 'SSE: connecting...');
-            // Use absolute path to ensure it works regardless of page location
-            const sseUrl = window.location.pathname.includes('/dashboard') ? '/dashboard/sse' : '/sse';
-            console.log('Connecting to SSE at:', sseUrl);
-            let eventSource;
-            try {
-                eventSource = new EventSource(sseUrl);
-            } catch (err) {
-                console.error('Failed to create EventSource:', err);
-                updateStatus('sse-status', 'SSE: failed - ' + err.message);
-                // Retry after delay
-                setTimeout(setupSSE, 5000);
-                return;
-            }
-            
-            eventSource.onopen = function() {
-                console.log('SSE connection opened, readyState:', eventSource.readyState);
-                updateStatus('sse-status', 'SSE: opened ✓');
-            };
-            
-            eventSource.addEventListener('init', function(event) {
-                try {
-                    console.log('SSE init event received');
-                    updateStatus('sse-status', 'SSE: connected ✓');
-                    const data = JSON.parse(event.data);
-                    console.log('Initial data received, Datastar available?', typeof Datastar !== 'undefined');
-                    console.log('typeof Datastar:', typeof Datastar);
-                    console.log('Datastar object:', Datastar);
-                    
-                    if (typeof Datastar === 'undefined') {
-                        console.warn('Datastar not available during init, using fallback updates');
-                        // updateStatus('datastar-status', 'Datastar: missing!');
-                    } else {
-                        console.log('Datastar is available, not updating status');
-                    }
-                    
-                    // Set screen
-                    if (data.screen) {
-                        updateSignal('screen', data.screen);
-                    }
-                    
-                    // Set counters
-                    if (data.counters) {
-                        Object.keys(data.counters).forEach(counterKey => {
-                            updateSignal(`counters.${counterKey}`, data.counters[counterKey]);
-                        });
-                    }
-                    
-                    // Set quarterA values individually
-                    if (data.quarterA) {
-                        Object.keys(data.quarterA).forEach(colKey => {
-                            const col = data.quarterA[colKey];
-                            if (col.title) {
-                                updateSignal(`quarterA.${colKey}.title`, col.title);
-                            }
-                            // Set each number
-                            for (let i = 1; i <= 8; i++) {
-                                const numKey = `num${i}`;
-                                if (col[numKey] !== undefined) {
-                                    updateSignal(`quarterA.${colKey}.${numKey}`, col[numKey]);
-                                }
-                            }
-                        });
-                    }
-                    
-                    // Set quarterB values individually  
-                    if (data.quarterB) {
-                        Object.keys(data.quarterB).forEach(colKey => {
-                            const col = data.quarterB[colKey];
-                            if (col.title) {
-                                updateSignal(`quarterB.${colKey}.title`, col.title);
-                            }
-                            // Set each number
-                            for (let i = 1; i <= 8; i++) {
-                                const numKey = `num${i}`;
-                                if (col[numKey] !== undefined) {
-                                    updateSignal(`quarterB.${colKey}.${numKey}`, col[numKey]);
-                                }
-                            }
-                        });
-                    }
-                    
-                    // Set quarterD values individually  
-                    if (data.quarterD) {
-                        Object.keys(data.quarterD).forEach(colKey => {
-                            const col = data.quarterD[colKey];
-                            if (col.title) {
-                                updateSignal(`quarterD.${colKey}.title`, col.title);
-                            }
-                            // Set current and target
-                            if (col.current !== undefined) {
-                                updateSignal(`quarterD.${colKey}.current`, col.current);
-                            }
-                            if (col.target !== undefined) {
-                                updateSignal(`quarterD.${colKey}.target`, col.target);
-                            }
-                        });
-                    }
-                    
-                    console.log('Initial data applied to Datastar');
-                } catch (err) {
-                    console.error('Error processing SSE init:', err);
-                }
-            });
-            
-            eventSource.addEventListener('update', function(event) {
-                try {
-                    const update = JSON.parse(event.data);
-                    console.log('SSE update:', update.path, '=', update.value);
-                    // Update specific path in Datastar
-                    console.log('Updating signal:', update.path, '=', update.value);
-                    updateSignal(update.path, update.value);
-                    updateLastUpdateTime();
-                } catch (err) {
-                    console.error('Error processing SSE update:', err);
-                }
-            });
-            
-            eventSource.onerror = function(err) {
-                console.error('SSE error event:', err);
-                console.error('SSE readyState:', eventSource.readyState);
-                console.error('SSE URL:', sseUrl);
-                console.error('Error event properties:', {
-                    type: err?.type,
-                    data: err?.data,
-                    message: err?.message,
-                    target: err?.target
-                });
-                updateStatus('sse-status', 'SSE: error (reconnecting...)');
-                // Attempt to reconnect after delay
-                setTimeout(setupSSE, 5000);
-            };
-            
-            // Keep reference for cleanup (optional)
-            window._sseConnection = eventSource;
-        }
-        
-        // Hide loading message and show dashboard
-        function showDashboard() {
-            const loadingMsg = document.getElementById('loading-message');
-            if (loadingMsg) {
-                loadingMsg.style.display = 'none';
-            }
-            console.log('Dashboard ready');
-        }
-        
-        // Initial update - wait for Datastar to be ready
-        let datastarLoadAttempts = 0;
-        const MAX_DATASTAR_ATTEMPTS = 60; // 3 seconds at 50ms intervals
-        
-        function initDashboard() {
-            // Check if Datastar script failed to load
-            if (window.datastarLoadFailed) {
-                console.error('Datastar script failed to load (network error)');
-                updateStatus('datastar-status', 'Datastar: failed to load!');
-                // Wait for page load before manual detection
-                if (document.readyState === 'complete') {
-                    manualScreenDetection();
-                } else {
-                    window.addEventListener('load', manualScreenDetection);
-                }
-                return;
-            }
-            
-            // Wait for Datastar to be fully ready (not just defined)
-            if (window.DatastarReady === true) {
-                console.log('Datastar ready, initializing dashboard');
-                console.log('Datastar.patch exists?', typeof Datastar?.patch);
-                console.log('Datastar keys:', Datastar ? Object.keys(Datastar) : 'none');
-                if (Datastar?.store) {
-                    console.log('Datastar.store available');
-                }
-                updateStatus('datastar-status', 'Datastar: loaded ✓');
-                updateScreen();
-                window.addEventListener('resize', updateScreen);
-                showDashboard();
-                
-                // Wait for page to fully load before setting up SSE
-                if (document.readyState === 'complete') {
-                    setupSSE();
-                } else {
-                    window.addEventListener('load', function() {
-                        console.log('Page fully loaded, setting up SSE');
-                        setupSSE();
-                    });
-                }
-            } else {
-                datastarLoadAttempts++;
-                if (datastarLoadAttempts > MAX_DATASTAR_ATTEMPTS) {
-                    console.error('Datastar failed to load after 5 seconds, using fallback');
-                    updateStatus('datastar-status', 'Datastar: timeout!');
-                    // Wait for page load before manual detection
-                    if (document.readyState === 'complete') {
-                        manualScreenDetection();
-                    } else {
-                        window.addEventListener('load', manualScreenDetection);
-                    }
-                    return;
-                }
-                console.log('Datastar not yet ready, waiting... attempt', datastarLoadAttempts);
-                setTimeout(initDashboard, 50);
-            }
-        }
-        
-        // Fallback if Datastar doesn't load
-        function manualScreenDetection() {
-            const screen = detectScreenType();
-            console.log('Manual screen detection:', screen);
-            
-            // Manually show/hide TV and mobile containers
-            const tvElement = document.querySelector('.tv');
-            const mobileElement = document.querySelector('.mobile');
-            
-            if (screen === 'tv') {
-                if (tvElement) tvElement.style.display = 'block';
-                if (mobileElement) mobileElement.style.display = 'none';
-                document.body.classList.add('tv-mode');
-                document.body.classList.remove('mobile-mode');
-            } else {
-                if (tvElement) tvElement.style.display = 'none';
-                if (mobileElement) mobileElement.style.display = 'block';
-                document.body.classList.add('mobile-mode');
-                document.body.classList.remove('tv-mode');
-            }
-            
-            // Update screen indicator manually
-            const indicator = document.querySelector('.screen-indicator');
-            if (indicator) {
-                indicator.textContent = 'Screen: ' + screen + ' (fallback)';
-            }
-            
-            // Add manual click handlers for squares
-            document.querySelectorAll('.square').forEach((square, index) => {
-                // Simplified: just log clicks since we can't update Datastar signals
-                square.addEventListener('click', function() {
-                    console.log('Square clicked (fallback mode)');
-                    this.textContent = Math.floor(Math.random() * 99) + 1;
-                });
-            });
-            
-            // Update on resize
-            window.addEventListener('resize', manualScreenDetection);
-            
-            // Hide loading message
-            showDashboard();
-            
-            // Wait for page to fully load before setting up SSE
-            if (document.readyState === 'complete') {
-                console.log('Page already loaded, setting up SSE (fallback)');
-                setupSSE();
-            } else {
-                console.log('Waiting for page load before SSE (fallback)');
-                window.addEventListener('load', function() {
-                    console.log('Page fully loaded, setting up SSE (fallback)');
-                    setupSSE();
-                });
-            }
-        }
-        
-        function toggleDebug() {
-            const panel = document.getElementById('debug-panel');
-            if (panel.style.display === 'none') {
-                panel.style.display = 'block';
-            } else {
-                panel.style.display = 'none';
-            }
-        }
-        initDashboard();
-        
-        // Global loading timeout - hide overlay after 3s regardless of Datastar status
-        setTimeout(() => {
-            const loadingMsg = document.getElementById('loading-message');
-            if (loadingMsg && loadingMsg.style.display !== 'none') {
-                console.log('Global timeout: Hiding loading overlay');
-                loadingMsg.style.display = 'none';
-            }
-        }, 3000);
-    </script>
 </body>
 </html>
